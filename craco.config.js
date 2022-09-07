@@ -12,6 +12,8 @@ const {
   POSTCSS_MODES,
 } = require('@craco/craco');
 
+const IS_DEV = process.env.NODE_ENV !== 'production';
+
 const rewireEntries = [
   {
     name: 'shareDashboard',
@@ -64,12 +66,20 @@ module.exports = {
           chunkFilename: 'static/js/[name].[contenthash:8].js',
         },
         // path: path.resolve(__dirname, 'dist'), // 修改输出文件目录
-        publicPath: '/apps/visualization/',
+        publicPath: IS_DEV ? '/' : '/apps/visualization',
         library: `datart`,
         libraryTarget: 'umd',
         jsonpFunction: `webpackJsonp_datart`,
-        globalObject: 'window',
+        globalObject: 'window'
       };
+
+      if (!IS_DEV) {
+        webpackConfig.externals = {
+          'react': 'React',
+          'react-dom': 'ReactDOM',
+        };
+      }
+
       /**
        * webpack split chunks
        */

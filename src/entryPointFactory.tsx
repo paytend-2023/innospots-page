@@ -34,7 +34,7 @@ import './locales/i18n';
 
 export const generateEntryPoint = (EntryPointComponent, container, cfg) => {
   const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
-  const MOUNT_NODE = container || document.getElementById('root') as HTMLElement;
+  const MOUNT_NODE = document.getElementById('root') as HTMLElement;
   const store = configureAppStore();
   Debugger.instance.setEnable(IS_DEVELOPMENT);
   const config = {
@@ -91,9 +91,7 @@ export const generateEntryPoint = (EntryPointComponent, container, cfg) => {
       <Provider store={store}>
         <ThemeProvider>
           <HelmetProvider>
-            <React.StrictMode>
-              <EntryPointComponent config={config}/>
-            </React.StrictMode>
+            <EntryPointComponent config={config}/>
           </HelmetProvider>
         </ThemeProvider>
       </Provider>
