@@ -21,7 +21,8 @@ import { ChartDatasetPageInfo } from 'app/types/ChartDataSet';
 
 export type ChartDataRequestFilter = {
   aggOperator?: AggregateFieldActionType | null;
-  column: string[];
+  // column: string[];
+  column: string;
   sqlOperator: string;
   values?: Array<{
     value: string;

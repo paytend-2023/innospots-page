@@ -60,6 +60,7 @@ import {
 } from '../pages/Board/slice/types';
 import { StrControlTypes } from '../pages/BoardEditor/components/ControllerWidgetPanel/constants';
 import { Widget, WidgetMapping } from '../types/widgetTypes';
+import isString from 'lodash/isString';
 
 export const VALUE_SPLITTER = '###';
 

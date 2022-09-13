@@ -46,7 +46,7 @@ export const Base = createGlobalStyle`
     }
 
     input {
-      padding: 0;
+      //padding: 0;
     }
 
     table th {

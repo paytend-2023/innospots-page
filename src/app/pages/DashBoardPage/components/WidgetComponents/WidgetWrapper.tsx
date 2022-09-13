@@ -30,6 +30,7 @@ export const WidgetWrapper: React.FC<{
   border: BorderConfig;
 }> = memo(props => {
   const { children, ...rest } = props;
+  console.log("getWidgetSomeStyle----",rest)
   const style = getWidgetSomeStyle(rest);
   return <Wrapper style={style}>{children}</Wrapper>;
 });

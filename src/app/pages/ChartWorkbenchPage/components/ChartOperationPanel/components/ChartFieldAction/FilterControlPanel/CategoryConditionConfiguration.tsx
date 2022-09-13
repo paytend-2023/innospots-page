@@ -224,7 +224,7 @@ const CategoryConditionConfiguration: ForwardRefRenderFunction<
   };
 
   const handleFetchData = () => {
-    fetchNewDataset?.(dataView?.id, colName, dataView).then(dataset => {
+    fetchNewDataset?.(dataView?.code, colName, dataView).then(dataset => {
       if (isTree) {
         // setTreeDatas(convertToTree(dataset?.columns, selectedKeys));
         // setListDatas(convertToList(dataset?.columns, selectedKeys));
@@ -376,9 +376,9 @@ const StyledTabs = styled(Tabs)`
   .ant-transfer {
     margin: ${SPACE_XS} 0;
 
-    /* 
+    /*
      * will be solved by upgrading antd to version a 4.17.x+
-     * https://github.com/ant-design/ant-design/pull/31809 
+     * https://github.com/ant-design/ant-design/pull/31809
      */
     .ant-transfer-list {
       width: ${SPACE_TIMES(56)};

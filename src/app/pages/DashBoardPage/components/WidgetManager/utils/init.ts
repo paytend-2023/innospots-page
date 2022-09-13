@@ -67,6 +67,7 @@ export const initTitleTpl = () => {
         key: 'font',
         value: {
           ...FONT_DEFAULT,
+          fontSize: '16',
           fontWeight: 'bold',
         },
         comType: 'font',
@@ -329,25 +330,25 @@ export const initPaddingTpl = () => {
       {
         label: 'padding.top',
         key: 'top',
-        value: '16',
+        value: 8,
         comType: 'inputNumber',
       },
       {
         label: 'padding.bottom',
         key: 'bottom',
-        value: '16',
+        value: 8,
         comType: 'inputNumber',
       },
       {
         label: 'padding.left',
         key: 'left',
-        value: '16',
+        value: 16,
         comType: 'inputNumber',
       },
       {
         label: 'padding.right',
         key: 'right',
-        value: '16',
+        value: 16,
         comType: 'inputNumber',
       },
     ],

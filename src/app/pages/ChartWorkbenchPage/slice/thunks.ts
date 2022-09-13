@@ -107,12 +107,13 @@ export const fetchDataViewsAction = createAsyncThunk(
     },
     viewsUrl?: string;
   }) => {
+
     const response = await request2<any[]>({
       method: 'GET',
       url: reqInfo.viewsUrl || '/data-set/list',
       // params: arg,
     });
-    return response.data['list'];
+    return response.data;
   },
 );
 

@@ -183,6 +183,7 @@ export const ChartEditor: FC<ChartEditorProps> = ({
       } else {
         //   container === 'widget'
         if (chartType === 'widgetChart') {
+          console.log("chartType === 'widgetChart'---",urls.viewsUrl)
           dispatch(
             initWorkbenchAction({
               arg:{

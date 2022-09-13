@@ -83,6 +83,8 @@ const EditorHeader: FC = memo(({ children }) => {
   const onCloseBoardEditor = (boardId) => {
     if(boardId){
       history.push(`/${boardId}`);
+    }else{
+      history.goBack();
     }
     dispatch(clearEditBoardState());
   };
@@ -161,7 +163,7 @@ const EditorHeader: FC = memo(({ children }) => {
   return (
     <Wrapper onClick={onEditClearActiveWidgets}>
       <div className={classnames('backBtn',{ disabled: status < 2 })}>
-        <LeftOutlined onClick={onCloseBoardEditor} />
+        <LeftOutlined onClick={() => onCloseBoardEditor(null)} />
         {/*{title}*/}
       </div>
       <Form form={formIns} className="formContent">
@@ -184,7 +186,7 @@ const EditorHeader: FC = memo(({ children }) => {
             <Button
               key="cancel"
               icon={<CloseOutlined />}
-              onClick={onCloseBoardEditor}
+              onClick={() => onCloseBoardEditor(null)}
             >
               {t('common.cancel')}
             </Button>
