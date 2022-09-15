@@ -41,7 +41,7 @@ export function getTokenVariableMapping(themeKey: string) {
     '@text-color': currentTheme.textColor,
     '@text-color-secondary': currentTheme.textColorLight,
     '@heading-color': currentTheme.textColor,
-    '@disabled-color': currentTheme.textColorDisabled,
+    '@disabled-color': currentTheme.textColorDisabled
   };
 }
 
@@ -54,9 +54,12 @@ export function getVarsToBeModified(themeKey: string) {
 }
 
 export async function changeAntdTheme(themeKey: string) {
-  // try {
-  //   await (window as any).less.modifyVars(getVarsToBeModified(themeKey));
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  try {
+    const vars = getVarsToBeModified(themeKey);
+    // console.info(vars)
+
+    await (window as any).less.modifyVars(vars);
+  } catch (error) {
+    console.log(error);
+  }
 }
