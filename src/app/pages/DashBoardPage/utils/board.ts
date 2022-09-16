@@ -119,7 +119,10 @@ export const getInitBoardInfo = (obj: {
       type: 'hide',
       widgetId: '',
     },
-
+    applicationPanel: {
+      type: 'hide',
+      widgetId: '',
+    },
     linkFilter: [],
 
     deviceType: DeviceType.Desktop,

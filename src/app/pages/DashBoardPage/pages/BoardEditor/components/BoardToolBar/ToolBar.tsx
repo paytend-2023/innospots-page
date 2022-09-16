@@ -33,12 +33,16 @@ import { DelWidgetsBtn } from './DelWidgetsBtn';
 import { DeviceSwitcher } from './DeviceSwitch/DeviceSwitcher';
 import { ToBottomBtn, ToTopBtn } from './ToTopToBottom/ToTopToBottom';
 import { RedoBtn, UndoBtn } from './UndoRedo/UndoRedo';
+import { DatartContext } from '../../../../../../contexts/DatartContext';
+import { AddApplication } from './AddApplication/AddApplication';
 
 export const ToolBar = () => {
   const ssp = e => {
     e.stopPropagation();
   };
   const { boardType } = useContext(BoardToolBarContext);
+  const { applicationEnable } = useContext(DatartContext)
+
   const {
     onEditLayerToTop,
     onEditLayerToBottom,
@@ -55,6 +59,8 @@ export const ToolBar = () => {
     <Wrapper onClick={ssp}>
       <Space>
         <AddChart />
+
+        {applicationEnable ? <AddApplication /> : ''}
 
         <AddMedia />
 

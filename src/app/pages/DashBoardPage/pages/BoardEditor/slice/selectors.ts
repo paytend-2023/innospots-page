@@ -170,7 +170,10 @@ export const selectControllerPanel = createSelector(
   [boardInfoState],
   boardInfo => boardInfo.controllerPanel,
 );
-
+export const selectApplicationPanel = createSelector(
+  [boardInfoState],
+  (boardInfo) => boardInfo.applicationPanel,
+);
 export const selectBoardChartEditorProps = createSelector(
   [boardInfoState],
   boardInfo => boardInfo.chartEditorProps,

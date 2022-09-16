@@ -38,12 +38,14 @@ import tabProto from '../Widgets/TabWidget/tabConfig';
 import timerProto from '../Widgets/TimerWidget/timerConfig';
 import videoProto from '../Widgets/VideoWidget/videoConfig';
 import { widgetManagerInstance as widgetManager } from './WidgetManager';
+import applicationProto from '../Widgets/ApplicationWidget/applicationConfig';
 
 const protoList: WidgetProto[] = [
   linkedChartProto, // chart
   ownedChartProto,
   tabProto, //  container
   imageProto, //   media
+  applicationProto,
   videoProto,
   richTextProto,
   iframeProto,

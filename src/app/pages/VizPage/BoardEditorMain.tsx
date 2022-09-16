@@ -17,6 +17,7 @@ type BoardEditorProps = {
   if(vizId){
     config.urls.detailUrl = `/page/${vizId}`;
   }
+   console.log("BoardEditorMain-----",vizId,config)
   return (
     <DatartContext.Provider value={config}>
       <BoardEditor

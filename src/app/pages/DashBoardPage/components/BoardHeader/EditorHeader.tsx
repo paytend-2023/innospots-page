@@ -41,6 +41,7 @@ import { WidgetActionContext } from '../ActionProvider/WidgetActionProvider';
 import { BoardInfoContext } from '../BoardProvider/BoardInfoProvider';
 import { BoardContext } from '../BoardProvider/BoardProvider';
 import {DatartContext} from "../../../../contexts/DatartContext";
+import { getMasterState, POWERED_BY_QIANKUN } from '../../../../../utils/globalState';
 const { Option } = Select;
 
 const EditorHeader: FC = memo(({ children }) => {
@@ -52,7 +53,7 @@ const EditorHeader: FC = memo(({ children }) => {
   const { name,boardExtConfig, status } = useContext(BoardContext);
   const { saving } = useContext(BoardInfoContext);
   const title = useStatusTitle(name, status);
-  const { titleElement } = useContext(DatartContext);
+  const { urls, titleElement } = useContext(DatartContext);
   const [formError, setFormError] = useState({});
   const [formIns] = Form.useForm();
 
@@ -81,7 +82,12 @@ const EditorHeader: FC = memo(({ children }) => {
   }, [boardExtConfig]);
 
   const onCloseBoardEditor = (boardId) => {
-    if(boardId){
+    if(urls.detailUrl =='/workspace'){
+        if(POWERED_BY_QIANKUN){
+          getMasterState().masterNavigateTo('/workspace')
+        }
+    }
+    else if(boardId){
       history.push(`/${boardId}`);
     }else{
       history.goBack();

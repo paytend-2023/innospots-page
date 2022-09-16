@@ -42,6 +42,7 @@ import {
   TextAlignType,
 } from '../../../constants';
 import { ControllerConfig } from '../../BoardEditor/components/ControllerWidgetPanel/types';
+import { AppWidgetConfig } from '../../BoardEditor/components/ApplicationWidgetPanel/types';
 
 export interface BoardState {
   curPreviewBoardId: string,
@@ -249,6 +250,26 @@ export interface RelatedView {
 export interface ServerRelation extends Omit<Relation, 'config'> {
   config: string;
 }
+export interface ApplicationInfo {
+  appKey: string;
+  author?: string;
+  kernelVersion: string;
+  name: string;
+  icon: string;
+  status: string;
+  description?: string;
+  lastDescription?: string;
+  applicationWigets?:AppWidgetConfig[];
+  publishTime: string;
+  vendor: string;
+  version: string;
+}
+//应用组件配置
+export interface ApplicationWidgetContent {
+  applicationInfo: ApplicationInfo;
+  appWidgetInfo: AppWidgetConfig;
+  appWidgetConfig: string;
+}
 
 /*
  * 通用
@@ -319,6 +340,7 @@ export interface ControllerWidgetContent {
 export const WidgetTypes = [
   'chart',
   'media',
+  'application',
   'container',
   'controller',
   'button',
@@ -416,6 +438,7 @@ export interface BoardInfo {
   deviceType: DeviceType; // deviceType for autoBoard defaultValue = desktop
   widgetIds: string[]; // board保存的时候 区分那些是删除的，哪些是新增的
   controllerPanel: WidgetControllerPanelParams; //
+  applicationPanel: WidgetApplicationPanelParams;
   linkFilter: BoardLinkFilter[];
   chartEditorProps?: ChartEditorProps;
   needFetchItems: string[];
@@ -442,7 +465,11 @@ export interface WidgetControllerPanelParams {
   widgetId: string;
   controllerType?: ControllerFacadeTypes;
 }
-
+export interface WidgetApplicationPanelParams {
+  type: 'add' | 'edit' | 'hide';
+  widgetId: string;
+  configContent?: ApplicationWidgetContent;
+}
 export interface ServerDatachart extends Omit<DataChart, 'config'> {
   config: string;
 }

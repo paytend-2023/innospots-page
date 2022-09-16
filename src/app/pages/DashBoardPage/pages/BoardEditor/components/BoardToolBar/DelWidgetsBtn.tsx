@@ -33,6 +33,7 @@ export const DelWidgetsBtn: FC<{
         disabled={!selectedIds.length}
         onClick={fn}
         icon={<DeleteOutlined />}
+        label={title}
       />
     </Tooltip>
   );

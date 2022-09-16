@@ -17,6 +17,7 @@ function BoardPreview({config,hideTitle,onCloseBoard }:BoardProps) {
   if(vizId){
     config.urls.detailUrl = `/page/${vizId}`;
   }
+  console.log("vizId-----",vizId,config)
   return (
     <DatartContext.Provider value={config}>
       <Board

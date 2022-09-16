@@ -36,8 +36,9 @@ export function AppRouter({config}) {
     <ConfigProvider locale={antdLocales[i18n.language]}>
       <BrowserRouter basename="/apps/visualization">
         <Switch>
-          {/*<Route exact path="/" render={() => <Redirect to="/vizs" />} />*/}
-          <Route path="/preview" render={() => <BoardPreview config={config} hideTitle={true} />}/>
+          {/*<Route exact path="/" render={() => <Redirect to="/preview" />} />*/}
+          <Route path="/workspace/edit" render={() => <BoardEditorMain  config={config} />} />
+          <Route path="/workspace" render={() => <BoardPreview config={config} hideTitle={true} />} />
           <Route path="/edit" render={() => <BoardEditorMain  config={config} />} />
           <Route path="/create" render={() => <BoardEditorMain  config={config} />} />
           <Route path="/:vizId/edit" render={() => <BoardEditorMain  config={config} />} />

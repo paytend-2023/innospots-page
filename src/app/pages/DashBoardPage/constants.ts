@@ -78,7 +78,7 @@ export const ORIGINAL_TYPE_MAP = {
   ownedChart: 'ownedChart',
 
   tab: 'tab',
-
+  application: 'application',
   image: 'image',
   video: 'video',
   timer: 'timer',

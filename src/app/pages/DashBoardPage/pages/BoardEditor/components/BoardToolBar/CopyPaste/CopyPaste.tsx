@@ -40,6 +40,7 @@ export const CopyBtn: FC<{
         disabled={!selectedIds.length}
         onClick={onCopy}
         icon={<CopyOutlined />}
+        label={title}
       />
     </Tooltip>
   );
@@ -55,6 +56,7 @@ export const PasteBtn: FC<{
         disabled={!Object.keys(clipboardWidgets).length}
         onClick={fn}
         icon={<SnippetsOutlined />}
+        label={title}
       />
     </Tooltip>
   );

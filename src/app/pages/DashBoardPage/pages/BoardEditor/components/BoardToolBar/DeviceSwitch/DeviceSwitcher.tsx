@@ -70,7 +70,7 @@ export const DeviceSwitcher = () => {
   return (
     <Dropdown overlay={deviceItems} placement="bottomLeft" trigger={['click']}>
       <Tooltip title={t('deviceSwitch')}>
-        <ToolbarButton icon={curIcon} />
+        <ToolbarButton icon={curIcon} label={t('deviceSwitch')} />
       </Tooltip>
     </Dropdown>
   );

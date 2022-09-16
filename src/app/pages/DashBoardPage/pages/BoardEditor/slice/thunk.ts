@@ -11,6 +11,7 @@ import { getControlOptionQueryParams } from 'app/pages/DashBoardPage/components/
 import { ORIGINAL_TYPE_MAP } from 'app/pages/DashBoardPage/constants';
 import { boardActions } from 'app/pages/DashBoardPage/pages/Board/slice';
 import {
+  ApplicationInfo,
   BoardState,
   ControllerWidgetContent,
   DataChart,
@@ -152,7 +153,16 @@ export const fetchEditBoardDetail = createAsyncThunk<
     return null;
   },
 );
-
+export const getApplications = createAsyncThunk<ApplicationInfo[],{applicationsUrl: string}>(
+  'editBoard/getApplicationWidgets',
+  async ({ applicationsUrl }) => {
+    const { data } = await request2<ApplicationInfo[]>(
+      applicationsUrl,
+    );
+    console.log("applicationsUrl--",applicationsUrl,data)
+    return data;
+  }
+);
 /**
  * @param boardId string
  * @description '更新保存 board'
@@ -213,7 +223,7 @@ export const toUpdateDashboard = createAsyncThunk<
           dashboardId: item.dashboardId,
           id: item.id,
           parentId: item.parentId,
-          viewCodes: [viewMap[item.viewIds[0]].code],
+          viewCodes: item.viewIds.length>0 ? [viewMap[item.viewIds[0]].code] : [],
           widgetType: "CHART"
         })
       })
@@ -224,7 +234,7 @@ export const toUpdateDashboard = createAsyncThunk<
           config: item.config,
           dashboardId: item.dashboardId,
           widgetKey: item.widgetKey,
-          viewCodes: [viewMap[item.viewIds[0]].code],
+          viewCodes: item.viewIds.length>0 ? [viewMap[item.viewIds[0]].code] : [],
           parentId: item.parentId,
           widgetType: "CHART"
         })

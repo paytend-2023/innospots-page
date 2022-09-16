@@ -37,8 +37,8 @@ export const generateEntryPoint = (EntryPointComponent, container, cfg) => {
   const MOUNT_NODE = document.getElementById('root') as HTMLElement;
   const store = configureAppStore();
   Debugger.instance.setEnable(IS_DEVELOPMENT);
-  const config = {
-    code:'page',
+  let config = {
+    code:'workspace',
     titleElement: [
       {
         label: '',
@@ -84,6 +84,10 @@ export const generateEntryPoint = (EntryPointComponent, container, cfg) => {
     },
     applicationEnable: false
   };
+  if(cfg){
+    config = cfg;
+    console.log("cfg-----",cfg);
+  }
 
   const InspectorWrapper = IS_DEVELOPMENT ? Inspector : Fragment;
   ReactDOM.render(

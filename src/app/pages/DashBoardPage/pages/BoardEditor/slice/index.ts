@@ -4,7 +4,7 @@ import { BOARD_UNDO } from 'app/pages/DashBoardPage/constants';
 import {
   BoardInfo,
   BoardLinkFilter,
-  DeviceType,
+  DeviceType, WidgetApplicationPanelParams,
   WidgetData,
   WidgetErrorType,
   WidgetInfo,
@@ -59,7 +59,12 @@ const editDashBoardInfoSlice = createSlice({
     ) {
       state.controllerPanel = action.payload;
     },
-
+    changeApplicationPanel(
+      state,
+      action: PayloadAction<WidgetApplicationPanelParams>,
+    ) {
+      state.applicationPanel = action.payload;
+    },
     adjustDashLayouts(state, action: PayloadAction<Layout[]>) {
       state.layouts = JSON.parse(JSON.stringify(action.payload));
     },

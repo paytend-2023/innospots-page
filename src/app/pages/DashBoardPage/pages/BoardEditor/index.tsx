@@ -51,6 +51,7 @@ import {
 } from './slice/selectors';
 import { addChartWidget, fetchEditBoardDetail } from './slice/thunk';
 import {DatartContext} from "../../../../contexts/DatartContext";
+import ApplicationWidgetPanel from './components/ApplicationWidgetPanel';
 
 export const BoardEditor: React.FC = memo(() => {
   useEditBoardSlice();
@@ -61,7 +62,7 @@ export const BoardEditor: React.FC = memo(() => {
   const boardLoading = useSelector(selectEditBoardLoading);
   const boardChartEditorProps = useSelector(selectBoardChartEditorProps);
   const widgetControllerPanelParams = useSelector(selectControllerPanel);
-  const { urls } = useContext(DatartContext);
+  const { urls,applicationEnable } = useContext(DatartContext);
   const onCloseChartEditor = useCallback(() => {
     dispatch(editDashBoardInfoActions.changeChartEditorProps(undefined));
   }, [dispatch]);
@@ -108,6 +109,7 @@ export const BoardEditor: React.FC = memo(() => {
             onSaveInWidget={onSaveToWidget}
           />
         )}
+        {applicationEnable ? <ApplicationWidgetPanel /> : ''}
       </BoardInitProvider>
     );
   }, [

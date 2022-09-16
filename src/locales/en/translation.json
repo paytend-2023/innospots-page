@@ -1047,6 +1047,7 @@
     "board": {
       "action": {
         "dataChart": "DataChart",
+        "application": "Application",
         "importExistingDataCharts": "Import Existing DataCharts",
         "createDataChartInBoard": "Create DataChart In Board",
         "searchValue": "Search keywords",

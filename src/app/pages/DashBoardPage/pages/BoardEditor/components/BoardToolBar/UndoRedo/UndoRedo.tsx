@@ -30,7 +30,7 @@ export const UndoBtn: FC<{
   const canUndo = useMemo(() => !!pastState.length, [pastState.length]);
   return (
     <Tooltip title={title}>
-      <ToolbarButton disabled={!canUndo} onClick={fn} icon={<UndoOutlined />} />
+      <ToolbarButton disabled={!canUndo} onClick={fn} icon={<UndoOutlined />}  label={title} />
     </Tooltip>
   );
 };
@@ -39,11 +39,10 @@ export const RedoBtn: FC<{
   title: string;
 }> = ({ fn, title }) => {
   const futureState = useSelector(selectFutureState);
-
   const canRedo = useMemo(() => !!futureState.length, [futureState.length]);
   return (
     <Tooltip title={title}>
-      <ToolbarButton disabled={!canRedo} onClick={fn} icon={<RedoOutlined />} />
+      <ToolbarButton disabled={!canRedo} onClick={fn} icon={<RedoOutlined />} label={title} />
     </Tooltip>
   );
 };

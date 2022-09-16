@@ -30,6 +30,7 @@ import { RichTextWidget } from '../Widgets/RichTextWidget/RichTextWidget';
 import { TabWidget } from '../Widgets/TabWidget/TabWidget';
 import { TimerWidget } from '../Widgets/TimerWidget/TimerWidget';
 import { VideoWidget } from '../Widgets/VideoWidget/VideoWidget';
+import { ApplicationWidget } from '../Widgets/ApplicationWidget/ApplicationWidget';
 
 export const WidgetMapper: React.FC<{
   boardEditing: boolean;
@@ -37,6 +38,7 @@ export const WidgetMapper: React.FC<{
 }> = memo(({ boardEditing, hideTitle }) => {
   const widget = useContext(WidgetContext);
   const originalType = widget.config.originalType;
+  console.log("originalType----",originalType)
   switch (originalType) {
     case ORIGINAL_TYPE_MAP.group:
       return <GroupWidget />;
@@ -57,6 +59,8 @@ export const WidgetMapper: React.FC<{
       return <RichTextWidget hideTitle={hideTitle} />;
     case ORIGINAL_TYPE_MAP.image:
       return <ImageWidget hideTitle={hideTitle} />;
+    case ORIGINAL_TYPE_MAP.application:
+      return <ApplicationWidget hideTitle={hideTitle} />;
     case ORIGINAL_TYPE_MAP.video:
       return <VideoWidget hideTitle={hideTitle} />;
     case ORIGINAL_TYPE_MAP.iframe:

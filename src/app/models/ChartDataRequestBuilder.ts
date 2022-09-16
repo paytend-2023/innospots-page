@@ -599,7 +599,7 @@ export class ChartDataRequestBuilder {
     )
       .concat(this.dataView?.computedFields || [])
       .map(c => c?.name);
-    console.log("dataViewFieldsNames----",dataViewFieldsNames,filters)
+
     return (filters || []).filter(f => {
       return dataViewFieldsNames.includes(f.column);
       // return dataViewFieldsNames.includes(f.column.join('.'));
