@@ -150,8 +150,8 @@ export const getInitBoardConfigBeta3 = (boardType?: BoardType) => {
 
     // auto
     allowOverlap: false,
-    margin: [16, 16], //0-100
-    containerPadding: [16, 16], //0-100
+    margin: [24, 24], //0-100
+    containerPadding: [24, 24], //0-100
     cols: LAYOUT_COLS_MAP, //2-48    step 2
     mobileMargin: [MIN_MARGIN, MIN_MARGIN],
     mobileContainerPadding: [MIN_PADDING, MIN_PADDING],

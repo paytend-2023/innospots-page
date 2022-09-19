@@ -40,7 +40,7 @@ import { useDrag } from 'react-dnd';
 import styled from 'styled-components/macro';
 import {
   FONT_SIZE_BASE,
-  FONT_SIZE_BODY, FONT_SIZE_LABEL,
+  FONT_SIZE_BODY, FONT_SIZE_LABEL, FONT_SIZE_SUBTITLE,
   FONT_SIZE_TITLE,
   FONT_WEIGHT_MEDIUM,
   INFO,
@@ -265,7 +265,7 @@ export const ChartDraggableSourceContainer: FC<
           }}
           className={styleClasses.join(' ')}
         >
-          <IW fontSize={FONT_SIZE_LABEL}>{icon}</IW>
+          <IW fontSize={FONT_SIZE_SUBTITLE}>{icon}</IW>
           <StyledFieldContent>
             {' '}
             {isHierarchyFieldOrTable ||
@@ -445,4 +445,7 @@ const StyledFieldContent = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
+  margin-bottom: 0;
+  font-size: 13px;
+}
 `;

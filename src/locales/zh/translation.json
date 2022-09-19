@@ -726,7 +726,7 @@
         "info": "信息",
         "sort": "排序",
         "size": "大小",
-        "drop": "请拖拽数据字段到这里",
+        "drop": "-> 请拖拽数据字段到这里",
         "dropCount": "请至少拖拽{{count}}个数据字段到这里",
         "AGG_DATE_YEAR": "按年",
         "AGG_DATE_QUARTER": "按季度",
@@ -774,8 +774,8 @@
         },
         "axis": {
           "y": {
-            "left": "左指标轴",
-            "right": "右指标轴"
+            "left": "左指标",
+            "right": "右指标"
           }
         },
         "enum": {
@@ -988,7 +988,8 @@
         "confirm": "请确认",
         "ok": "确认",
         "cancel": "取消",
-        "save": "保存"
+        "save": "保存",
+        "publish": "发布"
       },
       "downloadTaskSuccess": "下载任务创建成功",
       "edit": "编辑",

@@ -64,7 +64,7 @@ export const ToolBar = () => {
 
         <AddMedia />
 
-        <AddContainer />
+        {/*<AddContainer />*/}
 
         <AddController />
 
@@ -102,4 +102,10 @@ const Wrapper = styled.div`
   display: flex;
   flex: 1;
   justify-content: space-between;
+
+  .divider{
+    height: 26px;
+    margin-left: 0;
+    margin-right: -2px;
+  }
 `;

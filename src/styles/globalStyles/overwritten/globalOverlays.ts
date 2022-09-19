@@ -18,6 +18,7 @@
 
 import { createGlobalStyle } from 'styled-components/macro';
 import {
+  FONT_WEIGHT_MEDIUM,
   LEVEL_1000,
   SPACE_SM,
   SPACE_TIMES,
@@ -48,7 +49,7 @@ export const GlobalOverlays = createGlobalStyle`
       padding-top: 0;
     }
   }
-  
+
 
   /* schema table header action dropdown menu */
   .datart-schema-table-header-menu {
@@ -68,6 +69,7 @@ export const GlobalOverlays = createGlobalStyle`
     .ant-collapse-header {
       padding: ${SPACE_XS} 0;
       color: ${p => p.theme.textColor};
+      font-weight: ${FONT_WEIGHT_MEDIUM};
 
       .ant-collapse-arrow {
         margin-right: ${SPACE_XS};
@@ -76,7 +78,8 @@ export const GlobalOverlays = createGlobalStyle`
 
     .ant-collapse-content >
     .ant-collapse-content-box {
-      padding: ${SPACE_XS} 0 ${SPACE_SM} !important;
+      // padding: ${SPACE_XS} 0 ${SPACE_SM} !important;
+      padding: 0 16px;
     }
   }
 

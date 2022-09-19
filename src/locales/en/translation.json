@@ -990,7 +990,8 @@
         "confirm": "Please Confirm",
         "ok": "OK",
         "cancel": "Cancel",
-        "save": "Save"
+        "save": "Save",
+        "publish": "Publish"
       },
       "downloadTaskSuccess": "Download task created successfully",
       "edit": "Edit",

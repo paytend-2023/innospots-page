@@ -246,7 +246,7 @@ export const RUNTIME_DATE_LEVEL_KEY = Symbol('DateLevel');
 
 export const FONT_DEFAULT: IFontDefault = {
   fontFamily: FONT_FAMILY,
-  fontSize: '14',
+  fontSize: 14,
   fontWeight: 'normal',
   fontStyle: 'normal',
   color: G90,

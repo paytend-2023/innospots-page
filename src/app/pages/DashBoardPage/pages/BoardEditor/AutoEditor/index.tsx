@@ -30,7 +30,7 @@ export const AutoEditor: React.FC<{}> = memo(() => {
     <Wrapper onClick={onEditClearActiveWidgets}>
       <BoardToolBar />
       <Editor>
-        <LayerTreePanel />
+        {/*<LayerTreePanel />*/}
         <AutoBoardEditor />
         <SlideSetting />
       </Editor>

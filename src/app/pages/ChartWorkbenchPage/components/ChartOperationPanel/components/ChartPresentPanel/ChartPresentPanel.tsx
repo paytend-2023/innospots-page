@@ -198,7 +198,7 @@ const StyledChartPresentPanel = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: ${p => p.theme.emphasisBackground};
+  background-color: ${p => p.theme.bodyBackground};
   padding: 18px;
 
   .chartContent{

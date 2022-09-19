@@ -177,7 +177,7 @@ export const AddController: React.FC<AddControlBtnProps> = () => {
       trigger={['click']}
     >
       <Tooltip title={t('controller')}>
-        <ToolbarButton icon={<ControlOutlined />} label={tg('button.add') + t('controller')} color="#1245FA" />
+        <ToolbarButton icon={<ControlOutlined />} label={tg('button.add') + t('controller')} />
       </Tooltip>
     </Dropdown>
   );

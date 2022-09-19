@@ -92,7 +92,7 @@ const Item = styled.div`
   }
 
   .widget-tool-dropdown {
-    display: none;
+     display: none;
   }
 
   &:hover {

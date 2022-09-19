@@ -43,16 +43,18 @@ export const RED = '#FF4445';
  * G80 - font
  */
 export const WHITE = '#FFFFFF';
-export const G10 = '#F5F8FA';
-export const G20 = '#EFF2F5';
+export const G10 = '#F3F5F7';
+export const G20 = '#E5E6EB';
 export const G30 = '#E4E6EF';
 export const G40 = '#B5B5C3';
-export const G50 = '#A1A5B7';
+// export const G50 = '#A1A5B7';
+export const G50 = '#C9CDD4';
 export const G60 = '#7E8299';
 export const G70 = '#5E6278';
 export const G80 = '#3F4254';
 export const G90 = '#181C32';
 export const BLACK = '#000000';
+export const COLEAPSE_BLACK = '#1D2129';
 
 export const DG10 = '#1b1b29';
 export const DG20 = '#2B2B40';
@@ -105,7 +107,7 @@ export const CODE_FAMILY =
   '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace';
 export const FONT_WEIGHT_LIGHT = 300;
 export const FONT_WEIGHT_REGULAR = 400;
-export const FONT_WEIGHT_MEDIUM = 500;
+export const FONT_WEIGHT_MEDIUM = 'bold';
 export const FONT_WEIGHT_BOLD = 600;
 
 // border

@@ -205,6 +205,17 @@ const Wrapper = styled.div<{}>`
 
   .react-resizable-handle {
     z-index: ${LEVEL_100};
+    width: 0;
+    height: 0;
+
+    &::after {
+      right: 10px;
+      bottom: 10px;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid #1245FA;
+      border-bottom: 2px solid #1245FA;
+    }
   }
 
   &.desktop {

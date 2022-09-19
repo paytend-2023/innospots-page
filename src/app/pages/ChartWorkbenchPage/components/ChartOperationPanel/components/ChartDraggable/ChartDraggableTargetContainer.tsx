@@ -449,6 +449,7 @@ const StyledDillFilter = styled.div<{
 const DropPlaceholder = styled.p`
   line-height: ${LINE_HEIGHT_HEADING};
   font-size: 12px;
+  color: #86909C;
 `;
 const StyledBaseDataConfigFieldSection = styled.div`
   padding: ${SPACE_XS} ${SPACE_LXG};

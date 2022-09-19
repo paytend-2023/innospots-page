@@ -45,5 +45,6 @@ const Wrapper = styled.div`
   padding: ${SPACE} ${SPACE_LXG};
   background-color: ${p => p.theme.componentBackground};
   border-top: 1px solid ${p => p.theme.borderColorSplit};
-  box-shadow: ${p => p.theme.shadowSider};
+  border-bottom: 1px solid ${p => p.theme.borderColorSplit};
+  // box-shadow: ${p => p.theme.shadowSider};
 `;

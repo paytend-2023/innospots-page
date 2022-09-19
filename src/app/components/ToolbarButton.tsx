@@ -44,25 +44,22 @@ const Wrapper = styled.span<ToolbarButtonProps>`
     color: ${p =>
       p.disabled
         ? p.theme.textColorDisabled
-        : p.color || p.theme.textColorLight};
+        : p.color || '#86909C'};
 
-    &:hover,
-    &:focus {
+    &:hover {
       color: ${p =>
         p.disabled
           ? p.theme.textColorDisabled
-          : p.color || p.theme.textColorLight};
-      background-color: ${p => p.theme.bodyBackground};
+          : p.color || '#5278FF'};
+      // background-color: ${p => p.theme.bodyBackground};
     }
 
+    &:focus,
     &:active {
       color: ${p =>
         p.disabled
           ? p.theme.textColorDisabled
-          : p.color
-          ? lighten(0.1, p.color)
-          : p.theme.textColorSnd};
-      background-color: ${p => p.theme.emphasisBackground};
+          : '#1245FA'};
     }
 
     .anticon {

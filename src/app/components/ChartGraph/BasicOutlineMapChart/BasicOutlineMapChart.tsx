@@ -517,8 +517,8 @@ class BasicOutlineMapChart extends Chart {
     const format = aggregateConfigs?.[0]?.format;
     const inRange = {
       color: [
-        aggregateConfigs?.[0]?.color?.start || '#1B9AEE',
-        aggregateConfigs?.[0]?.color?.end || '#FA8C15',
+        aggregateConfigs?.[0]?.color?.start || '#155BFF',
+        aggregateConfigs?.[0]?.color?.end || '#ECF0FF',
       ],
     };
     const positionConfig = position?.split(',');

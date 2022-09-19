@@ -1,7 +1,7 @@
 import { lighten, rgba } from 'polished';
 import {
   BLACK,
-  BLUE,
+  BLUE, COLEAPSE_BLACK,
   DG10,
   DG20,
   DG30,
@@ -63,6 +63,7 @@ const lightTheme = {
   textColorSnd: G80,
   textColorLight: G60,
   textColorDisabled: G50,
+  textColorColeapseBlack: COLEAPSE_BLACK,
   iconColorHover: rgba(BLACK, 0.75),
   borderColorBase: G40,
   borderColorEmphasis: G30,
@@ -84,6 +85,7 @@ const darkTheme: Theme = {
   textColorSnd: DG80,
   textColorLight: DG60,
   textColorDisabled: DG50,
+  textColorColeapseBlack: COLEAPSE_BLACK,
   iconColorHover: DG70,
   borderColorBase: DG40,
   borderColorEmphasis: DG30,

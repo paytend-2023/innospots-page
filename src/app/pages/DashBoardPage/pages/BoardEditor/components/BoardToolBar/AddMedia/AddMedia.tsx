@@ -90,7 +90,7 @@ export const AddMedia: React.FC<{}> = () => {
       trigger={['click']}
     >
       <Tooltip title={t('media')}>
-        <ToolbarButton icon={<AppstoreAddOutlined />}  label={tg('button.add') + t('media')}  color="#1245FA"/>
+        <ToolbarButton icon={<AppstoreAddOutlined />}  label={tg('button.add') + t('media')} />
       </Tooltip>
     </Dropdown>
   );

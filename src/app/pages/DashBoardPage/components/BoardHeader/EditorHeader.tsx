@@ -123,7 +123,7 @@ const EditorHeader: FC = memo(({ children }) => {
         break;
       case 'SELECT':
         element =(
-          <Select  placeholder={formItem.placeholder} style={{width: '100%',borderRadius: '4px'}} >
+          <Select  placeholder={formItem.placeholder} style={{width: '100%'}}>
             {
               map(formItem.options, (option) => {
                 return <Option value={option.value} key={option.value}>{option.name}</Option>;
@@ -133,7 +133,7 @@ const EditorHeader: FC = memo(({ children }) => {
         ) ;
         break;
       case 'INPUT':
-        element = <Input placeholder={formItem.placeholder} />;
+        element = <Input placeholder={formItem.placeholder} size="large" />;
         break;
       default:
         element = "";
@@ -174,7 +174,7 @@ const EditorHeader: FC = memo(({ children }) => {
       </div>
       <Form form={formIns} className="formContent">
         <Row>
-          <Col span={24}>
+          <Col span={20}>
             <Row gutter={16}>
               {
                 titleElement && map(titleElement, (item) => {
@@ -186,25 +186,32 @@ const EditorHeader: FC = memo(({ children }) => {
         </Row>
       </Form>
       <div className="boardBtn">
-        <Space>
+        <Space size={16}>
           {children}
           <>
-            <Button
-              key="cancel"
-              icon={<CloseOutlined />}
-              onClick={() => onCloseBoardEditor(null)}
-            >
-              {t('common.cancel')}
-            </Button>
+            {/*<Button*/}
+            {/*  key="cancel"*/}
+            {/*  icon={<CloseOutlined />}*/}
+            {/*  onClick={() => onCloseBoardEditor(null)}*/}
+            {/*>*/}
+            {/*  {t('common.cancel')}*/}
+            {/*</Button>*/}
 
             <Button
               key="update"
-              type="primary"
+              className="updateBtn"
               loading={saving}
-              icon={<SaveOutlined />}
               onClick={onUpdateBoard}
             >
               {t('common.save')}
+            </Button>
+            <Button
+              key="publish"
+              className="publishBtn"
+              loading={saving}
+              onClick={onUpdateBoard}
+            >
+              {t('common.publish')}
             </Button>
           </>
         </Space>
@@ -236,8 +243,33 @@ const Wrapper = styled.div`
     input {
       border-radius: 4px;
     }
+    .ant-input-lg{
+      font-size: 14px;
+      padding: 7px 11px;
+    }
+    .ant-select-selector{
+      height: 38px;
+      border-radius: 4px;
+      .ant-select-selection-item{
+        line-height: 38px;
+      }
+    }
   }
   .boardBtn{
     padding-right: ${SPACE_LG};
+
+    button {
+      width: 60px;
+      height: 38px;
+      color: #fff;
+      border-radius: 4px;
+      border: none;
+    }
+    .updateBtn{
+      background: #1245FA;
+    }
+    .publishBtn{
+      background: #31CB8A;
+    }
   }
 `;

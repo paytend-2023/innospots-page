@@ -77,7 +77,7 @@ export const AddContainer: React.FC<{}> = () => {
       trigger={['click']}
     >
       <Tooltip title={t('container')}>
-        <ToolbarButton icon={<ContainerOutlined />} label={tg('button.add') + t('container')} color="#1245FA"></ToolbarButton>
+        <ToolbarButton icon={<ContainerOutlined />} label={tg('button.add') + t('container')} ></ToolbarButton>
       </Tooltip>
     </Dropdown>
   );

@@ -20,7 +20,7 @@ import { FC, memo } from 'react';
 import styled from 'styled-components/macro';
 import {
   FONT_FAMILY,
-  FONT_SIZE_BODY,
+  FONT_SIZE_BODY, FONT_WEIGHT_MEDIUM,
   FONT_WEIGHT_REGULAR,
 } from 'styles/StyleConstants';
 
@@ -33,7 +33,7 @@ export default CollapseHeader;
 const StyledCollapseHeader = styled.span`
   font-family: ${FONT_FAMILY};
   font-size: ${FONT_SIZE_BODY};
-  font-weight: ${FONT_WEIGHT_REGULAR};
-  color: ${p => p.theme.textColorSnd};
+  font-weight: ${FONT_WEIGHT_MEDIUM};
+  color: ${p => p.theme.textColorColeapseBlack};
   user-select: none;
 `;

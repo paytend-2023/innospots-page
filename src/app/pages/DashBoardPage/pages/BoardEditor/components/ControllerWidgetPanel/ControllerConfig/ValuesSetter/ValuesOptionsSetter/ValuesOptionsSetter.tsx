@@ -73,9 +73,9 @@ const ValuesOptionsSetter: FC<{
 
   const getViewList = useCallback(async orgId => {
     const { data } = await request2<ViewSimple[]>( urls.viewsUrl);
-    const views = data['list'].map(item => {
+    const views = data.map(item => {
       return {
-        value: item.code,
+        value: item.code ||'',
         label: item.name,
       };
     });

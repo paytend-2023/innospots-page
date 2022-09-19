@@ -33,6 +33,9 @@ const StyledWrapper = styled.div`
   width: 100%;
   min-height: 0;
   overflow-y: auto;
+  .ant-collapse-item .ant-collapse-content .ant-collapse-content-box{
+    padding: 0 16px;
+  }
 `;
 export const BoardConfigPanel: FC<{}> = memo(() => {
   const dispatch = useDispatch();
@@ -51,7 +54,7 @@ export const BoardConfigPanel: FC<{}> = memo(() => {
   };
   return (
     <ChartI18NContext.Provider value={{ i18NConfigs: i18ns }}>
-      <h3 style={{ textAlign: 'center' }}>{t('board')}</h3>
+      <h3 style={{ color:'#1D2129',paddingTop: 24,paddingLeft: 24 }}>{t('board')}</h3>
       <StyledWrapper onClick={e => e.stopPropagation()}>
         <BoardConfigCollapse configs={configs} onChange={onChange} />
       </StyledWrapper>

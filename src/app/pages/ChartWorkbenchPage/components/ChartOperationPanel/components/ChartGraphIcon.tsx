@@ -159,7 +159,7 @@ const Base64ImageRender = ({ iconStr, isMatchRequirement, isActive }) => {
 };
 
 const StyledChartIconWrapper = styled(IW)`
-  margin: ${SPACE_TIMES(0.5)};
+  margin: ${SPACE_TIMES(1)};
   cursor: pointer;
   border-radius: ${BORDER_RADIUS};
 

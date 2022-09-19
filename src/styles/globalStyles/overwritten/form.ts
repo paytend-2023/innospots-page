@@ -23,13 +23,13 @@ export const Form = createGlobalStyle`
   .datart-ant-input {
     &.ant-input {
       color: ${p => p.theme.textColorSnd};
-      background-color: ${p => p.theme.bodyBackground};
-      border-color: ${p => p.theme.bodyBackground};
+      background-color: ${p => p.theme.componentBackground};
+      border-color: ${p => p.theme.emphasisBackground};
       box-shadow: none;
 
       &:hover,
       &:focus {
-        border-color: ${p => p.theme.bodyBackground};
+        border-color: ${p => p.theme.emphasisBackground};
         box-shadow: none;
       }
 
@@ -55,19 +55,19 @@ export const Form = createGlobalStyle`
   .datart-ant-input-number {
     &.ant-input-number {
       width: 100%;
-      background-color: ${p => p.theme.bodyBackground};
-      border-color: ${p => p.theme.bodyBackground};
+      background-color: ${p => p.theme.componentBackground};
+      border-color: ${p => p.theme.emphasisBackground};
       border-radius: ${BORDER_RADIUS};
       box-shadow: none;
 
       &:hover,
       &:focus {
-        border-color: ${p => p.theme.bodyBackground};
+        border-color: ${p => p.theme.emphasisBackground};
         box-shadow: none;
       }
 
       &:focus {
-        background-color: ${p => p.theme.bodyBackground};
+        background-color: ${p => p.theme.emphasisBackground};
       }
     }
 
@@ -143,5 +143,4 @@ export const Form = createGlobalStyle`
       }
     }
   }
-
 `;

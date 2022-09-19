@@ -35,7 +35,6 @@ export const AddApplication= () => {
       <Tooltip title={t('application')}>
         <ToolbarButton icon={<InstagramOutlined />}
                        label={tg('button.add') + t('application')}
-                       color="#1245FA"
                        onClick={onCreateApplication}
         />
       </Tooltip>

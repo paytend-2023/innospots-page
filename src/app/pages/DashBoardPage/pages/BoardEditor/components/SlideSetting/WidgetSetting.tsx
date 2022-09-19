@@ -163,4 +163,10 @@ const StyledWidgetSetting = styled(Tabs)`
   .ant-tabs-content-holder {
     overflow: auto;
   }
+  .ant-tabs-tab .ant-tabs-tab-btn{
+    padding: 0 20px;
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: #1245FA;
+  }
 `;

@@ -67,7 +67,7 @@ export const initTitleTpl = () => {
         key: 'font',
         value: {
           ...FONT_DEFAULT,
-          fontSize: '16',
+          fontSize: 16,
           fontWeight: 'bold',
         },
         comType: 'font',
@@ -330,13 +330,13 @@ export const initPaddingTpl = () => {
       {
         label: 'padding.top',
         key: 'top',
-        value: 8,
+        value: 0,
         comType: 'inputNumber',
       },
       {
         label: 'padding.bottom',
         key: 'bottom',
-        value: 8,
+        value: 24,
         comType: 'inputNumber',
       },
       {
@@ -451,7 +451,7 @@ export const initBorderTpl = () => {
           color: 'transparent', // TODO 根据当前主题色配置
           width: '0',
           style: 'solid',
-          radius: '0',
+          radius: '10',
         },
         comType: 'widgetBorder',
       },

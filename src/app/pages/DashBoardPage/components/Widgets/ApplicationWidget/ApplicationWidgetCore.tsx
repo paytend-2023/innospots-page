@@ -17,7 +17,6 @@
  */
 import styled from 'styled-components/macro';
 import { ApplicationWidgetContent } from '../../../pages/Board/slice/types';
-import { content } from 'html2canvas/dist/types/css/property-descriptors/content';
 import { getComponentByName } from '../../../../../components/applicationWidgets';
 import { DatartContext } from '../../../../../contexts/DatartContext';
 import { useContext } from 'react';

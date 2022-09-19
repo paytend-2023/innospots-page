@@ -19,6 +19,7 @@ import { Button, Dropdown, Menu } from 'antd';
 import useI18NPrefix from 'app/hooks/useI18NPrefix';
 import styled from 'styled-components/macro';
 import { G20 } from 'styles/StyleConstants';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 // to see useHotkeys in function useBoardEditorHotkeys
 export const Hotkeys = [
@@ -51,7 +52,7 @@ export const ShortcutKeys = () => {
 
   return (
     <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
-      <Button type="text">{gt('shortcuts')}</Button>
+      <Button type="text" icon={<InfoCircleOutlined />}>{gt('shortcuts')}</Button>
     </Dropdown>
   );
 };

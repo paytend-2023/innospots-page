@@ -88,7 +88,7 @@ export const WidgetDropdownList: React.FC<{
       trigger={['click']}
       arrow
     >
-      <Button icon={<EllipsisOutlined />} type="link" {...buttonProps} />
+      <Button icon={<EllipsisOutlined style={{ fontSize: 18, color: '#4E5969',fontWeight: 'bolder' }}/>} type="link" {...buttonProps} />
     </Dropdown>
   );
 });

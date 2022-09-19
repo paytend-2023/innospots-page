@@ -96,9 +96,11 @@ const MaskLayer = styled.div<{ front: boolean; hideBorder: boolean }>`
 
   &:hover,
   &:active {
-    border-color: ${p => p.theme.primary};
-    border-style: dotted;
-    border-width: 2px;
+    // border-color: ${p => p.theme.primary};
+    // border-style: dotted;
+    // border-width: 2px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
   }
   &.selected {
     border-color: ${p => p.theme.primary};
@@ -113,6 +115,7 @@ const MaskLayer = styled.div<{ front: boolean; hideBorder: boolean }>`
     border-color: ${p => (p.hideBorder ? 'transparent' : p.theme.success)};
     border-style: solid;
     border-width: 2px;
+    border-radius: 10px;
     &:hover,
     &:active {
       border-width: ${p => (p.hideBorder ? 0 : '2px')};

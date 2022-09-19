@@ -34,7 +34,7 @@ export const ChartWidgetDropdown: React.FC<{
   );
   return (
       <Tooltip title={t('dataChart')} >
-        <ToolbarButton icon={<BarChartOutlined />} label={tg('button.add') + t('dataChart')} color="#1245FA" onClick={onChartWidget} />
+        <ToolbarButton icon={<BarChartOutlined />} label={tg('button.add') + t('dataChart')}  onClick={onChartWidget} />
       </Tooltip>
   );
 };

@@ -245,7 +245,7 @@ const StyledChartDataViewPanel = styled.div`
 `;
 const StyledChartGraphPanel = styled.div`
   .graph-panel-title {
-    padding: 24px 18px 8px;
+    padding: 24px 18px 0;
     background-color: ${(p) => p.theme.componentBackground};
   }
   .common-title {
@@ -271,6 +271,9 @@ const ConfigBlock = styled.div`
     .ant-tabs-nav{
       padding: 0 ${SPACE_MD};
       border-top: 1px solid ${(p) => p.theme.borderColorEmphasis};
+    }
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+      color: ${p => p.theme.primary};
     }
   }
 `;

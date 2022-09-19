@@ -84,7 +84,7 @@ const GroupLayout: FC<FormGeneratorLayoutProps<ChartStyleConfig>> = memo(
               title={t(data.label, true)}
               onClick={handleOpenStateModal}
             >
-              <CollapseHeader title={t(data.label, true)} />
+              {t(data.label, true)}
             </Button>
             {contextHolder}
           </BW>

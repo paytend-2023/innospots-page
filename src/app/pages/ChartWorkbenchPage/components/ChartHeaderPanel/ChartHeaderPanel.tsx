@@ -121,7 +121,7 @@ const ChartHeaderPanel: FC<{
           {/*  }*/}
           {/*/>*/}
           {/*<Button onClick={onGoBack}>{t('cancel')}</Button>*/}
-          <Button type="primary" onClick={onSaveChart}>
+          <Button type="primary" onClick={onSaveChart}   className="updateBtn" >
             {t('save')}
           </Button>
           {!(container === 'widget') && (
@@ -165,6 +165,17 @@ const Wrapper = styled.div`
     font-size: ${FONT_SIZE_ICON_SM};
     font-weight: ${FONT_WEIGHT_MEDIUM};
     line-height: ${LINE_HEIGHT_ICON_SM};
+  }
+
+  button {
+    width: 60px;
+    height: 38px;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+  }
+  .updateBtn{
+    background: #1245FA;
   }
 `;
 const GoBack = styled.div`

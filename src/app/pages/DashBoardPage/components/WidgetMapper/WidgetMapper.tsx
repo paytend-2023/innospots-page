@@ -38,7 +38,6 @@ export const WidgetMapper: React.FC<{
 }> = memo(({ boardEditing, hideTitle }) => {
   const widget = useContext(WidgetContext);
   const originalType = widget.config.originalType;
-  console.log("originalType----",originalType)
   switch (originalType) {
     case ORIGINAL_TYPE_MAP.group:
       return <GroupWidget />;
