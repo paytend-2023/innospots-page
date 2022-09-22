@@ -139,4 +139,5 @@ export default GroupLayout;
 
 const StyledGroupLayout = styled.div<{ flatten?: boolean }>`
   padding: 0 ${p => (p.flatten ? 0 : SPACE_MD)};
+
 `;

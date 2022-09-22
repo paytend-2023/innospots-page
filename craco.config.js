@@ -3,6 +3,7 @@ const fs = require('fs');
 const WebpackBar = require('webpackbar');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { ModuleFederationPlugin } = require("webpack").container;
 const {
   when,
   whenDev,
@@ -50,6 +51,17 @@ module.exports = {
     plugins: [
       new WebpackBar(),
       new MonacoWebpackPlugin({ languages: [''] }),
+      new ModuleFederationPlugin({
+        // 导入模块
+        remotes: {
+          // 导入后给模块起个别名：“微应用名称@地址/导出的文件名”
+          appone: 'app111@http://localhost:8000/app111.js'
+        },
+        // 应用 B 也可以对外提供模块，因此，也可以配置 filename 和 name
+        filename: 'app222.js',
+        // 应用名称，当前模块自己的名字
+        name: 'app222',
+      }),
       // new BundleAnalyzerPlugin(),
     ],
     configure: (webpackConfig, { env, paths }) => {
@@ -69,7 +81,6 @@ module.exports = {
         publicPath: IS_DEV ? '/' : '/apps/visualization/',
         library: `datart`,
         libraryTarget: 'umd',
-        jsonpFunction: `webpackJsonp_datart`,
         globalObject: 'window'
       };
 
