@@ -9,14 +9,13 @@ import {
   FONT_SIZE_BODY,
   FONT_WEIGHT_REGULAR,
 } from 'styles/StyleConstants';
+import { v4 } from 'uuid';
 import { APIResponse } from 'types';
 import { SaveFormModel } from '../app/pages/MainPage/pages/VizPage/SaveFormContext';
 import { removeToken } from './auth';
 
-import { v4 } from 'uuid';
-
-export function uuidv4 () {
-  return v4()
+export function uuidv4 (options, buf, offset) {
+  return v4(options, buf, offset);
 }
 
 export function errorHandle(error) {
