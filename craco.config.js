@@ -3,7 +3,7 @@ const fs = require('fs');
 const WebpackBar = require('webpackbar');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const { ModuleFederationPlugin } = require("webpack").container;
+const ModuleFederation = require('webpack/lib/container/ModuleFederationPlugin')
 const {
   when,
   whenDev,
@@ -51,7 +51,7 @@ module.exports = {
     plugins: [
       new WebpackBar(),
       new MonacoWebpackPlugin({ languages: [''] }),
-      new ModuleFederationPlugin({
+      new ModuleFederation({
         // 导入模块
         remotes: {
           // 导入后给模块起个别名：“微应用名称@地址/导出的文件名”
@@ -98,7 +98,7 @@ module.exports = {
         ...webpackConfig.optimization.splitChunks,
         ...{
           chunks: 'all',
-          name: true,
+          name: false,
           cacheGroups: {
             chartGraph: {
               name: 'ChartGraph',
@@ -174,7 +174,8 @@ module.exports = {
       const defaultEntryHTMLPlugin = webpackConfig.plugins.filter(plugin => {
         return plugin.constructor.name === 'HtmlWebpackPlugin';
       })[0];
-      defaultEntryHTMLPlugin.options.chunks = [defaultEntryName];
+
+      defaultEntryHTMLPlugin.userOptions.chunks = [defaultEntryName];
 
       // config.entry is not an array in Create React App 4
       if (!Array.isArray(webpackConfig.entry)) {
@@ -194,7 +195,7 @@ module.exports = {
         // Multiple Entry HTML Plugin
         webpackConfig.plugins.unshift(
           new defaultEntryHTMLPlugin.constructor(
-            Object.assign({}, defaultEntryHTMLPlugin.options, {
+            Object.assign({}, defaultEntryHTMLPlugin.userOptions, {
               filename: entry.outPath,
               // template: entry.template,
               chunks: [entry.name],
@@ -225,7 +226,7 @@ module.exports = {
     modulePaths: ['../'],
   },
   devServer: {
-    before: function (app, server, compiler) {
+    onBeforeSetupMiddleware: function ({ app }) {
       app.get('/api/v1/plugins/custom/charts', function (req, res) {
         const pluginPath = 'custom-chart-plugins';
         const dir = fs.readdirSync(`./public/${pluginPath}`);

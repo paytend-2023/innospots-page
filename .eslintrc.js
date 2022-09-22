@@ -17,11 +17,7 @@ module.exports = {
           {
             name: 'lodash',
             message: 'suggest import xxx from `lodash/xxx`',
-          },
-          {
-            name: 'uuid',
-            message: 'suggest import xxx from `uuid/dist/xxx`',
-          },
+          }
         ],
       },
     ],
