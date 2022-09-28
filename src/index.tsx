@@ -52,6 +52,11 @@ if (!(window as any).__POWERED_BY_QIANKUN__) {
  */
 export async function bootstrap(props) {
 
+  try {
+    //@ts-ignore
+    __webpack_require__.S["default"] = null;
+  } catch (e) {}
+
   await importCoreWidgets();
 
   setMasterState({
