@@ -60,7 +60,7 @@ module.exports = {
         // 应用 B 也可以对外提供模块，因此，也可以配置 filename 和 name
         filename: 'visualization.js',
         // 应用名称，当前模块自己的名字
-        name: 'http://localhost:8000',
+        name: 'visualization',
         shared: {
           "react": {singleton: true},
           "react-dom": {singleton: true},

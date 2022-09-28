@@ -309,9 +309,9 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo((
           <div key={item.code} >
             <div  className="appItem" onClick={()=>{selectAppWidget(item);}} >
               <div className="appSelected" hidden={item.code!=selectedAppWidget.code} ><CheckCircleOutlined className="appSelectedIcon"/></div>
-                <React.Suspense fallback="Loading Component">
-                  <AppComponent  />
-                </React.Suspense>
+                {/*<React.Suspense fallback="Loading Component">*/}
+                {/*  <AppComponent  />*/}
+                {/*</React.Suspense>*/}
             </div>
           </div>
         )

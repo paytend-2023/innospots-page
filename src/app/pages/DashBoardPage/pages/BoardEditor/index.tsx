@@ -53,6 +53,8 @@ import { addChartWidget, fetchEditBoardDetail } from './slice/thunk';
 import {DatartContext} from "../../../../contexts/DatartContext";
 import ApplicationWidgetPanel from './components/ApplicationWidgetPanel';
 
+import { SharedComponent } from 'utils/sharedComponents';
+
 export const BoardEditor: React.FC = memo(() => {
   useEditBoardSlice();
   const dispatch = useDispatch();
@@ -97,6 +99,7 @@ export const BoardEditor: React.FC = memo(() => {
         renderMode="edit"
       >
         <EditorHeader />
+        <SharedComponent name="UserLoginLog" />
         {boardType === 'auto' && <AutoEditor />}
         {boardType === 'free' && <FreeEditor />}
         {widgetControllerPanelParams.type !== 'hide' && (

@@ -21,6 +21,7 @@ import { generateEntryPoint } from 'entryPointFactory';
 import './public-path';
 import {useRouteMatch} from "react-router-dom";
 import { setMasterState } from './utils/globalState';
+import { importCoreWidgets } from './utils/sharedComponents';
 
 function render(props) {
   console.log("props----",props)
@@ -50,6 +51,9 @@ if (!(window as any).__POWERED_BY_QIANKUN__) {
  * 通常我们可以在这里做一些全局变量的初始化，比如不会在 unmount 阶段被销毁的应用级别的缓存等。
  */
 export async function bootstrap(props) {
+
+  await importCoreWidgets();
+
   setMasterState({
     ...props
   });
