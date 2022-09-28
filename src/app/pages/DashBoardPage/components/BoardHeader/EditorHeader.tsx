@@ -82,16 +82,17 @@ const EditorHeader: FC = memo(({ children }) => {
   }, [boardExtConfig]);
 
   const onCloseBoardEditor = (boardId) => {
-    if(urls.detailUrl =='/workspace'){
-        if(POWERED_BY_QIANKUN){
-          getMasterState().masterNavigateTo('/workspace')
-        }
-    }
-    else if(boardId){
-      history.push(`/${boardId}`);
-    }else{
-      history.goBack();
-    }
+    history.goBack();
+    // if(urls.detailUrl =='/workspace'){
+    //     if(POWERED_BY_QIANKUN){
+    //       getMasterState().masterNavigateTo('/workspace')
+    //     }
+    // }
+    // else if(boardId){
+    //   history.push(`/${boardId}`);
+    // }else{
+    //   history.goBack();
+    // }
     dispatch(clearEditBoardState());
   };
 

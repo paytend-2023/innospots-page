@@ -60,6 +60,10 @@ export const TitleHeader: FC = memo(() => {
   const isArchived = Number(status) === 0;
 
   const toBoardEditor = () => {
+    history.push('workspace/edit');
+
+    return
+
     const pathName = history.location.pathname;
     if (pathName.includes(boardId)) {
       history.push(`${pathName.split(boardId)[0]}${boardId}/boardEditor`);

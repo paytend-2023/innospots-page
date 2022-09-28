@@ -28,7 +28,7 @@ type ApplicationWidgetProps = {
 export const ApplicationWidgetCore: React.FC<ApplicationWidgetProps> = ({applicationWidgetContent}) => {
   let AppComponent = getComponentByName("systemInfo");
   if(POWERED_BY_QIANKUN){
-     AppComponent =  getMasterState().getComponentByNameFun(applicationWidgetContent.appWidgetInfo.entry)
+     // AppComponent =  getMasterState().getComponentByNameFun(applicationWidgetContent.appWidgetInfo.entry)
   }
   const { commonParams } = useContext(DatartContext);
   return <Wrapper>

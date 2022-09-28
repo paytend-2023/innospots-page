@@ -23,7 +23,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { LEVEL_10 } from 'styles/StyleConstants';
+import { LEVEL_100 } from 'styles/StyleConstants';
 import { uuidv4 } from 'utils/utils';
 import {
   boardDrillManager,
@@ -184,7 +184,7 @@ const StyledBoardEditor = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: ${LEVEL_10};
+  z-index: ${LEVEL_100};
   display: flex;
   flex-direction: column;
   padding-bottom: 0;

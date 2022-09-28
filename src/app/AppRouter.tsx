@@ -36,12 +36,15 @@ export function AppRouter({config}) {
       <BrowserRouter basename="/apps/visualization">
         <Switch>
           {/*<Route exact path="/" render={() => <Redirect to="/preview" />} />*/}
-          <Route path="/workspace/edit" render={() => <BoardEditorMain  config={config} />} />
-          <Route path="/workspace" render={() => <BoardPreview config={config} hideTitle={true} />} />
-          <Route path="/edit" render={() => <BoardEditorMain  config={config} />} />
-          <Route path="/create" render={() => <BoardEditorMain  config={config} />} />
-          <Route path="/:vizId/edit" render={() => <BoardEditorMain  config={config} />} />
-          <Route path="/:vizId" render={() => <BoardPreview config={config} hideTitle={true} />} />
+          {/*@ts-ignore*/}
+          <Route path="/workspace/edit" render={() => <BoardEditorMain type="workspaceEdit" />} />
+          {/*@ts-ignore*/}
+          <Route path="/workspace" render={() => <BoardPreview type="workspace" hideTitle={true} />} />
+          <Route path="/edit" render={() => <BoardEditorMain type="workspaceEdit" />} />
+          <Route path="/create" render={() => <BoardEditorMain type="workspaceEdit" />} />
+          <Route path="/:vizId/edit" render={() => <BoardEditorMain type="workspaceEdit" />} />
+          {/*@ts-ignore*/}
+          <Route path="/:vizId" render={() => <BoardPreview type="workspace" hideTitle={true} />} />
           <Route path="*" component={NotFoundPage} />
         </Switch>
         <GlobalStyles />
