@@ -59,7 +59,8 @@ import {
   selectEditBoard,
 } from './selectors';
 import { EditBoardState, HistoryEditBoard } from './types';
-import {ActionCreators} from "redux-undo";
+import { ActionCreators } from "redux-undo";
+import { getMasterConfig } from 'utils/globalState';
 
 /**
  * @param ''
@@ -223,7 +224,7 @@ export const toUpdateDashboard = createAsyncThunk<
           dashboardId: item.dashboardId,
           id: item.id,
           parentId: item.parentId,
-          viewCodes: item.viewIds.length>0 ? [viewMap[item.viewIds[0]].code] : [],
+          viewIds: item.viewIds || [],
           widgetType: "CHART"
         })
       })
@@ -234,7 +235,7 @@ export const toUpdateDashboard = createAsyncThunk<
           config: item.config,
           dashboardId: item.dashboardId,
           widgetKey: item.widgetKey,
-          viewCodes: item.viewIds.length>0 ? [viewMap[item.viewIds[0]].code] : [],
+          viewIds: item.viewIds || [],
           parentId: item.parentId,
           widgetType: "CHART"
         })
@@ -548,7 +549,6 @@ export const syncEditBoardWidgetChartDataAsync = createAsyncThunk<
       .addRuntimeFilters(extraFilters)
       .addDrillOption(drillOption)
       .build();
-    requestParams['datasetCode'] = requestParams['viewCode']
     const { data } = await request2<WidgetData>(
       {
         method: 'POST',
@@ -632,6 +632,7 @@ export const getEditChartWidgetDataAsync = createAsyncThunk<
     const widgetInfo = editBoard?.widgetInfoRecord[widgetId];
     const viewMap = boardState.viewMap;
     const curWidget = widgetMap[widgetId];
+    const { urls } = getMasterConfig();
 
     if (!curWidget) return null;
     const dataChartMap = boardState.dataChartMap;
@@ -654,11 +655,10 @@ export const getEditChartWidgetDataAsync = createAsyncThunk<
       return null;
     }
     let widgetData;
-    requestParams['datasetCode'] = requestParams['viewCode']
     const { data } = await request2<WidgetData>(
       {
         method: 'POST',
-        url: `data-set/data`,
+        url: `${urls.dataUrl}`,
         data: requestParams,
       },
       undefined,
@@ -727,7 +727,7 @@ export const getEditControllerOptions = createAsyncThunk<
     const config = content.config;
     if (!Array.isArray(config.assistViewFields)) return null;
     if (config.assistViewFields.length < 2) return null;
-
+    const { urls } = getMasterConfig();
     const boardState = rootState.board as BoardState;
     const viewMap = boardState.viewMap;
     const [viewId, ...columns] = config.assistViewFields;
@@ -743,10 +743,9 @@ export const getEditControllerOptions = createAsyncThunk<
       return null;
     }
     let widgetData;
-    requestParams['datasetCode'] = requestParams['viewCode']
     const { data } = await request2<WidgetData>({
       method: 'POST',
-      url: `data-set/data`,
+      url: `${urls.dataUrl}`,
       data: requestParams,
     });
     widgetData = data;

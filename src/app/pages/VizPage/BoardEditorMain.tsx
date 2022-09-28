@@ -2,8 +2,9 @@ import React from "react";
 import {useEditBoardSlice} from "../DashBoardPage/pages/BoardEditor/slice";
 import {useBoardSlice} from "../DashBoardPage/pages/Board/slice";
 import BoardEditor from "../DashBoardPage/pages/BoardEditor";
-import {DatartComponentConfig, DatartContext} from "../../contexts/DatartContext";
+import { DatartContext} from "../../contexts/DatartContext";
 import {useParams} from "react-router-dom";
+import { DatartComponentConfig } from 'utils/globalState';
 
 type BoardEditorProps = {
   config: DatartComponentConfig;

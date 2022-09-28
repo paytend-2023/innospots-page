@@ -35,9 +35,10 @@ import qs from 'qs';
 import { request2, requestWithHeader } from 'utils/request';
 import { convertToChartDto } from './ChartDtoHelper';
 import { getAllColumnInMeta } from './chartHelper';
+import { getMasterConfig } from '../../utils/globalState';
 
 export const getDistinctFields = async (
-  viewCode: string,
+  viewId: string,
   columns: string[],
   view: ChartDTO['view'] | undefined,
   executeToken: Record<string, ExecuteToken> | undefined,
@@ -74,7 +75,7 @@ export const getDistinctFields = async (
     },
     orders: [],
     keywords: ['DISTINCT'],
-    viewCode,
+    viewId,
     ...viewConfigs,
   };
   if (executeToken) {
@@ -82,13 +83,12 @@ export const getDistinctFields = async (
       method: 'POST',
       url: `shares/execute`,
       params: {
-        executeToken: executeToken[viewCode].authorizedToken,
+        executeToken: executeToken[viewId].authorizedToken,
       },
       data: requestParams,
     });
     return filterSqlOperatorName(requestParams, data);
   } else {
-    requestParams['datasetCode'] = requestParams['viewCode']
     const response = await request2<ChartDataSetDTO>({
       method: 'POST',
       url: `/data-set/data`,
@@ -317,6 +317,7 @@ export async function fetchChartDataSet(
   requestParams,
   authorizedToken?: ExecuteToken,
 ) {
+  const { urls } = getMasterConfig();
   if (authorizedToken) {
     const { data } = await request2<ChartDataSetDTO>({
       method: 'POST',
@@ -328,10 +329,9 @@ export async function fetchChartDataSet(
     });
     return data;
   }
-  requestParams['datasetCode'] = requestParams['viewCode']
   const { data } = await request2<ChartDataSetDTO>({
     method: 'POST',
-    url: `data-set/data`,
+    url: `${urls.dataUrl}`,
     data: requestParams,
   });
   return data;

@@ -157,7 +157,7 @@ const CategoryConditionEditableTable: FC<
 
     const handleFetchDataFromField = field => async () => {
       if (fetchDataByField) {
-        const dataset = await fetchNewDataset(dataView?.code!, field, dataView);
+        const dataset = await fetchNewDataset(dataView?.id!, field, dataView);
         const newRows = convertToList(dataset?.rows, []);
         setRows(newRows);
         handleFilterConditionChange(newRows);

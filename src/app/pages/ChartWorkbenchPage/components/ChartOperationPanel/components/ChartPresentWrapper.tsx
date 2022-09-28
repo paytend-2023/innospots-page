@@ -59,7 +59,7 @@ const ChartPresentWrapper: FC<{
     onRefreshDataset,
     onCreateDownloadDataTask,
     selectedItems,
-    onChange
+    onChange,
   }) => {
     const { ref: ChartGraphPanelRef } = useResizeObserver<any>({
       refreshMode: 'debounce',
@@ -88,12 +88,12 @@ const ChartPresentWrapper: FC<{
           <StyledChartWrapper>
             <div ref={ChartGraphPanelRef}>
               <StyledDragableFieldWrapper>
-                  <ChartDataConfigPanel
-                    dataConfigs={chartConfig?.datas}
-                    expensiveQuery={expensiveQuery}
-                    onChange={onDataConfigChanged}
-                    type="field"
-                  />
+                <ChartDataConfigPanel
+                  dataConfigs={chartConfig?.datas}
+                  expensiveQuery={expensiveQuery}
+                  onChange={onDataConfigChanged}
+                  type="field"
+                />
               </StyledDragableFieldWrapper>
               {/*<ChartGraphPanel*/}
               {/*  chart={chart}*/}
@@ -165,7 +165,7 @@ const StyledDragableConfigWrapper = styled.div<{ height }>`
   width: 182px;
   height: ${p => p.height}px;
   flex-shrink: 0;
-  background-color: ${(p) => p.theme.componentBackground};
-  border-right: 1px solid ${(p) => p.theme.borderColorEmphasis};
+  background-color: ${p => p.theme.componentBackground};
+  border-right: 1px solid ${p => p.theme.borderColorEmphasis};
   overflow-y: auto;
 `;

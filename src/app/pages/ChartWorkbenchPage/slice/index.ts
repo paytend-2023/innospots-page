@@ -171,11 +171,11 @@ const workbenchSlice = createSlice({
       })
       .addCase(fetchViewDetailAction.fulfilled, (state, { payload }) => {
         const index = state.dataviews?.findIndex(
-          view => view.code === payload.code,
+          view => view.id === payload.id,
         );
         const meta = transformHierarchyMeta(payload.model);
         let computedFields: ChartDataViewMeta[] = [];
-        if (payload.code === state?.backendChart?.view?.code) {
+        if (payload.id === state?.backendChart?.view?.id) {
           computedFields = state?.backendChart?.config?.computedFields || [];
         }
         computedFields = createDateLevelComputedFieldForConfigComputedFields(

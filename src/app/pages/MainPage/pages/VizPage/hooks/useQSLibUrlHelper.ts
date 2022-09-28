@@ -19,8 +19,8 @@
 import qs from 'qs';
 
 const useQSLibUrlHelper = () => {
-  const parse = qs.parse;
-  const stringify = qs.stringify;
+  const parse = JSON.parse;
+  const stringify = JSON.stringify;
 
   return {
     parse,

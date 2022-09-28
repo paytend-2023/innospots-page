@@ -18,7 +18,6 @@
 
 import 'antd/dist/antd.min.css';
 import 'app/assets/fonts/iconfont.css';
-import {DatartContext, ElementType} from 'app/contexts/DatartContext';
 import 'core-js/features/string/replace-all';
 import React, { Fragment } from 'react';
 import 'react-app-polyfill/ie11'; // TODO(Stephen): check if need it
@@ -31,59 +30,14 @@ import { configureAppStore } from 'redux/configureStore';
 import { ThemeProvider } from 'styles/theme/ThemeProvider';
 import { Debugger } from 'utils/debugger';
 import './locales/i18n';
+import { getMasterConfig } from './utils/globalState';
 
 export const generateEntryPoint = (EntryPointComponent, container, cfg) => {
   const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
   const MOUNT_NODE = document.getElementById('root') as HTMLElement;
   const store = configureAppStore();
   Debugger.instance.setEnable(IS_DEVELOPMENT);
-  let config = {
-    code:'workspace',
-    titleElement: [
-      {
-        label: '',
-        name: 'name',
-        desc: '页面名称',
-        placeholder: '请输入页面名称',
-        required: true,
-        type: ElementType.INPUT,
-        gridSize: 5,
-        length: 15
-      },{
-        label: '',
-        name: 'subName',
-        desc: '页面描述',
-        placeholder: '请输入页面描述',
-        required: true,
-        type: ElementType.INPUT,
-        gridSize: 5,
-        length: 30
-      },{
-        label: '',
-        name: 'categoryId',
-        desc: '页面分类',
-        placeholder: '请选择页面分类',
-        required: true,
-        type: ElementType.SELECT,
-        gridSize: 5,
-        defaultValue: parseInt('0'),
-        options: [{name:'未分类',value:0},{name:'测试分类222',value:13}]
-      }
-    ],
-    urls:{
-      viewsUrl: `/data-set/list`,
-      viewDetailUrl: `/data-set/code`,
-      dataUrl: `/data-set/data`,
-      applicationsUrl: `/application/list`,
-      applicationWidgetsUrl: `/application/widgets`,
-      detailUrl: ``,
-      saveBoardsUrl: `/page`,
-      fileUploadUrl: `/dashboard/files/image`,
-      functionSupportUrl: `/widget/data/function/support`,
-      editBoardPageUrl: `/page/161/viz/edit`,
-    },
-    applicationEnable: false
-  };
+  let config = getMasterConfig();
   if(cfg){
     config = cfg;
     console.log("cfg-----",cfg);

@@ -449,9 +449,9 @@ export const initBorderTpl = () => {
         key: 'border',
         value: {
           color: 'transparent', // TODO 根据当前主题色配置
-          width: '0',
+          width: 1,
           style: 'solid',
-          radius: '10',
+          radius: 10,
         },
         comType: 'widgetBorder',
       },

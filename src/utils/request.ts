@@ -31,8 +31,15 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use(config => {
-  const sessionData = Cookie.get('SESSION_DATA');
-  const token = JSON.parse(sessionData || '{}')?.rawToken;
+  let ls = {};
+  if (window.localStorage) {
+    try {
+      ls = JSON.parse(<string>window.localStorage.getItem('INNOSPOT_DATA')) || {};
+    } catch (e) {
+    }
+  }
+  const sessionData = ls['SESSION_DATA'];
+  const token = sessionData.rawToken;
   if (token) {
     config.headers.Authorization = ['Bearer', token].join(' ');
   }

@@ -48,7 +48,7 @@ import { request2 } from 'utils/request';
 import { ControllerConfig } from '../../../types';
 import { AssistViewFields } from './AssistViewFields';
 import { CustomOptions } from './CustomOptions';
-import {DatartContext} from "../../../../../../../../../contexts/DatartContext";
+import { getMasterConfig } from 'utils/globalState';
 
 export interface optionProps {
   label: string;
@@ -62,7 +62,7 @@ const ValuesOptionsSetter: FC<{
 }> = memo(({ form, viewMap, controllerType }) => {
   const tc = useI18NPrefix(`viz.control`);
   const { orgId } = useContext(BoardContext);
-  const { urls } = useContext(DatartContext)
+  const { urls } = getMasterConfig();
   const [optionValues, setOptionValues] = useState<RelationFilterValue[]>([]);
   const [targetKeys, setTargetKeys] = useState<string[]>([]);
   const [labelOptions, setLabelOptions] = useState<
@@ -75,7 +75,7 @@ const ValuesOptionsSetter: FC<{
     const { data } = await request2<ViewSimple[]>( urls.viewsUrl);
     const views = data.map(item => {
       return {
-        value: item.code ||'',
+        value: item.id,
         label: item.name,
       };
     });
@@ -102,9 +102,10 @@ const ValuesOptionsSetter: FC<{
     });
   }, []);
 
-  const getViewOption = useCallback(async (viewCode: string) => {
-    if (!viewCode) return { option: [], dataView: undefined };
-    let { data } = await request2<View>(urls.viewDetailUrl+"?code="+ viewCode);
+  const getViewOption = useCallback(async (viewId: string) => {
+    if (!viewId) return { option: [], dataView: undefined };
+    const viewDetailUrl = urls.viewDetailUrl.replace(":id", viewId);
+    let { data } = await request2<View>(viewDetailUrl);
     if (!data) {
       return { option: [], data: undefined };
     }
@@ -151,9 +152,9 @@ const ValuesOptionsSetter: FC<{
   );
 
   const fetchNewDataset = useCallback(
-    async (viewCode: string, columns: string[], dataView?: ChartDataView) => {
+    async (viewId: string, columns: string[], dataView?: ChartDataView) => {
       const fieldDataset = await getDistinctFields(
-        viewCode,
+        viewId,
         columns,
         dataView,
         undefined,
@@ -191,8 +192,8 @@ const ValuesOptionsSetter: FC<{
       setLabelOptions(options);
 
       if (type !== 'view') {
-        const [viewCode, ...columns] = value;
-        const dataset = await fetchNewDataset(viewCode, columns, dataView);
+        const [viewId, ...columns] = value;
+        const dataset = await fetchNewDataset(viewId, columns, dataView);
         setOptionValues(convertToList(dataset?.rows));
       }
     },
@@ -202,11 +203,11 @@ const ValuesOptionsSetter: FC<{
   const onLabelChange = useCallback(
     (labelKey: string | undefined) => {
       const controllerConfig = getControllerConfig();
-      const [viewCode, valueId] = controllerConfig.assistViewFields || [];
+      const [viewId, valueId] = controllerConfig.assistViewFields || [];
       setLabelKey(labelKey);
       const nextAssistViewFields = labelKey
-        ? [viewCode, valueId, labelKey]
-        : [viewCode, valueId];
+        ? [viewId, valueId, labelKey]
+        : [viewId, valueId];
       const nextControllerOpt: ControllerConfig = {
         ...controllerConfig,
         assistViewFields: nextAssistViewFields,
@@ -221,9 +222,9 @@ const ValuesOptionsSetter: FC<{
 
   const onInitOptions = useCallback(
     async (value: string[]) => {
-      const [viewCode, ...columns] = value;
-      const { option: options, dataView } = await getViewOption(viewCode);
-      const dataset = await fetchNewDataset(viewCode, columns, dataView);
+      const [viewId, ...columns] = value;
+      const { option: options, dataView } = await getViewOption(viewId);
+      const dataset = await fetchNewDataset(viewId, columns, dataView);
       const config: ControllerConfig = getControllerConfig();
 
       setOptionValues(convertToList(dataset?.rows));

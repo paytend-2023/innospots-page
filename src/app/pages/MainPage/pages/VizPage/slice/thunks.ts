@@ -50,6 +50,7 @@ import {
   UnarchiveVizParams,
   VizState,
 } from './types';
+import { getMasterConfig } from '../../../../../../utils/globalState';
 
 export const getFolders = createAsyncThunk<Folder[], string>(
   'viz/getFolders',
@@ -298,6 +299,7 @@ export const fetchDataSetByPreviewChartAction = createAsyncThunk(
     },
     thunkAPI,
   ) => {
+    const { urls } = getMasterConfig();
     const vizState = (thunkAPI.getState() as RootState)?.viz as VizState;
     const currentChartPreview = vizState?.chartPreviews?.find(
       c => c.backendChartId === arg.backendChartId,
@@ -329,10 +331,9 @@ export const fetchDataSetByPreviewChartAction = createAsyncThunk(
       .addDrillOption(arg?.drillOption)
       .addVariableParams(arg?.jumpVariableParams)
       .build();
-    data['datasetCode'] = data['viewCode']
     const response = await request2({
       method: 'POST',
-      url: `data-set/data`,
+      url: `${urls.dataUrl}`,
       data,
     });
     return {

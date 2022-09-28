@@ -206,7 +206,7 @@ export const getControlOptionQueryParams = (obj: {
     },
     orders: [],
     keywords: ['DISTINCT'],
-    viewCode: obj.view.code||'',
+    viewId: obj.view.id,
   };
   if (variableParams) {
     requestParams.params = variableParams;

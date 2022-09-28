@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "target": "es5",
+    "noImplicitAny": false,
+    "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
@@ -19,5 +19,8 @@
     "baseUrl": "./src",
     "downlevelIteration": true,
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "node_modules/webpack/module.d.ts"
+  ]
 }

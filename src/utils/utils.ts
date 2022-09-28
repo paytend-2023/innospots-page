@@ -14,8 +14,11 @@ import { APIResponse } from 'types';
 import { SaveFormModel } from '../app/pages/MainPage/pages/VizPage/SaveFormContext';
 import { removeToken } from './auth';
 
-export function uuidv4 (options, buf, offset) {
+export function uuidv4Create (options, buf, offset) {
   return v4(options, buf, offset);
+}
+export function uuidv4 () {
+  return v4();
 }
 
 export function errorHandle(error) {
@@ -117,9 +120,9 @@ export function listToTree<
     if (o.parentId === parentId || (o.parentId == null && parentId == null)) {
       treeNodes.push({
         ...o,
-        key: o.code,
+        key: o.id,
         title: o.name,
-        value: o.code,
+        value: o.id,
         path,
         ...(options?.getIcon && { icon: options.getIcon(o) }),
         ...(options?.getDisabled && { disabled: options.getDisabled(o, path) }),

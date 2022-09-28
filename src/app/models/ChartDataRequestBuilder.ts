@@ -610,7 +610,7 @@ export class ChartDataRequestBuilder {
     const validFilters = this.removeInvalidFilter(this.buildFilters());
     return {
       ...this.buildViewConfigs(),
-      viewCode: this.dataView?.code,
+      viewId: this.dataView?.id,
       aggregators: this.buildAggregators(),
       groups: this.buildGroups(),
       filters: validFilters,
@@ -629,7 +629,7 @@ export class ChartDataRequestBuilder {
     );
     return {
       ...this.buildViewConfigs(),
-      viewCode: this.dataView?.code,
+      viewId: this.dataView?.id,
       aggregators: [],
       groups: [],
       filters: validFilters,

@@ -1,15 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 
-const prettierOptions = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'),
-);
+// const prettierOptions = JSON.parse(
+//   fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'),
+// );
 
 module.exports = {
-  extends: ['react-app', 'prettier'],
-  plugins: ['prettier', 'jsdoc'],
+  extends: ['react-app'],
+  plugins: ['jsdoc'],
   rules: {
-    'prettier/prettier': ['error', prettierOptions],
+    // 'prettier/prettier': ['error', prettierOptions],
     'no-restricted-imports': [
       'error',
       {
@@ -34,7 +34,7 @@ module.exports = {
   overrides: [
     {
       files: ['**/*.ts?(x)'],
-      rules: { 'prettier/prettier': ['warn', prettierOptions] },
+      // rules: { 'prettier/prettier': ['warn', prettierOptions] },
     },
   ],
 };

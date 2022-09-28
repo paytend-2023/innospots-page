@@ -117,7 +117,7 @@ const ChartDataViewPanel: FC<{
 
   const handleDataViewChange = useCallback(
     value => {
-      if (dataView?.code === value) {
+      if (dataView?.id === value) {
         return false;
       }
       let Data = chartConfig?.datas?.filter(v => v.rows && v.rows.length);
@@ -136,10 +136,7 @@ const ChartDataViewPanel: FC<{
                 onClick={() => {
                   onDataViewChange?.(true);
                   setConfirmProps({ visible: false });
-                  dispatch(fetchViewDetailAction({
-                    arg: { viewCode: value },
-                    url: urls.viewDetailUrl
-                  }));
+                  dispatch(fetchViewDetailAction(value));
                 }}
               >
                 {t('empty')}
@@ -148,10 +145,7 @@ const ChartDataViewPanel: FC<{
                 onClick={() => {
                   onDataViewChange?.();
                   setConfirmProps({ visible: false });
-                  dispatch(fetchViewDetailAction({
-                    arg: { viewCode: value },
-                    url: urls.viewDetailUrl
-                  }));
+                  dispatch(fetchViewDetailAction(value));
                 }}
                 type="primary"
               >
@@ -162,13 +156,10 @@ const ChartDataViewPanel: FC<{
         });
       } else {
         onDataViewChange?.();
-        dispatch(fetchViewDetailAction({
-          arg: { viewCode: value },
-          url: urls.viewDetailUrl
-        }));
+        dispatch(fetchViewDetailAction(value));
       }
     },
-    [chartConfig?.datas, dataView?.code, dispatch, onDataViewChange, t],
+    [chartConfig?.datas, dataView?.id, dispatch, onDataViewChange, t],
   );
 
   const filterDateViewTreeNode = useCallback(
@@ -485,7 +476,7 @@ const ChartDataViewPanel: FC<{
           placeholder={t('plsSelectDataView')}
           className="view-selector"
           treeData={dataviewTreeData}
-          value={dataView?.code}
+          value={dataView?.id}
           onChange={handleDataViewChange}
           filterTreeNode={filterDateViewTreeNode}
           bordered={false}

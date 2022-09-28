@@ -170,7 +170,7 @@ export const fetchShareDataSetByPreviewChartAction = createAsyncThunk(
       url: `shares/execute`,
       params: {
         executeToken:
-          shareState?.shareToken[executeParam.viewCode]['authorizedToken'],
+          shareState?.shareToken[executeParam.viewId]['authorizedToken'],
       },
       data: executeParam,
     });

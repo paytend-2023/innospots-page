@@ -29,7 +29,7 @@ function render(props) {
   // } = useRouteMatch<{ vizId: string }>();
   // console.log("vizId------",vizId)
 
-  generateEntryPoint(AppRouter, props.container,props.config);
+  generateEntryPoint(AppRouter, props.container, props.config);
 }
 
 function storeTest(props) {
@@ -69,7 +69,7 @@ export async function mount(props) {
 export async function unmount(props) {
    const { container } = props;
   console.log('unmount props', container);
-  // ReactDOM.unmountComponentAtNode(container ? container.querySelector('#root') : document.querySelector('#root'));
+   ReactDOM.unmountComponentAtNode(container ? container.querySelector('#root') : document.querySelector('#root'));
 }
 /**
  * 可选生命周期钩子，仅使用 loadMicroApp 方式加载微应用时生效

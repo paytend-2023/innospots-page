@@ -27,7 +27,7 @@ import indexOf from 'lodash/indexOf';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
 import each from 'lodash/each';
-import {getComponentByName} from 'app/components/applicationWidgets';
+import {getComponentByName} from 'utils/sharedComponents';
 import GridLayout, {Layout} from 'react-grid-layout';
 import {BoardToolBarContext} from "app/pages/DashBoardPage/pages/BoardEditor/components/BoardToolBar/context/BoardToolBarContext";
 import {
@@ -41,7 +41,7 @@ import {
 import { DatartContext } from 'app/contexts/DatartContext';
 import widgetManagerInstance from '../../../../components/WidgetManager';
 import { ORIGINAL_TYPE_MAP } from '../../../../constants';
-import { getMasterState, POWERED_BY_QIANKUN } from '../../../../../../../utils/globalState';
+import { getMasterState, POWERED_BY_QIANKUN } from 'utils/globalState';
 
 export interface ApplicationEditorProps {
   onSaveInApplication?: (widgetId: string) => void;
@@ -64,6 +64,10 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo((
   const [formError, setFormError] = useState({});
   let  setMicroAppGlobalState = (state)=>{}
   let  offMicroAppGlobalStateChange = ()=>{}
+  // import("app111/SystemInfo").then( res =>{
+  //   var aaa  = res.default;
+  //   console.log("app111/SystemInfo-------",aaa);
+  // })
 
   useEffect(() => {
     const hide = !type || type === 'hide';
@@ -249,17 +253,17 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo((
   const renderAppsList = () => {
     let layout = [] as Layout[];
     const applicationWidgets = [
-      // {"name":"工作台详情","code":"WorkspaceInfo","icon":"","description":"工作台的基本信息卡片","order":6,"enabled":true,"width":12,"height":3,"entry":"WorkspaceInfo","scope":["workspace"],"configItem":[]},
-      // {"name":"最新活动","code":"newActivity","icon":"","description":"工作台的最新活动卡片","order":7,"enabled":true,"width":6,"height":3,"entry":"newActivity","scope":["workspace"],"configItem":[]},
-      {"name":"系统更新","code":"systemInfo","icon":"","description":"工作台的系统更新卡片","order":8,"enabled":true,"width":6,"height":4,"entry":"systemInfo","scope":["workspace"],"configItem":[]},
+      {"name":"工作台详情","code":"workspaceInfo","icon":"","description":"工作台的基本信息卡片","order":6,"enabled":true,"width":12,"height":4,"entry":"workspaceInfo","scope":["workspace"],"configItem":[]},
+      {"name":"最新活动","code":"newActivity","icon":"","description":"工作台的最新活动卡片","order":7,"enabled":true,"width":6,"height":4,"entry":"newActivity","scope":["workspace"],"configItem":[]},
+      {"name":"系统更新","code":"systemInfo","icon":"","description":"工作台的系统更新卡片","order":8,"enabled":true,"width":6,"height":7,"entry":"systemInfo","scope":["workspace"],"configItem":[]},
       // {"name":"应用更新","code":"applicationInfo","icon":"","description":"工作台的应用更新卡片","order":9,"enabled":true,"width":6,"height":7,"entry":"applicationInfo","scope":["workspace"],"configItem":[]},
       // {"name":"最新信息","code":"newMessage","icon":"","description":"工作台的最新信息卡片","order":10,"enabled":true,"width":6,"height":9,"entry":"newMessage","scope":["workspace"],
       //   "configItem":[{"label":"展示消息数:","name":"msgNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":3 }]
       //  },
-      // {"name":"最新动态","code":"newDynamic","icon":"","description":"工作台的最新动态卡片","order":11,"enabled":true,"width":6,"height":7,"entry":"newDynamic","scope":["workspace"],"configItem":[{"label":"展示消息数","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":3}]},
-      // {"name":"登录用户","code":"userTrace","icon":"","description":"工作台的登录用户卡片","order":12,"enabled":true,"width":6,"height":11,"entry":"userTrace","scope":["workspace"],"configItem":[{"label":"展示消息数","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":3}]},
-      // {"name":"机器信息","code":"machineInfo","icon":"","description":"工作台的机器信息卡片","order":13,"enabled":true,"width":6,"height":6,"entry":"machineInfo","scope":["workspace"],"configItem":[]},
-      // // {"name":"策略详情","code":"strategyDetail","icon":"","description":"策略详情的基本信息卡片","order":1,"enabled":true,"width":12,"height":4,"entry":"strategyDetail","scope":["strategy"],"configItem":[]},
+       {"name":"最新动态","code":"newDynamic","icon":"","description":"工作台的最新动态卡片","order":13,"enabled":true,"width":6,"height":10,"entry":"newDynamic","scope":["workspace"],"configItem":[{"label":"展示消息数","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":3}]},
+       {"name":"登录用户","code":"userLoginLog","icon":"","description":"工作台的登录用户卡片","order":12,"enabled":true,"width":6,"height":11,"entry":"userLoginLog","scope":["workspace"],"configItem":[{"label":"展示消息数","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":3}]},
+       {"name":"机器信息","code":"machineInfo","icon":"","description":"工作台的机器信息卡片","order":13,"enabled":true,"width":6,"height":6,"entry":"machineInfo","scope":["workspace"],"configItem":[]},
+      // {"name":"策略详情","code":"strategyDetail","icon":"","description":"策略详情的基本信息卡片","order":1,"enabled":true,"width":12,"height":4,"entry":"strategyDetail","scope":["strategy"],"configItem":[]},
       // {"name":"Webhook触发概览","code":"webhookPreview","icon":"","description":"策略详情的Webhook触发概览卡片","order":2,"enabled":true,"width":12,"height":8,"entry":"webhookPreview","scope":["strategy"],"configItem":[]},
       // {"name":"Kafka消息处理概览","code":"kafakaPreview","icon":"","description":"策略详情的Kafka消息处理概览卡片","order":3,"enabled":true,"width":12,"height":8,"entry":"kafakaPreview","scope":["strategy"],"configItem":[]},
       // {"name":"计划任务执行概览","code":"planPreview","icon":"","description":"策略详情的计划任务执行概览卡片","order":4,"enabled":true,"width":12,"height":8,"entry":"planPreview","scope":["strategy"],"configItem":[]},
@@ -276,7 +280,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo((
     const appsComps = map(applicationWidgetsSortByOrder, function(item,index){
       let AppComponent = getComponentByName("systemInfo");
       if(POWERED_BY_QIANKUN){
-        AppComponent =  getMasterState().getComponentByNameFun(item['code'])
+        AppComponent =  getComponentByName(item['code'])
       }
       if(!AppComponent || !item['enabled'] || indexOf(item.scope,datartCode)==-1){
         return '';
@@ -305,7 +309,9 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo((
           <div key={item.code} >
             <div  className="appItem" onClick={()=>{selectAppWidget(item);}} >
               <div className="appSelected" hidden={item.code!=selectedAppWidget.code} ><CheckCircleOutlined className="appSelectedIcon"/></div>
-              <AppComponent  commonParams = {commonParams} />
+                <React.Suspense fallback="Loading Component">
+                  <AppComponent  />
+                </React.Suspense>
             </div>
           </div>
         )
@@ -330,7 +336,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo((
         <div className="appContainer" hidden={selectedAppKey != "innospot-libra-app-kernel"}>
           <GridLayout className="layout"
                       cols={12}
-                      rowHeight={38}
+                      rowHeight={32}
                       width={690}
                       layout={layout}
                       verticalCompact={true}
@@ -524,6 +530,7 @@ const Container = styled.div`
         margin-left: 24px;
         margin-top: 12px;
         position: relative;
+        box-shadow: 0px 4px 10px rgb(0 0 0 / 10%);
 
         .appSelected{
           position: absolute;

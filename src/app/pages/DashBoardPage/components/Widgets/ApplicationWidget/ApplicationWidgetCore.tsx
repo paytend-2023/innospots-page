@@ -20,16 +20,15 @@ import { ApplicationWidgetContent } from '../../../pages/Board/slice/types';
 import { getComponentByName } from '../../../../../components/applicationWidgets';
 import { DatartContext } from '../../../../../contexts/DatartContext';
 import { useContext } from 'react';
-import { getMasterState, POWERED_BY_QIANKUN } from '../../../../../../utils/globalState';
+import { getMasterState, POWERED_BY_QIANKUN } from 'utils/globalState';
 
 type ApplicationWidgetProps = {
   applicationWidgetContent: ApplicationWidgetContent
 };
 export const ApplicationWidgetCore: React.FC<ApplicationWidgetProps> = ({applicationWidgetContent}) => {
-  console.log("applicationWidgetContent---",applicationWidgetContent)
   let AppComponent = getComponentByName("systemInfo");
   if(POWERED_BY_QIANKUN){
-    AppComponent =  getMasterState().getComponentByNameFun(applicationWidgetContent.appWidgetInfo.entry)
+     AppComponent =  getMasterState().getComponentByNameFun(applicationWidgetContent.appWidgetInfo.entry)
   }
   const { commonParams } = useContext(DatartContext);
   return <Wrapper>

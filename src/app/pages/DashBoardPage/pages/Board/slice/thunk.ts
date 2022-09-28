@@ -48,6 +48,7 @@ import {
   VizRenderMode,
   WidgetData,
 } from './types';
+import { getMasterConfig } from 'utils/globalState';
 
 /**
  * @param ''
@@ -353,7 +354,7 @@ export const getChartWidgetDataAsync = createAsyncThunk<
   async ({ boardId, widgetId, renderMode, option }, { getState, dispatch }) => {
     dispatch(boardActions.renderedWidgets({ boardId, widgetIds: [widgetId] }));
     const boardState = getState() as { board: BoardState };
-
+    const { urls } = getMasterConfig();
     const widgetMapMap = boardState.board.widgetRecord;
     const widgetInfo =
       boardState.board?.widgetInfoRecord?.[boardId]?.[widgetId];
@@ -386,10 +387,9 @@ export const getChartWidgetDataAsync = createAsyncThunk<
     let widgetData;
     try {
       if (renderMode === 'read') {
-        requestParams['datasetCode'] = requestParams['viewCode']
         const { data } = await request2<WidgetData>({
           method: 'POST',
-          url: `data-set/data`,
+          url: `${urls.dataUrl}`,
           data: requestParams,
         });
         widgetData = data;
@@ -478,6 +478,7 @@ export const getControllerOptions = createAsyncThunk<
         widgetIds: [widgetId],
       }),
     );
+    const { urls } = getMasterConfig();
     const boardState = getState() as { board: BoardState };
     const viewMap = boardState.board.viewMap;
     const widgetMapMap = boardState.board.widgetRecord;
@@ -520,7 +521,6 @@ export const getControllerOptions = createAsyncThunk<
         });
         widgetData = data;
       } else {
-        requestParams['datasetCode'] = requestParams['viewCode']
         const { data } = await request2<WidgetData>({
           method: 'POST',
           url: `data-set/data`,

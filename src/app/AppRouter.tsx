@@ -26,7 +26,6 @@ import { GlobalStyles } from 'styles/globalStyles';
 import {NotFoundPage} from "./pages/NotFoundPage";
 import BoardPreview from "./pages/VizPage/BoardPreview";
 import BoardEditorMain from "./pages/VizPage/BoardEditorMain";
-import {DatartComponentConfig} from "./contexts/DatartContext";
 
 registerTheme('default', echartsDefaultTheme);
 

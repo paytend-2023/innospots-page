@@ -36,6 +36,7 @@ import { request2 } from 'utils/request';
 import { rejectHandle } from 'utils/utils';
 import workbenchSlice, { initState } from '.';
 import { ChartConfigPayloadType } from './types';
+import { getMasterConfig } from '../../../../utils/globalState';
 
 export const initWorkbenchAction = createAsyncThunk(
   'workbench/initWorkbenchAction',
@@ -77,11 +78,11 @@ export const fetchDataSetAction = createAsyncThunk(
   'workbench/fetchDataSetAction',
   async (arg: ChartDataRequest, thunkAPI) => {
     let errorData: any = null;
-    arg['datasetCode'] = arg['viewCode']
+    const { urls } = getMasterConfig();
     const response = await request2(
       {
         method: 'POST',
-        url: `/data-set/data`,
+        url: `${urls.dataUrl}`,
         data: arg,
       },
       {},
@@ -119,14 +120,12 @@ export const fetchDataViewsAction = createAsyncThunk(
 
 export const fetchViewDetailAction = createAsyncThunk(
   'workbench/fetchViewDetailAction',
-  async (reqInfo:{
-    arg: { viewCode: string; },
-    url: string;
-  }) => {
+  async (arg: { viewId }) => {
+    const { urls } = getMasterConfig();
+    const viewDetailUrl = urls.viewDetailUrl.replace(":id", `${arg}`);
     const response = await request2<View>({
       method: 'GET',
-      url: reqInfo.url,
-      params:{ code: reqInfo.arg.viewCode }
+      url: viewDetailUrl,
     });
     if (response?.data) {
       response.data = migrationViewConfig(response.data);
@@ -186,7 +185,7 @@ export const refreshDatasetAction = createAsyncThunk(
     const state = thunkAPI.getState() as any;
     const workbenchState = state.workbench as typeof initState;
 
-    if (!workbenchState.currentDataView?.code) {
+    if (!workbenchState.currentDataView?.id) {
       return;
     }
     const datas = arg?.dataOption || workbenchState.chartConfig?.datas;

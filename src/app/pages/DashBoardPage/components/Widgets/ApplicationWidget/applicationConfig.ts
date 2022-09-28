@@ -89,11 +89,40 @@ export const widgetToolkit: ApplicationToolkit = {
     widget.config.originalType = widgetMeta.originalType;
     widget.config.type = 'application';
     widget.config.name = opt.name || '';
-
     widget.config.customConfig.props = [
-      { ...initBackgroundTpl() },
+      { ...initBackgroundTpl("#fff") },
       { ...initTitleTpl() },
-      { ...initPaddingTpl() },
+      {
+        label: 'padding.paddingGroup',
+        key: 'paddingGroup',
+        comType: 'group',
+        rows: [
+          {
+            label: 'padding.top',
+            key: 'top',
+            value: 0,
+            comType: 'inputNumber',
+          },
+          {
+            label: 'padding.bottom',
+            key: 'bottom',
+            value: 0,
+            comType: 'inputNumber',
+          },
+          {
+            label: 'padding.left',
+            key: 'left',
+            value: 0,
+            comType: 'inputNumber',
+          },
+          {
+            label: 'padding.right',
+            key: 'right',
+            value: 0,
+            comType: 'inputNumber',
+          },
+        ],
+       },
       { ...initBorderTpl() },
     ];
     widget.config.content = opt.content;

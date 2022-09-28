@@ -55,12 +55,16 @@ module.exports = {
         // 导入模块
         remotes: {
           // 导入后给模块起个别名：“微应用名称@地址/导出的文件名”
-          appone: 'app111@http://localhost:8000/app111.js'
+          coreModule: IS_DEV ? 'coreModule@http://localhost:8000/coreModule.js' : 'coreModule@http://1.15.20.45:9800/coreModule.js'
         },
         // 应用 B 也可以对外提供模块，因此，也可以配置 filename 和 name
-        filename: 'app222.js',
+        filename: 'visualization.js',
         // 应用名称，当前模块自己的名字
-        name: 'app222',
+        name: 'http://localhost:8000',
+        shared: {
+          "react": {singleton: true},
+          "react-dom": {singleton: true},
+        }
       }),
       // new BundleAnalyzerPlugin(),
     ],
@@ -84,12 +88,12 @@ module.exports = {
         globalObject: 'window'
       };
 
-      if (!IS_DEV) {
+      // if (!IS_DEV) {
         webpackConfig.externals = {
           'react': 'React',
           'react-dom': 'ReactDOM',
         };
-      }
+      // }
 
       /**
        * webpack split chunks

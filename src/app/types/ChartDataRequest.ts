@@ -41,7 +41,7 @@ export type PendingChartDataRequestFilter = {
 };
 
 export type ChartDataRequest = {
-  viewCode: string;
+  viewId: string;
   aggregators: Array<{ column: string[]; sqlOperator: string }>;
   expired?: number;
   filters: ChartDataRequestFilter[];

@@ -155,12 +155,12 @@ const ChartPreviewBoard: FC<{
 
     useEffect(() => {
       const jumpFilterParams: ChartDataRequestFilter[] = parse(
-        filterSearchUrl,
-        { ignoreQueryPrefix: true },
-      )?.filters;
-      const jumpVariableParams: Record<string, any[]> = parse(filterSearchUrl, {
-        ignoreQueryPrefix: true,
-      })?.variables;
+        filterSearchUrl || '',
+        // { ignoreQueryPrefix: true },
+      )?.filters || ([] as ChartDataRequestFilter[]);
+      const jumpVariableParams: Record<string, any[]> = parse(filterSearchUrl || '',
+        // { ignoreQueryPrefix: true, }
+      )?.variables || ({} as Record<string, any[]>);
       const filterSearchParams = filterSearchUrl
         ? urlSearchTransfer.toParams(filterSearchUrl)
         : undefined;

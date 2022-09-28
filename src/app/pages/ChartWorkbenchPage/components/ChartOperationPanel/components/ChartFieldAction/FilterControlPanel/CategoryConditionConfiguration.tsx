@@ -224,7 +224,7 @@ const CategoryConditionConfiguration: ForwardRefRenderFunction<
   };
 
   const handleFetchData = () => {
-    fetchNewDataset?.(dataView?.code, colName, dataView).then(dataset => {
+    fetchNewDataset?.(dataView?.id, colName, dataView).then(dataset => {
       if (isTree) {
         // setTreeDatas(convertToTree(dataset?.columns, selectedKeys));
         // setListDatas(convertToList(dataset?.columns, selectedKeys));
