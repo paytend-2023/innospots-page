@@ -49,7 +49,7 @@ export async function bootstrap(props) {
 
   try {
     //@ts-ignore
-    __webpack_require__.S["default"] = null;
+    __webpack_require__.S["default"] = undefined;
   } catch (e) {}
 
   await importCoreWidgets();
