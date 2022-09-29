@@ -36,7 +36,7 @@ import { request2 } from 'utils/request';
 import { rejectHandle } from 'utils/utils';
 import workbenchSlice, { initState } from '.';
 import { ChartConfigPayloadType } from './types';
-import { getMasterConfig } from '../../../../utils/globalState';
+import { getGlobalConfigState } from 'utils/globalState';
 
 export const initWorkbenchAction = createAsyncThunk(
   'workbench/initWorkbenchAction',
@@ -47,8 +47,6 @@ export const initWorkbenchAction = createAsyncThunk(
         backendChart? : ChartDTO;
         orgId ? : string;
       },
-      viewsUrl?: string;
-      dataUrl?: string;
     },
     thunkAPI,
   ) => {
@@ -78,7 +76,7 @@ export const fetchDataSetAction = createAsyncThunk(
   'workbench/fetchDataSetAction',
   async (arg: ChartDataRequest, thunkAPI) => {
     let errorData: any = null;
-    const { urls } = getMasterConfig();
+    const { urls } = getGlobalConfigState();
     const response = await request2(
       {
         method: 'POST',
@@ -121,7 +119,7 @@ export const fetchDataViewsAction = createAsyncThunk(
 export const fetchViewDetailAction = createAsyncThunk(
   'workbench/fetchViewDetailAction',
   async (arg: { viewId }) => {
-    const { urls } = getMasterConfig();
+    const { urls } = getGlobalConfigState();
     const viewDetailUrl = urls.viewDetailUrl.replace(":id", `${arg}`);
     const response = await request2<View>({
       method: 'GET',

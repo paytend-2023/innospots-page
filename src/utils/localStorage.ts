@@ -5,7 +5,7 @@ const get = (key?: string): any => {
 
     if (window.localStorage) {
         try {
-            ls = JSON.parse(<string>window.localStorage.getItem(LOCAL_DATA_KEY)) || {};
+            ls = JSON.parse(window.localStorage.getItem(LOCAL_DATA_KEY) as string) || {};
         } catch (e) {
         }
     }

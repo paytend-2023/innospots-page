@@ -75,17 +75,29 @@ export const getSessionData = (): any => {
     }
   }
 }
-
-export const getMasterConfig =  (): DatartComponentConfig => {
+let globalConfigState:DatartComponentConfig;
+export const getGlobalConfigState = () => globalConfigState;
+export const setGlobalConfigState = (): DatartComponentConfig => {
   let config = entryParameters.page;
   if (POWERED_BY_QIANKUN && getMasterState()) {
-    if(getMasterState().config){
-      config = getMasterState().config;
-    }else if(getMasterState().pageType){
+   if(getMasterState().pageType){
       console.log("getMasterState().pageType-----",getMasterState().pageType)
       config = entryParameters[getMasterState().pageType];
     }
+   if(getMasterState().config){
+     config = {
+       ...config,
+       ...getMasterState().config
+     };
+   }
+    if(getMasterState().id){
+      config.urls.detailUrl= config.urls.detailUrl.replace(":id", getMasterState().id);
+    }
+    if(getMasterState().editType && getMasterState().editType=='CREATE'){
+      config.urls.detailUrl= '';
+    }
   }
-  console.log("config----",config)
+  globalConfigState = config;
+  console.log("config----",config,globalConfigState)
   return config;
 }

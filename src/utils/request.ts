@@ -20,7 +20,6 @@ import { message } from 'antd';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { BASE_API_URL } from 'globalConstants';
 import i18next from 'i18next';
-import Cookie from 'js-cookie';
 import { APIResponse } from 'types';
 
 export const instance = axios.create({
@@ -34,7 +33,7 @@ instance.interceptors.request.use(config => {
   let ls = {};
   if (window.localStorage) {
     try {
-      ls = JSON.parse(<string>window.localStorage.getItem('INNOSPOT_DATA')) || {};
+      ls = JSON.parse(window.localStorage.getItem('INNOSPOT_DATA') as string) || {};
     } catch (e) {
     }
   }

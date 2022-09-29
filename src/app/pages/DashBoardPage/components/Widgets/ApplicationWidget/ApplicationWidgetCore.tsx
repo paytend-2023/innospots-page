@@ -18,9 +18,9 @@
 import styled from 'styled-components/macro';
 import { ApplicationWidgetContent } from '../../../pages/Board/slice/types';
 import { getComponentByName } from '../../../../../components/applicationWidgets';
-import { DatartContext } from '../../../../../contexts/DatartContext';
-import { useContext } from 'react';
-import { getMasterState, POWERED_BY_QIANKUN } from 'utils/globalState';
+import React, { useContext } from 'react';
+import { getGlobalConfigState, POWERED_BY_QIANKUN } from 'utils/globalState';
+import { SharedComponent } from 'utils/sharedComponents';
 
 type ApplicationWidgetProps = {
   applicationWidgetContent: ApplicationWidgetContent
@@ -28,12 +28,15 @@ type ApplicationWidgetProps = {
 export const ApplicationWidgetCore: React.FC<ApplicationWidgetProps> = ({applicationWidgetContent}) => {
   let AppComponent = getComponentByName("systemInfo");
   if(POWERED_BY_QIANKUN){
+    console.log("applicationWidgetContent.appWidgetInfo.code====",applicationWidgetContent.appWidgetInfo.code)
+    // AppComponent = <SharedComponent name={applicationWidgetContent.appWidgetInfo.code} />;
      // AppComponent =  getMasterState().getComponentByNameFun(applicationWidgetContent.appWidgetInfo.entry)
   }
-  const { commonParams } = useContext(DatartContext);
+  const { commonParams } = getGlobalConfigState();
   return <Wrapper>
           <div className="appItemContent" style={{width: '100%', height: '100%'}}>
-            <AppComponent appWidgetConfig = {applicationWidgetContent.appWidgetConfig} commonParams = {commonParams}/>
+            <SharedComponent name={applicationWidgetContent.appWidgetInfo.code} />
+            {/*<AppComponent appWidgetConfig = {applicationWidgetContent.appWidgetConfig} commonParams = {commonParams}/>*/}
           </div>
         </Wrapper>;
 };

@@ -60,7 +60,7 @@ import {
 } from './selectors';
 import { EditBoardState, HistoryEditBoard } from './types';
 import { ActionCreators } from "redux-undo";
-import { getMasterConfig } from 'utils/globalState';
+import { getGlobalConfigState } from 'utils/globalState';
 
 /**
  * @param ''
@@ -68,11 +68,11 @@ import { getMasterConfig } from 'utils/globalState';
  */
 export const getEditBoardDetail = createAsyncThunk<
   null,
-  { dashboardId: string; boardDetailUrl: string},
+  { dashboardId: string},
   { state: RootState }
 >(
   'editBoard/getEditBoardDetail',
-  async ({dashboardId,boardDetailUrl}, { getState, dispatch }) => {
+  async ({dashboardId}, { getState, dispatch }) => {
     if (!dashboardId) {
       return null;
     }
@@ -86,30 +86,32 @@ export const getEditBoardDetail = createAsyncThunk<
     if (editDashboard?.id === dashboardId) {
       return null;
     }
-    dispatch(fetchEditBoardDetail({boardDetailUrl}));
+    dispatch(fetchEditBoardDetail(dashboardId));
     return null;
   },
 );
 
 export const fetchEditBoardDetail = createAsyncThunk<
   null,
-  {  boardDetailUrl: string},
+  string,
   { state: RootState }
 >(
   'editBoard/fetchEditBoardDetail',
-  async ({boardDetailUrl}, { getState, dispatch }) => {
+  async ( dashboardId,{ getState, dispatch }) => {
+    const { urls } = getGlobalConfigState();
+    console.log("getGlobalConfigState()---",getGlobalConfigState())
     let boardDetail = {} as ServerDashboard
     boardDetail.id= '-1'
     boardDetail.name=''
     boardDetail.widgets =[]
     boardDetail.views = []
-    if(boardDetailUrl){
+    if( urls.detailUrl){
       const { data } = await request2<ServerDashboard>(
-        boardDetailUrl,
+        urls.detailUrl,
       );
       boardDetail = data
-      console.log("boardDetail--",boardDetail)
     }
+    console.log("boardDetail--",boardDetail)
     const dashboard = getDashBoardByResBoard(boardDetail);
     const boardType = dashboard.config.type;
     const {
@@ -623,6 +625,7 @@ export const getEditChartWidgetDataAsync = createAsyncThunk<
   'editBoard/getEditChartWidgetDataAsync',
   async ({ widgetId, option }, { getState, dispatch, rejectWithValue }) => {
     const rootState = getState() as RootState;
+    console.log("editBoard/getEditChartWidgetDataAsync",getGlobalConfigState())
     dispatch(editWidgetInfoActions.renderedWidgets([widgetId]));
     const stackEditBoard = rootState.editBoard as unknown as HistoryEditBoard;
     const { widgetRecord: widgetMap } = stackEditBoard.stack.present;
@@ -632,7 +635,7 @@ export const getEditChartWidgetDataAsync = createAsyncThunk<
     const widgetInfo = editBoard?.widgetInfoRecord[widgetId];
     const viewMap = boardState.viewMap;
     const curWidget = widgetMap[widgetId];
-    const { urls } = getMasterConfig();
+    const { urls } = getGlobalConfigState();
 
     if (!curWidget) return null;
     const dataChartMap = boardState.dataChartMap;
@@ -727,7 +730,7 @@ export const getEditControllerOptions = createAsyncThunk<
     const config = content.config;
     if (!Array.isArray(config.assistViewFields)) return null;
     if (config.assistViewFields.length < 2) return null;
-    const { urls } = getMasterConfig();
+    const { urls } = getGlobalConfigState();
     const boardState = rootState.board as BoardState;
     const viewMap = boardState.viewMap;
     const [viewId, ...columns] = config.assistViewFields;

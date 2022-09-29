@@ -20,17 +20,12 @@ import { AppRouter } from 'app/AppRouter';
 import { generateEntryPoint } from 'entryPointFactory';
 import './public-path';
 import {useRouteMatch} from "react-router-dom";
-import { setMasterState } from './utils/globalState';
+import { setGlobalConfigState, setMasterState } from './utils/globalState';
 import { importCoreWidgets } from './utils/sharedComponents';
 
 function render(props) {
-  console.log("props----",props)
-  // const {
-  //   params: { vizId },
-  // } = useRouteMatch<{ vizId: string }>();
-  // console.log("vizId------",vizId)
-
-  generateEntryPoint(AppRouter, props.container, props.config);
+  console.log("props----",props);
+  generateEntryPoint(AppRouter, props.container);
 }
 
 function storeTest(props) {
@@ -62,6 +57,7 @@ export async function bootstrap(props) {
   setMasterState({
     ...props
   });
+  setGlobalConfigState();
   console.log('[react16] react app bootstraped',props);
 }
 /**

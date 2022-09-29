@@ -48,7 +48,7 @@ import {
   VizRenderMode,
   WidgetData,
 } from './types';
-import { getMasterConfig } from 'utils/globalState';
+import { getGlobalConfigState } from 'utils/globalState';
 
 /**
  * @param ''
@@ -88,11 +88,11 @@ export const getBoardDetail = createAsyncThunk<
 export const fetchBoardDetail = createAsyncThunk<
   null,
   {
-    boardDetailUrl: string;
     filterSearchParams?: FilterSearchParams;
   }
 >('board/fetchBoardDetail', async (params, { dispatch, rejectWithValue }) => {
-  const { data } = await request2<ServerDashboard>(`${params.boardDetailUrl}`);
+  const { urls } = getGlobalConfigState();
+  const { data } = await request2<ServerDashboard>(urls.detailUrl);
   dispatch(
     handleServerBoardAction({
       data,
@@ -354,7 +354,7 @@ export const getChartWidgetDataAsync = createAsyncThunk<
   async ({ boardId, widgetId, renderMode, option }, { getState, dispatch }) => {
     dispatch(boardActions.renderedWidgets({ boardId, widgetIds: [widgetId] }));
     const boardState = getState() as { board: BoardState };
-    const { urls } = getMasterConfig();
+    const { urls } = getGlobalConfigState();
     const widgetMapMap = boardState.board.widgetRecord;
     const widgetInfo =
       boardState.board?.widgetInfoRecord?.[boardId]?.[widgetId];
@@ -478,7 +478,7 @@ export const getControllerOptions = createAsyncThunk<
         widgetIds: [widgetId],
       }),
     );
-    const { urls } = getMasterConfig();
+    const { urls } = getGlobalConfigState();
     const boardState = getState() as { board: BoardState };
     const viewMap = boardState.board.viewMap;
     const widgetMapMap = boardState.board.widgetRecord;

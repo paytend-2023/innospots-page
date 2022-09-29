@@ -70,7 +70,7 @@ import {
 } from 'app/utils/internalChartHelper';
 import { updateBy } from 'app/utils/mutation';
 import { CommonFormTypes } from 'globalConstants';
-import {FC, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import {FC, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
@@ -82,7 +82,6 @@ import {
   DataChartConfig,
   WidgetContentChartType,
 } from '../pages/DashBoardPage/pages/Board/slice/types';
-import {DatartContext} from "../contexts/DatartContext";
 
 const { confirm } = Modal;
 
@@ -129,7 +128,6 @@ export const ChartEditor: FC<ChartEditorProps> = ({
   const saveFormContextValue = useSaveFormContext();
   const { actions } = useWorkbenchSlice();
   const dispatch = useDispatch();
-  const { urls } = useContext(DatartContext)
   const dataset = useSelector(datasetsSelector);
   const dataview = useSelector(currentDataViewSelector);
   const chartConfig = useSelector(chartConfigSelector);
@@ -176,22 +174,17 @@ export const ChartEditor: FC<ChartEditorProps> = ({
               backendChartId: dataChartId,
               orgId
             },
-            viewsUrl: urls.viewsUrl,
-            dataUrl: urls.dataUrl
           }),
         );
       } else {
         //   container === 'widget'
         if (chartType === 'widgetChart') {
-          console.log("chartType === 'widgetChart'---",urls.viewsUrl)
           dispatch(
             initWorkbenchAction({
               arg:{
                 orgId,
                 backendChart: originChart as ChartDTO,
               },
-              viewsUrl: urls.viewsUrl,
-              dataUrl: urls.dataUrl
             }),
           );
 
@@ -205,9 +198,7 @@ export const ChartEditor: FC<ChartEditorProps> = ({
               arg:{
                 orgId,
                 backendChartId: dataChartId,
-              },
-              viewsUrl: urls.viewsUrl,
-              dataUrl: urls.dataUrl
+              }
             }),
           );
         }

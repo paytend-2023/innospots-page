@@ -48,7 +48,7 @@ import { request2 } from 'utils/request';
 import { ControllerConfig } from '../../../types';
 import { AssistViewFields } from './AssistViewFields';
 import { CustomOptions } from './CustomOptions';
-import { getMasterConfig } from 'utils/globalState';
+import { getGlobalConfigState } from 'utils/globalState';
 
 export interface optionProps {
   label: string;
@@ -62,7 +62,7 @@ const ValuesOptionsSetter: FC<{
 }> = memo(({ form, viewMap, controllerType }) => {
   const tc = useI18NPrefix(`viz.control`);
   const { orgId } = useContext(BoardContext);
-  const { urls } = getMasterConfig();
+  const { urls } = getGlobalConfigState();
   const [optionValues, setOptionValues] = useState<RelationFilterValue[]>([]);
   const [targetKeys, setTargetKeys] = useState<string[]>([]);
   const [labelOptions, setLabelOptions] = useState<

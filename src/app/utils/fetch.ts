@@ -35,7 +35,7 @@ import qs from 'qs';
 import { request2, requestWithHeader } from 'utils/request';
 import { convertToChartDto } from './ChartDtoHelper';
 import { getAllColumnInMeta } from './chartHelper';
-import { getMasterConfig } from '../../utils/globalState';
+import { getGlobalConfigState } from '../../utils/globalState';
 
 export const getDistinctFields = async (
   viewId: string,
@@ -317,7 +317,7 @@ export async function fetchChartDataSet(
   requestParams,
   authorizedToken?: ExecuteToken,
 ) {
-  const { urls } = getMasterConfig();
+  const { urls } = getGlobalConfigState();
   if (authorizedToken) {
     const { data } = await request2<ChartDataSetDTO>({
       method: 'POST',

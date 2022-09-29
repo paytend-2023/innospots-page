@@ -24,6 +24,7 @@ export default function useWidgetAction() {
     onWidgetFullScreen,
     onWidgetGetData,
     onEditChartWidget,
+    onEditApplicationWidget,
     onEditMediaWidget,
     onEditContainerWidget,
     onEditControllerWidget,
@@ -40,6 +41,9 @@ export default function useWidgetAction() {
       switch (type) {
         case 'chart':
           onEditChartWidget(widget);
+          break;
+        case 'application':
+          onEditApplicationWidget(widget);
           break;
         case 'controller':
           onEditControllerWidget(widget);

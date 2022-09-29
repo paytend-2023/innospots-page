@@ -50,7 +50,7 @@ import {
   selectEditBoardLoading,
 } from './slice/selectors';
 import { addChartWidget, fetchEditBoardDetail } from './slice/thunk';
-import {DatartContext} from "../../../../contexts/DatartContext";
+import { getGlobalConfigState } from 'utils/globalState';
 import ApplicationWidgetPanel from './components/ApplicationWidgetPanel';
 
 export const BoardEditor: React.FC = memo(() => {
@@ -62,7 +62,7 @@ export const BoardEditor: React.FC = memo(() => {
   const boardLoading = useSelector(selectEditBoardLoading);
   const boardChartEditorProps = useSelector(selectBoardChartEditorProps);
   const widgetControllerPanelParams = useSelector(selectControllerPanel);
-  const { urls,applicationEnable } = useContext(DatartContext);
+  const { applicationEnable } = getGlobalConfigState();
   const onCloseChartEditor = useCallback(() => {
     dispatch(editDashBoardInfoActions.changeChartEditorProps(undefined));
   }, [dispatch]);
@@ -121,7 +121,7 @@ export const BoardEditor: React.FC = memo(() => {
     onSaveToWidget,
   ]);
   const initialization = useCallback(async () => {
-    await dispatch(fetchEditBoardDetail({ boardDetailUrl: urls.detailUrl}));
+    await dispatch(fetchEditBoardDetail(boardId));
     const histState = history.location.state as any;
     try {
       if (histState?.widgetInfo) {
@@ -160,7 +160,7 @@ export const BoardEditor: React.FC = memo(() => {
       onCloseChartEditor();
       dispatch(clearEditBoardState());
       //销毁时  更新view界面数据
-      dispatch(fetchBoardDetail({ boardDetailUrl: urls.detailUrl }));
+      dispatch(fetchBoardDetail({}));
       //
       boardDrillManager.clearMapByBoardId(EDIT_PREFIX + boardId);
     };

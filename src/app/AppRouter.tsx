@@ -21,7 +21,7 @@ import echartsDefaultTheme from 'app/assets/theme/echarts_default_theme.json';
 import { registerTheme } from 'echarts';
 import { antdLocales } from 'locales/i18n';
 import { useTranslation } from 'react-i18next';
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { GlobalStyles } from 'styles/globalStyles';
 import {NotFoundPage} from "./pages/NotFoundPage";
 import BoardPreview from "./pages/VizPage/BoardPreview";
@@ -29,22 +29,17 @@ import BoardEditorMain from "./pages/VizPage/BoardEditorMain";
 
 registerTheme('default', echartsDefaultTheme);
 
-export function AppRouter({config}) {
+export function AppRouter() {
   const { i18n } = useTranslation();
   return (
     <ConfigProvider locale={antdLocales[i18n.language]}>
       <BrowserRouter basename="/apps/visualization">
         <Switch>
-          {/*<Route exact path="/" render={() => <Redirect to="/preview" />} />*/}
-          {/*@ts-ignore*/}
-          <Route path="/workspace/edit" render={() => <BoardEditorMain type="workspaceEdit" />} />
-          {/*@ts-ignore*/}
-          <Route path="/workspace" render={() => <BoardPreview type="workspace" hideTitle={true} />} />
-          <Route path="/edit" render={() => <BoardEditorMain type="workspaceEdit" />} />
-          <Route path="/create" render={() => <BoardEditorMain type="workspaceEdit" />} />
-          <Route path="/:vizId/edit" render={() => <BoardEditorMain type="workspaceEdit" />} />
-          {/*@ts-ignore*/}
-          <Route path="/:vizId" render={() => <BoardPreview type="workspace" hideTitle={true} />} />
+          <Route path="/workspace/edit" render={() => <BoardEditorMain  />} />
+          <Route path="/workspace" render={() => <BoardPreview  hideTitle={true} />} />
+          <Route path="/page/edit" render={() => <BoardEditorMain  />} />
+          <Route path="/page/create" render={() => <BoardEditorMain />} />
+          <Route path="/page/preview" render={() => <BoardPreview  hideTitle={true}/>} />
           <Route path="*" component={NotFoundPage} />
         </Switch>
         <GlobalStyles />

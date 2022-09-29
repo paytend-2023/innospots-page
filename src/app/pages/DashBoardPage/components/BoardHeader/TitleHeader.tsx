@@ -39,7 +39,7 @@ import { BoardActionContext } from '../ActionProvider/BoardActionProvider';
 import { BoardDropdownList } from '../BoardDropdownList/BoardDropdownList';
 import { BoardContext } from '../BoardProvider/BoardProvider';
 import { MockDataPanel } from '../MockDataPanel';
-import {DatartContext} from "../../../../contexts/DatartContext";
+import { getGlobalConfigState } from 'utils/globalState';
 
 export const TitleHeader: FC = memo(() => {
   const t = useI18NPrefix(`viz.action`);
@@ -50,7 +50,7 @@ export const TitleHeader: FC = memo(() => {
   const [showSaveToStory, setShowSaveToStory] = useState<boolean>(false);
   const { name, status, allowManage, allowShare, boardId, orgId } =
     useContext(BoardContext);
-  const { urls } = useContext(DatartContext)
+  const { urls } = getGlobalConfigState();
   const title = useStatusTitle(name, status);
   const { onGenerateShareLink } = useContext(BoardActionContext);
   const { publishBoard } = usePublishBoard(boardId, 'DASHBOARD', status);

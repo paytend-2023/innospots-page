@@ -19,4 +19,4 @@
 import { Router } from 'app/pages/SharePage/Dashboard';
 import { generateEntryPoint } from 'entryPointFactory';
 
-generateEntryPoint(Router, null,'');
+generateEntryPoint(Router, null);

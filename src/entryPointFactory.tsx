@@ -30,18 +30,12 @@ import { configureAppStore } from 'redux/configureStore';
 import { ThemeProvider } from 'styles/theme/ThemeProvider';
 import { Debugger } from 'utils/debugger';
 import './locales/i18n';
-import { getMasterConfig } from './utils/globalState';
 
-export const generateEntryPoint = (EntryPointComponent, container, cfg) => {
+export const generateEntryPoint = (EntryPointComponent, container) => {
   const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
   const MOUNT_NODE = document.getElementById('root') as HTMLElement;
   const store = configureAppStore();
   Debugger.instance.setEnable(IS_DEVELOPMENT);
-  let config = getMasterConfig();
-  if(cfg){
-    config = cfg;
-    console.log("cfg-----",cfg);
-  }
 
   const InspectorWrapper = IS_DEVELOPMENT ? Inspector : Fragment;
   ReactDOM.render(
@@ -49,7 +43,7 @@ export const generateEntryPoint = (EntryPointComponent, container, cfg) => {
       <Provider store={store}>
         <ThemeProvider>
           <HelmetProvider>
-            <EntryPointComponent config={config}/>
+            <EntryPointComponent />
           </HelmetProvider>
         </ThemeProvider>
       </Provider>

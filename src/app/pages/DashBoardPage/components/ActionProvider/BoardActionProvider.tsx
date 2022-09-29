@@ -26,8 +26,7 @@ import { boardDownLoadAction } from '../../pages/Board/slice/asyncActions';
 import { fetchBoardDetail } from '../../pages/Board/slice/thunk';
 import { clearEditBoardState } from '../../pages/BoardEditor/slice/actions/actions';
 import { toUpdateDashboard } from '../../pages/BoardEditor/slice/thunk';
-import {DatartContext} from "../../../../contexts/DatartContext";
-
+import { getGlobalConfigState } from '../../../../../utils/globalState';
 export interface BoardActionContextProps {
   // read
   onGenerateShareLink?: ({
@@ -59,7 +58,7 @@ export const BoardActionProvider: FC<{
 }> = memo(({ boardId, children }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { urls } = useContext(DatartContext)
+  const { urls } = getGlobalConfigState();
   const actions = useMemo(() => {
     const actionObj: BoardActionContextProps = {
       updateBoard: (boardExtConfig: string, callback?: (boardId?: string) => void) => {
@@ -98,7 +97,7 @@ export const BoardActionProvider: FC<{
         history.push(`${prePath}`);
         dispatch(clearEditBoardState());
         // 更新view界面数据
-        dispatch(fetchBoardDetail({ boardDetailUrl: urls.detailUrl }));
+        dispatch(fetchBoardDetail({}));
       },
       undo: () => {
         dispatch({ type: BOARD_UNDO.undo });

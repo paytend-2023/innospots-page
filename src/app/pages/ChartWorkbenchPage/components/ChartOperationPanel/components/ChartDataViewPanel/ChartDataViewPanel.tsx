@@ -80,7 +80,6 @@ import { getPath, modelListFormsTreeByTableName } from 'utils/utils';
 import { getAllFieldsOfEachType } from '../../utils';
 import { ChartDraggableSourceGroupContainer } from '../ChartDraggable';
 import ChartComputedFieldSettingPanel from './components/ChartComputedFieldSettingPanel';
-import {DatartContext} from "../../../../../../contexts/DatartContext";
 
 const ChartDataViewPanel: FC<{
   dataView?: ChartDataView;
@@ -94,7 +93,6 @@ const ChartDataViewPanel: FC<{
   const history = useHistory();
   const [showModal, modalContextHolder] = useStateModal({});
   const { availableSourceFunctions } = useContext(ChartDataViewContext);
-  const { urls } = useContext(DatartContext)
   const dataviewTreeSelector = useMemo(makeDataviewTreeSelector, []);
   const getSelectable = useCallback(v => !v.isFolder, []);
   const dataviewTreeData = useSelector(state =>

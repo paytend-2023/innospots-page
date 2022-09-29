@@ -28,7 +28,6 @@ export const SharedComponent:React.FC<{
   name: string
 }> = ({name, children, ...rest}) => {
   const Component = getComponentByName(name);
-  console.log("Component-----",Component)
   return Component ? (
     <Component {...rest}>{children}</Component>
   ) : (<></>)

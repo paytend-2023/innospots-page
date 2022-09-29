@@ -35,7 +35,6 @@ import { boardActions } from './slice';
 import {makeSelectBoardConfigById, selectCurPreviewBoardId} from './slice/selector';
 import { fetchBoardDetail } from './slice/thunk';
 import { BoardState, VizRenderMode } from './slice/types';
-import {DatartContext} from "../../../../contexts/DatartContext";
 
 export interface BoardProps {
   renderMode: VizRenderMode;
@@ -65,7 +64,6 @@ export const Board: FC<BoardProps> = memo(
     const editingBoard = useSelector(selectEditBoard);
     const curPreviewBoardId = useSelector(selectCurPreviewBoardId);
     const boardId = curPreviewBoardId;
-    const { urls } = useContext(DatartContext);
 
     const searchParams = useMemo(() => {
       return filterSearchUrl
@@ -77,7 +75,6 @@ export const Board: FC<BoardProps> = memo(
       if ( boardId == '-1' && fetchData) {
         dispatch(
           fetchBoardDetail({
-            boardDetailUrl: urls.detailUrl,
             filterSearchParams: searchParams,
           }),
         );

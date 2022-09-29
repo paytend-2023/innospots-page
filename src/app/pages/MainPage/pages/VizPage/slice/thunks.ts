@@ -50,7 +50,7 @@ import {
   UnarchiveVizParams,
   VizState,
 } from './types';
-import { getMasterConfig } from '../../../../../../utils/globalState';
+import { getGlobalConfigState } from '../../../../../../utils/globalState';
 
 export const getFolders = createAsyncThunk<Folder[], string>(
   'viz/getFolders',
@@ -299,7 +299,7 @@ export const fetchDataSetByPreviewChartAction = createAsyncThunk(
     },
     thunkAPI,
   ) => {
-    const { urls } = getMasterConfig();
+    const { urls } = getGlobalConfigState();
     const vizState = (thunkAPI.getState() as RootState)?.viz as VizState;
     const currentChartPreview = vizState?.chartPreviews?.find(
       c => c.backendChartId === arg.backendChartId,

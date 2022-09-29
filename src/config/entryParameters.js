@@ -38,7 +38,7 @@ export const entryParameters = {
       dataUrl: `/data-set/data`,
       applicationsUrl: `/application/list`,
       applicationWidgetsUrl: `/application/widgets`,
-      detailUrl: ``,
+      detailUrl: `/page/:id`,
       saveBoardsUrl: `/page`,
       fileUploadUrl: `/dashboard/files/image`,
       functionSupportUrl: `/widget/data/function/support`,
@@ -63,6 +63,19 @@ export const entryParameters = {
     applicationEnable: true
   },
   strategy: {
-
-  }
+    code:'strategy',
+    titleElement: [],
+    urls:{
+      viewsUrl: `/data-set/list`,
+      viewDetailUrl: `/data-set/:id`,
+      dataUrl: `/data-set/data`,
+      applicationsUrl: `/application/list`,
+      applicationWidgetsUrl: `/application/widgets`,
+      detailUrl: `/pages/11`,
+      saveBoardsUrl: `/pages`,
+      fileUploadUrl: `/dashboard/files/image`,
+      functionSupportUrl: `/data-set/data/function/support`,
+    },
+    applicationEnable: true
+  },
 }

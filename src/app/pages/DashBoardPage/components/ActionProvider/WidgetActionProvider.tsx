@@ -247,6 +247,14 @@ export const WidgetActionProvider: FC<{
             }),
           );
         },
+        onEditApplicationWidget: (widget: Widget) => {
+          dispatch(
+            editDashBoardInfoActions.changeApplicationPanel({
+              type: 'edit',
+              widgetId: ''
+            })
+          );
+        },
         onEditMediaWidget: (id: string) => {
           dispatch(editWidgetInfoActions.openWidgetEditing({ id }));
         },
@@ -347,6 +355,7 @@ export interface WidgetActionContextProps {
   onEditChartWidget: (widget: Widget) => void;
   onEditContainerWidget: (wid: string) => void;
   onEditMediaWidget: (wid: string) => void;
+  onEditApplicationWidget: (widget: Widget) => void;
   onEditControllerWidget: (widget: Widget) => void;
   // onEditWidgetLinkage: (wid: string) => void;
   // onEditWidgetJump: (wid: string) => void;
