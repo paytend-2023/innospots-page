@@ -83,7 +83,7 @@ module.exports = {
           chunkFilename: 'static/js/[name].[contenthash:8].js',
         },
         // path: path.resolve(__dirname, 'dist'), // 修改输出文件目录
-        publicPath: IS_DEV ? '/' : '/apps/visualization/',
+        publicPath: IS_DEV ? 'http://localhost:8881/' : '/apps/visualization/',
         library: `datart`,
         libraryTarget: 'umd',
         globalObject: 'window'

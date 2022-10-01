@@ -530,7 +530,7 @@
       },
       "dataview": {
         "plsSelectDataView": "请选择数据集",
-        "createComputedFields": "新建计算字段",
+        "createComputedFields": "创建计算字段",
         "createVariableFields": "新建查询变量",
         "fieldName": "名称",
         "type": "类型",
@@ -1390,7 +1390,7 @@
       "newHierarchy": "新建层次结构",
       "addToHierarchy": "添加到层次结构",
       "hierarchyName": "层级名称",
-      "createComputedFields": "新建计算字段",
+      "createComputedFields": "创建计算字段",
       "duplicateName": "名称重复，请检查!",
       "deleteSure": "确定要删除吗？",
       "edit": "编辑"

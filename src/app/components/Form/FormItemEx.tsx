@@ -34,6 +34,9 @@ const StyledFromItemEx = styled(Form.Item)`
     flex-flow: row;
     align-items: center;
   }
+  .ant-form-item-label{
+    color: #262626;
+  }
 
   .ant-form-item-explain {
     padding-left: 10px;

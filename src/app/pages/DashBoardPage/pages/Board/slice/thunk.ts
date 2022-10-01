@@ -563,27 +563,27 @@ export const getControllerOptions = createAsyncThunk<
 );
 
 export const fetchAvailableSourceFunctions = createAsyncThunk<
-  { value: string[]; sourceId: string } | false,
-  { sourceId: string; authorizedToken: string; renderMode: VizRenderMode },
+  { value: string[]; viewId: string } | false,
+  { viewId: string; authorizedToken: string; renderMode: VizRenderMode },
   { state: RootState }
 >(
   'workbench/fetchAvailableSourceFunctions',
-  async ({ sourceId, authorizedToken, renderMode }, { getState }) => {
+  async ({ viewId, authorizedToken, renderMode }, { getState }) => {
     const boardState = getState() as { board: BoardState };
     const availableSourceFunctionsMap =
       boardState.board.availableSourceFunctionsMap;
-    if (!availableSourceFunctionsMap[sourceId]) {
+    if (!availableSourceFunctionsMap[viewId]) {
       try {
         let functions: string[] = [];
         if (renderMode === 'share') {
           functions = await fetchAvailableSourceFunctionsAsyncForShare(
-            sourceId,
+            viewId,
             authorizedToken,
           );
         } else {
-          functions = await fetchAvailableSourceFunctionsAsync(sourceId);
+          functions = await fetchAvailableSourceFunctionsAsync(viewId);
         }
-        return { value: functions, sourceId: sourceId };
+        return { value: functions, viewId: viewId };
       } catch (err) {
         throw err;
       }

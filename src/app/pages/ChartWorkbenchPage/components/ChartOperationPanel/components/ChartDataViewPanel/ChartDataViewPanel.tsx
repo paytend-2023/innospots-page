@@ -289,7 +289,7 @@ const ChartDataViewPanel: FC<{
     (field?: ChartDataViewMeta) => {
       (showModal as Function)({
         title: t('createComputedFields'),
-        modalSize: StateModalSize.MIDDLE,
+        modalSize: 1120,
         content: onChange => (
           <ChartComputedFieldSettingPanel
             computedField={field}

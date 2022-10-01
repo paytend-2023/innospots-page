@@ -143,4 +143,59 @@ export const Form = createGlobalStyle`
       }
     }
   }
+  .ant-input{
+    border-radius: 4px;
+  }
+  .ant-btn{
+    border-radius: 4px;
+    &.ant-btn-primary{
+      background: #1245FA;
+      border: 1px solid #1245FA;
+      &:active{
+        background: #1245FA;
+        border: 1px solid #1245FA;
+      }
+    }
+  }
+  .ant-modal-content .ant-modal-footer{
+    .ant-btn{
+      height: 38px;
+    }
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #1245FA;
+    text-shadow: 0 0 .25px currentColor;
+    font-weight: bold;
+  }
+  .ant-tabs-nav-list .ant-tabs-ink-bar {
+    background: #1245FA;
+  }
+  .datart-confirm-modal{
+    .ant-modal-content{
+      .ant-modal-body{
+        padding: 0;
+        border-radius: 4px;
+        .ant-modal-confirm-body-wrapper{
+          .ant-modal-confirm-body{
+            .ant-modal-confirm-title{
+              font-size: 20px;
+              border: 1px solid #F5F5F5;
+              display: block;
+              padding: 24px;
+            }
+            .ant-modal-confirm-content{
+              padding: 16px 24px;
+              margin-top: 0;
+            }
+          }
+          .ant-modal-confirm-btns {
+            margin: 24px;
+            height: 38px;
+          }
+        }
+      }
+    }
+  }
+
+
 `;

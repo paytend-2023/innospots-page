@@ -6,8 +6,8 @@ export const applicationWidgetsConfig =[
   {"name":"最新信息","code":"NewMessage","icon":"","description":"工作台的最新信息卡片","order":10,"enabled":true,"width":6,"height":16,"entry":"NewMessage","scope":["workspace"],
     "configItem":[{"label":"展示消息数:","name":"msgNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":3 }]
    },
-  {"name":"最新动态","code":"NewDynamic","icon":"","description":"工作台的最新动态卡片","order":13,"enabled":true,"width":6,"height":10,"entry":"NewDynamic","scope":["workspace"],"configItem":[{"label":"展示消息数","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":3}]},
-  {"name":"登录用户","code":"UserLoginLog","icon":"","description":"工作台的登录用户卡片","order":12,"enabled":true,"width":6,"height":11,"entry":"UserLoginLog","scope":["workspace"],"configItem":[{"label":"展示消息数","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":3}]},
+  {"name":"最新动态","code":"NewDynamic","icon":"","description":"工作台的最新动态卡片","order":13,"enabled":true,"width":6,"height":10,"entry":"NewDynamic","scope":["workspace"],"configItem":[{"label":"展示消息数","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":24,"defaultValue":3}]},
+  {"name":"登录用户","code":"UserLoginLog","icon":"","description":"工作台的登录用户卡片","order":12,"enabled":true,"width":6,"height":11,"entry":"UserLoginLog","scope":["workspace"],"configItem":[{"label":"展示消息数","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":24,"defaultValue":3}]},
   {"name":"机器信息","code":"MachineInfo","icon":"","description":"工作台的机器信息卡片","order":13,"enabled":true,"width":6,"height":6,"entry":"MachineInfo","scope":["workspace"],"configItem":[]},
   // {"name":"策略详情","code":"strategyDetail","icon":"","description":"策略详情的基本信息卡片","order":1,"enabled":true,"width":12,"height":4,"entry":"strategyDetail","scope":["strategy"],"configItem":[]},
   // {"name":"Webhook触发概览","code":"webhookPreview","icon":"","description":"策略详情的Webhook触发概览卡片","order":2,"enabled":true,"width":12,"height":8,"entry":"webhookPreview","scope":["strategy"],"configItem":[]},

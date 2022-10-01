@@ -91,7 +91,7 @@ export const handleServerBoardAction =
       idList.forEach(({ sourceId, viewId }) => {
         dispatch(
           fetchAvailableSourceFunctions({
-            sourceId: sourceId,
+            viewId: viewId,
             authorizedToken: executeToken?.[viewId]?.authorizedToken || '',
             renderMode,
           }),

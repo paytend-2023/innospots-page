@@ -20,9 +20,13 @@ import { Divider, Input, List, Space } from 'antd';
 import debounce from 'lodash/debounce';
 import { FC, memo, useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import { IW } from '../../../../../../../components';
+import { FONT_SIZE_LABEL } from '../../../../../../../../styles/StyleConstants';
+import { DataViewFieldType } from '../../../../../../../constants';
+import { CalendarOutlined, FieldStringOutlined, FileUnknownOutlined, NumberOutlined } from '@ant-design/icons';
 
 const ChartSearchableList: FC<{
-  source: Array<{ value: string; label: string }>;
+  source: Array<{ value: string; label: string, type?: string }>;
   onItemSelected: (itemKey) => void;
 }> = memo(({ source, onItemSelected }) => {
   const [listItems, setListItems] = useState(source);
@@ -45,16 +49,44 @@ const ChartSearchableList: FC<{
     setListItems(newListItems);
   }, 100);
 
+  const iconFunc  = type =>{
+    let icon:any;
+    switch (type) {
+      case DataViewFieldType.STRING:
+        icon = <FieldStringOutlined  />;
+        break;
+      case DataViewFieldType.NUMERIC:
+        icon = <NumberOutlined  />;
+        break;
+      case DataViewFieldType.DATE:
+        icon = <CalendarOutlined />;
+        break;
+      default:
+        icon = <FileUnknownOutlined  />;
+    }
+    return icon;
+  }
+
   return (
     <StyledChartSearchableList direction="vertical">
-      <Input.Search onChange={e => handleSearch(e.target.value)} enterButton />
+      <Input.Search onChange={e => handleSearch(e.target.value)} enterButton size="large"/>
       <Divider />
       <List
         className="searchable-list-container"
         dataSource={listItems}
         rowKey={item => item.value}
         renderItem={item => (
-          <p onClick={() => handleListItemClick(item.value)}>{item.label}</p>
+          <p onClick={() => handleListItemClick(item.value)}>
+            <Space size={3}>
+              {
+                item.type ?
+                  <IW fontSize={FONT_SIZE_LABEL}>
+                    {iconFunc(item.type)}
+                  </IW> :''
+              }
+              <span>{item.label}</span>
+            </Space>
+          </p>
         )}
       />
     </StyledChartSearchableList>
@@ -70,5 +102,13 @@ const StyledChartSearchableList = styled(Space)`
 
   .ant-divider {
     margin: 5px;
+  }
+  .searchable-list-container{
+    p{
+      font-size: 12px;
+      line-height: 24px;
+      color: #262626;
+      margin-bottom: 4px;
+    }
   }
 `;

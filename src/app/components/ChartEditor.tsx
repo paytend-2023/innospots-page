@@ -228,7 +228,7 @@ export const ChartEditor: FC<ChartEditorProps> = ({
 
   useEffect(() => {
     if (dataview?.sourceId) {
-      dispatch(fetchAvailableSourceFunctionsForChart(dataview.sourceId));
+      dispatch(fetchAvailableSourceFunctionsForChart(dataview.id));
     }
   }, [dataview?.sourceId, dispatch]);
 

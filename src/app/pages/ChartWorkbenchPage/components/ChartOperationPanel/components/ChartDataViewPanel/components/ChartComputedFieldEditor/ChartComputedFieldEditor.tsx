@@ -144,10 +144,11 @@ const StyledChartComputedFieldEditor = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 10px;
-  background-color: #d9d9d9;
+  padding: 16px;
+  background-color: #F5F5F5;
 
   & > .ant-row:first-child {
-    height: 300px;
+    height: 272px;
+    border-radius: 8px;
   }
 `;
