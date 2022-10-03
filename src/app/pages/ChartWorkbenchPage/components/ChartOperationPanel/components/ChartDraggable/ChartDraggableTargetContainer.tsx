@@ -277,7 +277,7 @@ export const ChartDraggableTargetContainer: FC<ChartDataConfigSectionProps> =
       }
     };
 
-    const renderDropItems = () => {
+    const renderDropItems = (type: string,title?: string) => {
       if (
         !currentConfig.rows ||
         !currentConfig?.rows?.filter(Boolean)?.length
@@ -286,11 +286,12 @@ export const ChartDraggableTargetContainer: FC<ChartDataConfigSectionProps> =
         if (fieldCount > 0) {
           return (
             <DropPlaceholder>
-              {t('dropCount', undefined, { count: fieldCount })}
+              {type=="setting" ? t('dropCount', undefined, { count: fieldCount})
+               : t('fieldDropCount', undefined, { count: fieldCount,fieldType: title })}
             </DropPlaceholder>
           );
         }
-        return <DropPlaceholder>{t('drop')}</DropPlaceholder>;
+        return <DropPlaceholder>{type=="setting" ?  t('drop') : t('fieldDrop',undefined, { fieldType: title })}</DropPlaceholder>;
       }
 
       return currentConfig.rows?.map((columnConfig, index) => {
@@ -383,7 +384,7 @@ export const ChartDraggableTargetContainer: FC<ChartDataConfigSectionProps> =
               {extra?.()}
             </div>
             <StyledContainer ref={drop} isOver={isOver} canDrop={canDrop}>
-              {renderDropItems()}
+              {renderDropItems("field",config.label=='mixed' ? '' : t(config.label || ''))}
               {renderDrillFilters()}
               {contextHolder}
             </StyledContainer>
@@ -399,7 +400,7 @@ export const ChartDraggableTargetContainer: FC<ChartDataConfigSectionProps> =
               {extra?.()}
             </div>
             <StyledContainer ref={drop} isOver={isOver} canDrop={canDrop}>
-              {renderDropItems()}
+              {renderDropItems("setting")}
               {renderDrillFilters()}
               {contextHolder}
             </StyledContainer>
@@ -455,7 +456,7 @@ const StyledBaseDataConfigFieldSection = styled.div`
   padding: ${SPACE_XS} ${SPACE_LXG};
 
   .baseDataConfigFieldSection{
-    padding: ${SPACE} ${SPACE_LG};
+    padding: ${SPACE} ${SPACE_MD};
     height: 38px;
     color: ${(p) => p.theme.textColorLight};
     width: 100%;
@@ -465,9 +466,9 @@ const StyledBaseDataConfigFieldSection = styled.div`
 
     .baseDataConfigFieldTitle{
       user-select: none;
-      line-height: 28px;
+      line-height: 26px;
       font-weight: bold;
-      color: #262626;
+      color: #4E5969;
       font-size: 12px;
       min-width: 39px;
       margin-right: 12px;
@@ -482,8 +483,11 @@ const StyledBaseDataConfigSection = styled.div`
       min-height: 220px;
 
     .baseDataConfigSectionTitle{
-      font-weight: 650;
-      margin-bottom: 8px;
+      font-size: 16px;
+      line-height: 26px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: #1D2129;
     }
   }
 `;

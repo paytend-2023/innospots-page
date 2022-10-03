@@ -117,7 +117,7 @@ const workbenchSlice = createSlice({
             return {
               ...state,
               interactions: updateCollectionByAction(state.interactions || [], {
-                ancestors: action.payload.ancestors!,
+                ancestors: [1],
                 value: action.payload.value,
               }),
             };

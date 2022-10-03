@@ -25,7 +25,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
 import {
-  FONT_SIZE_ICON_SM,
+  FONT_SIZE_ICON_SM, FONT_WEIGHT_BOLD,
   FONT_WEIGHT_MEDIUM,
   LINE_HEIGHT_ICON_SM,
   SPACE_LG,
@@ -124,7 +124,7 @@ const EditorHeader: FC = memo(({ children }) => {
         break;
       case 'SELECT':
         element =(
-          <Select  placeholder={formItem.placeholder} style={{width: '100%'}}>
+          <Select  placeholder={formItem.placeholder} style={{width: '100%'}} size="large">
             {
               map(formItem.options, (option) => {
                 return <Option value={option.value} key={option.value}>{option.name}</Option>;
@@ -203,6 +203,7 @@ const EditorHeader: FC = memo(({ children }) => {
               className="updateBtn"
               loading={saving}
               onClick={onUpdateBoard}
+              icon={<SaveOutlined />}
             >
               {t('common.save')}
             </Button>
@@ -230,9 +231,9 @@ const Wrapper = styled.div`
   box-shadow: ${p => p.theme.shadowSider};
 
   .backBtn {
-    padding: 28px 31px;
-    font-weight: ${FONT_WEIGHT_MEDIUM};
-    font-size: 14px;
+    padding: 25px 31px;
+    font-weight: ${FONT_WEIGHT_BOLD};
+    font-size: 20px;
     line-height: 13px;
 
     &.disabled {
@@ -248,11 +249,12 @@ const Wrapper = styled.div`
       font-size: 14px;
       padding: 7px 11px;
     }
-    .ant-select-selector{
+    .ant-select-lg .ant-select-selector{
       height: 38px;
       border-radius: 4px;
       .ant-select-selection-item{
         line-height: 38px;
+        font-size: 14px;
       }
     }
   }
@@ -260,7 +262,6 @@ const Wrapper = styled.div`
     padding-right: ${SPACE_LG};
 
     button {
-      width: 60px;
       height: 38px;
       color: #fff;
       border-radius: 4px;

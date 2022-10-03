@@ -146,7 +146,6 @@ const StyledChartWrapper = styled.div`
   flex-direction: column;
 `;
 const StyledDragableFieldWrapper = styled.div`
-  border-bottom: 1px solid ${(p) => p.theme.borderColorEmphasis};
   background-color: ${(p) => p.theme.componentBackground};
 `;
 const StyledChartPresentWrapper = styled.div<{ borderWidth }>`
@@ -156,6 +155,7 @@ const StyledChartPresentWrapper = styled.div<{ borderWidth }>`
   height: 100%;
   // padding: ${p => p.borderWidth}px ${p => p.borderWidth}px
   //   ${p => p.borderWidth}px 0;
+  width: calc(100% - 182px);
   background-color: ${p => p.theme.bodyBackground};
 `;
 const StyledConfigChartWrapper = styled.div`

@@ -45,8 +45,7 @@ export const Form = createGlobalStyle`
     }
 
     &.ant-select:not(.ant-select-customize-input) .ant-select-selector {
-      background-color: ${p => p.theme.bodyBackground};
-      border-color: ${p => p.theme.bodyBackground} !important;
+      border-color: ${p => p.theme.emphasisBackground} !important;
       border-radius: ${BORDER_RADIUS};
       box-shadow: none !important;
     }
@@ -190,12 +189,16 @@ export const Form = createGlobalStyle`
           }
           .ant-modal-confirm-btns {
             margin: 24px;
-            height: 38px;
+            .ant-btn {
+              height: 38px;
+            }
           }
         }
       }
     }
   }
-
-
+  .ant-pagination .ant-pagination-item-active{
+    color: #1245FA;
+    border-color: #1245FA;
+  }
 `;

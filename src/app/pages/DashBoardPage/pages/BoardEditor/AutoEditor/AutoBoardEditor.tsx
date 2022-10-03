@@ -60,6 +60,8 @@ import DeviceList from '../components/DeviceList';
 import { editBoardStackActions, editDashBoardInfoActions } from '../slice';
 import { selectEditingWidgetIds } from '../slice/selectors';
 import { WidgetOfAutoEditor } from './WidgetOfAutoEditor';
+import EmptyInformation from 'app/assets/images/empty_add_information.png';
+
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -186,7 +188,14 @@ export const AutoBoardEditor: React.FC<{}> = memo(() => {
           </div>
         ) : (
           <div className="empty">
-            <Empty description="" />
+            <div>您还没添加任何组件，点击按钮立即创建组件</div>
+            <Empty description=""
+                   image={EmptyInformation}
+                   imageStyle={{
+                     width: 300,
+                   }}
+                   style={{marginTop: 24}}
+            />
           </div>
         )}
       </StyledContainer>
@@ -199,7 +208,7 @@ const Wrapper = styled.div<{}>`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  width: 100px;
+  width: 100%;
   min-height: 0;
   overflow-y: auto;
   .react-grid-item{
@@ -255,7 +264,11 @@ const StyledContainer = styled(StyledBackground)<{ curWH: number[] }>`
   .empty {
     display: flex;
     flex: 1;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    .ant-empty-image img{
+      height: auto;
+    }
   }
 `;

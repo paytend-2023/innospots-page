@@ -30,6 +30,9 @@ import {
 import { setLatestVersion, versionCanDo } from '../utils';
 
 export const parseBoardConfig = (boardConfig: string) => {
+  if(!boardConfig){
+    return ;
+  }
   try {
     let nextConfig = JSON.parse(boardConfig);
     if (!BoardTypes.includes(nextConfig?.type)) {

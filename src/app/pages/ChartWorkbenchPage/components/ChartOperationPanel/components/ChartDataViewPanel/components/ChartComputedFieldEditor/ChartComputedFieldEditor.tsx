@@ -126,12 +126,14 @@ const ChartComputedFieldEditor: ForwardRefRenderFunction<
             }
           }
           options={{
-            lineDecorationsWidth: 1,
+            lineDecorationsWidth: 2,
+            overviewRulerBorder: false,
+            lineNumbersMinChars: 3
           }}
         />
       </Row>
       <Row>
-        <Divider />
+        {/*<Divider />*/}
         <p>{renderFunctionDescriptionInfo()}</p>
       </Row>
     </StyledChartComputedFieldEditor>
@@ -144,8 +146,7 @@ const StyledChartComputedFieldEditor = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 16px;
-  background-color: #F5F5F5;
+  background: #F7F8FA;
 
   & > .ant-row:first-child {
     height: 272px;

@@ -19,7 +19,7 @@
 import {
   FormOutlined,
   InfoCircleOutlined,
-  MoreOutlined, PlusOutlined,
+  MoreOutlined, PlusCircleOutlined, PlusOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
 import {
@@ -521,7 +521,7 @@ const ChartDataViewPanel: FC<{
               </Menu>
             }
           >
-            <ToolbarButton icon={<PlusOutlined />} size="small" />
+            <ToolbarButton icon={<PlusCircleOutlined  style={{color: '#1245FA',fontSize: 16}}/>} size="small" />
           </Popover>
           {modalContextHolder}
       </Header>
@@ -557,30 +557,32 @@ const StyledChartDataViewPanel = styled.div`
     padding: 24px 16px 8px;
   }
   .common-title {
-    font-weight: 650;
+    font-weight: bold;
+    font-size: 16px;
+    color: #1D2129;
+    line-height: 26px;
   }
-
   .view-selector {
     width: 85%;
     margin-left: 16px;
     border: 1px solid #e8e8e8;
     border-radius: 4px;
-  }
-  /* Chrome浏览器 */
-  .view-selector::-webkit-input-placeholder {
+
+    /* Chrome浏览器 */
+    &::-webkit-input-placeholder {
       font-size: 12px;
     }
 
     /* 火狐浏览器 */
-  .view-selector::-moz-placeholder {
+    &::-moz-placeholder {
       font-size: 12px;
     }
 
     /* IE */
-  .view-selector:-ms-input-placeholder {
+    &:-ms-input-placeholder {
       font-size: 12px;
     }
-
+  }
   .view-divider {
     margin: 16px 0;
   }
@@ -590,7 +592,7 @@ const Header = styled.div`
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  padding: 0 ${SPACE_MD};
+  padding: 0 ${SPACE_MD} ${SPACE_XS};
 
   .view-selector {
     flex: 1;

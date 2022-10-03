@@ -412,8 +412,7 @@ export const getChartWidgetRequestParams = (obj: {
   // 有可能有的chart 没有viewId 例如富文本chart,有时候没有 viewId，不用取相关请求参数
   if (!dataChart.viewId) return null;
 //TODO
-  // const chartDataView = viewMap[dataChart?.viewId];
-  const chartDataView = viewMap[curWidget.viewIds[0]];
+   const chartDataView = viewMap[dataChart?.viewId];
   let requestParams = getDataChartRequestParams({
     dataChart,
     view: chartDataView,

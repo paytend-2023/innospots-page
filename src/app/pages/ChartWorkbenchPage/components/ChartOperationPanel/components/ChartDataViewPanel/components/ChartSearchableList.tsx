@@ -23,7 +23,13 @@ import styled from 'styled-components/macro';
 import { IW } from '../../../../../../../components';
 import { FONT_SIZE_LABEL } from '../../../../../../../../styles/StyleConstants';
 import { DataViewFieldType } from '../../../../../../../constants';
-import { CalendarOutlined, FieldStringOutlined, FileUnknownOutlined, NumberOutlined } from '@ant-design/icons';
+import {
+  CalendarOutlined,
+  FieldStringOutlined,
+  FileUnknownOutlined,
+  NumberOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 
 const ChartSearchableList: FC<{
   source: Array<{ value: string; label: string, type?: string }>;
@@ -69,7 +75,7 @@ const ChartSearchableList: FC<{
 
   return (
     <StyledChartSearchableList direction="vertical">
-      <Input.Search onChange={e => handleSearch(e.target.value)} enterButton size="large"/>
+      <Input onChange={e => handleSearch(e.target.value)}  prefix={<SearchOutlined className="icon" />} style={{height: 38}}/>
       <Divider />
       <List
         className="searchable-list-container"
