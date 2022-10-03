@@ -101,19 +101,19 @@ const ChartPresentWrapper: FC<{
               {/*  onChartChange={onChartChange}*/}
               {/*/>*/}
             </div>
-            <StyledConfigChartWrapper>
-              <StyledDragableConfigWrapper height={
-                (containerHeight || 0) -
-                (ChartGraphPanelRef?.current?.offsetHeight|| 0)
-              }>
-                <ChartDataConfigPanel
-                  dataConfigs={chartConfig?.datas}
-                  expensiveQuery={expensiveQuery}
-                  onChange={onDataConfigChanged}
-                  type="setting"
-                />
-              </StyledDragableConfigWrapper>
-                <StyledChartPresentWrapper borderWidth={borderWidth}>
+              <StyledConfigChartWrapper>
+                <StyledDragableConfigWrapper height={
+                  (containerHeight || 0) -
+                  (ChartGraphPanelRef?.current?.offsetHeight|| 0)
+                }>
+                  <ChartDataConfigPanel
+                    dataConfigs={chartConfig?.datas}
+                    expensiveQuery={expensiveQuery}
+                    onChange={onDataConfigChanged}
+                    type="setting"
+                  />
+                </StyledDragableConfigWrapper>
+                <StyledChartPresentCoreWrapper borderWidth={borderWidth}>
                   <ChartPresentPanel
                     containerHeight={
                       (containerHeight || 0) -
@@ -131,7 +131,7 @@ const ChartPresentWrapper: FC<{
                     selectedItems={selectedItems}
                     dataView={dataView}
                   />
-              </StyledChartPresentWrapper>
+              </StyledChartPresentCoreWrapper>
             </StyledConfigChartWrapper>
           </StyledChartWrapper>
         </ChartI18NContext.Provider>
@@ -155,7 +155,6 @@ const StyledChartPresentWrapper = styled.div<{ borderWidth }>`
   height: 100%;
   // padding: ${p => p.borderWidth}px ${p => p.borderWidth}px
   //   ${p => p.borderWidth}px 0;
-  width: calc(100% - 182px);
   background-color: ${p => p.theme.bodyBackground};
 `;
 const StyledConfigChartWrapper = styled.div`
@@ -168,4 +167,12 @@ const StyledDragableConfigWrapper = styled.div<{ height }>`
   background-color: ${p => p.theme.componentBackground};
   border-right: 1px solid ${p => p.theme.borderColorEmphasis};
   overflow-y: auto;
+`;
+const StyledChartPresentCoreWrapper = styled.div<{ borderWidth }>`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  width: calc(100% - 182px);
+  background-color: ${p => p.theme.bodyBackground};
 `;
