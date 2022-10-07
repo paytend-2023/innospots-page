@@ -55,7 +55,7 @@ module.exports = {
         // 导入模块
         remotes: {
           // 导入后给模块起个别名：“微应用名称@地址/导出的文件名”
-          coreModule: IS_DEV ? 'coreModule@http://localhost:8000/coreModule.js' : 'coreModule@/coreModule.js',
+          // coreModule: IS_DEV ? 'coreModule@http://localhost:8000/coreModule.js' : 'coreModule@/coreModule.js',
           // strategyModule: IS_DEV ? 'strategyModule@http://localhost:8000/strategyModule.js' : 'strategyModule@http://1.15.20.45:9800/strategyModule.js'
         },
         // 应用 B 也可以对外提供模块，因此，也可以配置 filename 和 name

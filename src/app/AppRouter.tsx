@@ -40,6 +40,8 @@ export function AppRouter() {
           <Route path="/page/edit" render={() => <BoardEditorMain  />} />
           <Route path="/page/create" render={() => <BoardEditorMain />} />
           <Route path="/page/preview" render={() => <BoardPreview  hideTitle={true}/>} />
+          <Route path="/apps/workflow/kanban/edit" render={() => <BoardEditorMain />} />
+          <Route path="/apps/workflow/kanban" render={() => <BoardPreview  hideTitle={true}/>} />
           <Route path="*" component={NotFoundPage} />
         </Switch>
         <GlobalStyles />

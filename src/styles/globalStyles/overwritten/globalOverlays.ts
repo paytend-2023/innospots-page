@@ -80,6 +80,9 @@ export const GlobalOverlays = createGlobalStyle`
     .ant-collapse-content-box {
       padding: 8px 16px 0;
     }
+    .chart-config-item-layout .ant-btn-block{
+      height: auto;
+    }
   }
 
   /* data config section dropdown */

@@ -175,6 +175,9 @@ export const beta4 = (config: any) => {
   }
 };
 export const migrateBoardConfig = (boardConfig: string) => {
+  if(!boardConfig){
+    boardConfig = "{}";
+  }
   let config = parseBoardConfig(boardConfig);
   config = beta0(config);
   config = beta2(config);
