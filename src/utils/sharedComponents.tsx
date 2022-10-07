@@ -1,17 +1,24 @@
 import React from 'react';
 
-let componentContent = {};
+let componentContent = {
+  core: {},
+  workflow: {}
+};
 
 export const importCoreWidgets = async () => {
-  return new Promise(resolve => {
-    if (!Object.keys(componentContent).length) {
-      import('coreModule/CoreWidget').then(res => {
-        componentContent = res;
-        resolve(componentContent)
-      })
-    } else {
-      resolve(componentContent)
+  return new Promise(async (resolve) => {
+    if (!Object.keys(componentContent.core).length) {
+      const coreWidgets = await import('coreModule/CoreWidget');
+      componentContent.core = coreWidgets;
     }
+
+    if (!Object.keys(componentContent.workflow).length) {
+      // @ts-ignore
+      const workflowWidgets = await import('workflowModule/Widgets');
+      componentContent.workflow = workflowWidgets;
+    }
+
+    resolve(componentContent)
   })
 }
 
@@ -20,7 +27,8 @@ export const importCoreWidgets = async () => {
  * @param name
  */
 export const getComponentByName = (name: string) => {
-  return componentContent[name]
+  const ns = name.split('/');
+  return componentContent[ns[0]][ns[1]]
 };
 
 // @ts-ignore
