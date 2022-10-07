@@ -3,16 +3,16 @@ import React from 'react';
 let componentContent = {};
 
 export const importCoreWidgets = async () => {
-  // return new Promise(resolve => {
-  //   if (!Object.keys(componentContent).length) {
-  //     import('coreModule/CoreWidget').then(res => {
-  //       componentContent = res;
-  //       resolve(componentContent)
-  //     })
-  //   } else {
-  //     resolve(componentContent)
-  //   }
-  // })
+  return new Promise(resolve => {
+    if (!Object.keys(componentContent).length) {
+      import('coreModule/CoreWidget').then(res => {
+        componentContent = res;
+        resolve(componentContent)
+      })
+    } else {
+      resolve(componentContent)
+    }
+  })
 }
 
 /**
