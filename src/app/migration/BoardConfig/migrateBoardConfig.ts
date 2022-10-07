@@ -30,6 +30,9 @@ import {
 import { setLatestVersion, versionCanDo } from '../utils';
 
 export const parseBoardConfig = (boardConfig: string) => {
+  if(!boardConfig){
+    return ;
+  }
   try {
     let nextConfig = JSON.parse(boardConfig);
     if (!BoardTypes.includes(nextConfig?.type)) {
@@ -172,6 +175,9 @@ export const beta4 = (config: any) => {
   }
 };
 export const migrateBoardConfig = (boardConfig: string) => {
+  if(!boardConfig){
+    boardConfig = "{}";
+  }
   let config = parseBoardConfig(boardConfig);
   config = beta0(config);
   config = beta2(config);

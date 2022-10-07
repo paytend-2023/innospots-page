@@ -155,7 +155,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  padding: ${SPACE_SM} ${SPACE_MD} ${SPACE_SM} ${SPACE_SM};
+  padding: 16px 16px 16px 31px;
   background-color: ${p => p.theme.componentBackground};
   border-bottom: 1px solid ${p => p.theme.borderColorSplit};
 

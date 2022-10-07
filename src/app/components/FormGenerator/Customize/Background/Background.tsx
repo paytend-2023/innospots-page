@@ -64,13 +64,13 @@ export const Background: FC<ItemLayoutProps<ChartStyleConfig>> = memo(
             />
           </WithColorPicker>
         </Group>
-        <span>{gt('image')}</span>
+        <div className="background-label">{gt('image')}</div>
         <UploadDragger
           value={value.image as string}
           onChange={onImageChange}
           placeholder={gt('uploadTip')}
         />
-        <div>URL</div>
+        <div className="background-label">URL</div>
         <Input
           className="datart-ant-input"
           value={value.image}
@@ -84,5 +84,11 @@ const Wrap = styled.div`
   display: block;
   .ant-upload-list {
     display: none;
+  }
+  .background-label{
+    margin: 12px 0;
+  }
+  .ant-upload.ant-upload-drag .ant-upload{
+    background: #FFFFFF;
   }
 `;

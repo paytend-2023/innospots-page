@@ -42,7 +42,7 @@ import { FC, memo } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import {
-  BORDER_RADIUS,
+  BORDER_RADIUS, FONT_WEIGHT_BOLD,
   FONT_WEIGHT_MEDIUM,
   SPACE_MD,
 } from 'styles/StyleConstants';
@@ -155,7 +155,7 @@ const ChartConfigPanel: FC<{
                   <TabPane
                     tab={
                       <span>
-                        <DashboardOutlined />
+                        {/*<DashboardOutlined />*/}
                         {t('title.design')}
                       </span>
                     }
@@ -166,7 +166,7 @@ const ChartConfigPanel: FC<{
                   <TabPane
                     tab={
                       <span>
-                        <SettingOutlined />
+                        {/*<SettingOutlined />*/}
                         {t('title.setting')}
                       </span>
                     }
@@ -177,7 +177,7 @@ const ChartConfigPanel: FC<{
                   <TabPane
                     tab={
                       <span>
-                        <BlockOutlined />
+                        {/*<BlockOutlined />*/}
                         {t('title.interaction')}
                       </span>
                     }
@@ -193,35 +193,39 @@ const ChartConfigPanel: FC<{
               {/*  />*/}
               {/*</Pane>*/}
               <Pane selected={tabActiveKey === CONFIG_PANEL_TABS.STYLE}>
-                <ChartStyleConfigPanel
-                  i18nPrefix="viz.palette.style"
-                  configs={chartConfig?.styles}
-                  dataConfigs={chartConfig?.datas}
-                  onChange={handleConfigChangeByAction(
-                    ChartConfigReducerActionType.STYLE,
-                  )}
-                />
+                {tabActiveKey === CONFIG_PANEL_TABS.STYLE ?
+                  <ChartStyleConfigPanel
+                    i18nPrefix="viz.palette.style"
+                    configs={chartConfig?.styles}
+                    dataConfigs={chartConfig?.datas}
+                    onChange={handleConfigChangeByAction(
+                      ChartConfigReducerActionType.STYLE,
+                    )}
+                  />
+                  : '' }
               </Pane>
               <Pane selected={tabActiveKey === CONFIG_PANEL_TABS.SETTING}>
-                <ChartStyleConfigPanel
-                  i18nPrefix="viz.palette.setting"
-                  configs={chartConfig?.settings}
-                  dataConfigs={chartConfig?.datas}
-                  onChange={handleConfigChangeByAction(
-                    ChartConfigReducerActionType.SETTING,
-                  )}
-                />
+                {tabActiveKey === CONFIG_PANEL_TABS.SETTING ?
+                  <ChartStyleConfigPanel
+                    i18nPrefix="viz.palette.setting"
+                    configs={chartConfig?.settings}
+                    dataConfigs={chartConfig?.datas}
+                    onChange={handleConfigChangeByAction(
+                      ChartConfigReducerActionType.SETTING,
+                    )}
+                  /> : '' }
               </Pane>
               <Pane selected={tabActiveKey === CONFIG_PANEL_TABS.INTERACTION}>
-                <ChartStyleConfigPanel
-                  i18nPrefix="viz.palette.interaction"
-                  configs={chartConfig?.interactions}
-                  dataConfigs={chartConfig?.datas}
-                  context={{ vizs, dataview }}
-                  onChange={handleConfigChangeByAction(
-                    ChartConfigReducerActionType.INTERACTION,
-                  )}
-                />
+                {tabActiveKey === CONFIG_PANEL_TABS.INTERACTION ?
+                  <ChartStyleConfigPanel
+                    i18nPrefix="viz.palette.interaction"
+                    configs={chartConfig?.interactions}
+                    dataConfigs={chartConfig?.datas}
+                    context={{ vizs, dataview }}
+                    onChange={handleConfigChangeByAction(
+                      ChartConfigReducerActionType.INTERACTION,
+                    )}
+                  /> : '' }
               </Pane>
             </ConfigBlock>
           </StyledChartDataViewPanel>
@@ -245,11 +249,13 @@ const StyledChartDataViewPanel = styled.div`
 `;
 const StyledChartGraphPanel = styled.div`
   .graph-panel-title {
-    padding: 24px 18px 0;
+    padding: 24px;
     background-color: ${(p) => p.theme.componentBackground};
   }
   .common-title {
-    font-weight: 650;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 26px;
   }
 `;
 const ConfigBlock = styled.div`
@@ -262,11 +268,13 @@ const ConfigBlock = styled.div`
 
   .tabs {
     flex-shrink: 0;
-    font-weight: ${FONT_WEIGHT_MEDIUM};
-    color: ${p => p.theme.textColorSnd};
+    color: #4E5969;
 
-    .ant-tabs-tab + .ant-tabs-tab {
-      margin: 0 0 0 ${SPACE_MD};
+    .ant-tabs-nav-list .ant-tabs-tab{
+      padding: 8px;
+      + .ant-tabs-tab {
+        margin: 0 0 0 ${SPACE_MD};
+      }
     }
     .ant-tabs-nav{
       padding: 0 ${SPACE_MD};
@@ -274,11 +282,12 @@ const ConfigBlock = styled.div`
     }
     .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
       color: ${p => p.theme.primary};
+      font-weight: ${FONT_WEIGHT_BOLD};
     }
   }
 `;
 
 const Pane = styled(PaneWrapper)`
-  padding: 0 ${SPACE_MD};
+  padding: 0 ${SPACE_MD} 64px;
   overflow-y: auto;
 `;

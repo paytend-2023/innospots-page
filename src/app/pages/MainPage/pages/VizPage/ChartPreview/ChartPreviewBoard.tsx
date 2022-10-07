@@ -177,11 +177,11 @@ const ChartPreviewBoard: FC<{
     }, [dispatch, orgId, backendChartId, filterSearchUrl, parse]);
 
     useEffect(() => {
-      const sourceId = chartPreview?.backendChart?.view.sourceId;
-      if (sourceId) {
-        dispatch(fetchAvailableSourceFunctionsForChart(sourceId));
+      const viewId = chartPreview?.backendChart?.view.id;
+      if (viewId) {
+        dispatch(fetchAvailableSourceFunctionsForChart(viewId));
       }
-    }, [chartPreview?.backendChart?.view.sourceId, dispatch]);
+    }, [chartPreview?.backendChart?.view.id, dispatch]);
 
     useEffect(() => {
       const newChartPreview = previewCharts.find(

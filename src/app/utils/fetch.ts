@@ -35,7 +35,7 @@ import qs from 'qs';
 import { request2, requestWithHeader } from 'utils/request';
 import { convertToChartDto } from './ChartDtoHelper';
 import { getAllColumnInMeta } from './chartHelper';
-import { getGlobalConfigState } from '../../utils/globalState';
+import { getGlobalConfigState } from 'utils/globalState';
 
 export const getDistinctFields = async (
   viewId: string,
@@ -180,12 +180,14 @@ export async function checkComputedFieldAsync(sourceId, expression) {
   return !!response;
 }
 
-export async function fetchAvailableSourceFunctionsAsync(sourceId) {
-  // const response = await request2<string[]>({
-  //   method: 'POST',
-  //   url: `/widget/data/function/support`,
-  // });
-  // return response?.data;
+export async function fetchAvailableSourceFunctionsAsync(viewId) {
+  const { urls } = getGlobalConfigState();
+  const functionSupportUrl = urls.functionSupportUrl.replace(":viewId", viewId);
+  const response = await request2<string[]>({
+    method: 'GET',
+    url: `${functionSupportUrl}`,
+  });
+  return response?.data;
   return []
 }
 

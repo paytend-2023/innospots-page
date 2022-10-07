@@ -118,11 +118,12 @@ function useStateModal({ initState }: { initState?: any }) {
     // Note: should destroy old modal and form effects in order to render new content
     Modal.destroyAll();
     form?.resetFields();
-
     return modal.confirm({
       title: props.title,
       width: getModalSize(props?.modalSize),
       bodyStyle: props.bodyStyle || defaultBodyStyle,
+      className: "datart-confirm-modal",
+      closable: true,
       content: FormWrapper(
         props?.content?.call(Object.create(null), handleSaveCacheValue, form),
       ),

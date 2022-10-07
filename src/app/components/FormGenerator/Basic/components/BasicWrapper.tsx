@@ -11,7 +11,7 @@ const Wrapper = styled(Form.Item)`
     margin: 0;
 
     .ant-form-item-control{
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
     .ant-form-item-label{
       text-align: left;

@@ -41,7 +41,7 @@ export const entryParameters = {
       detailUrl: `/page/:id`,
       saveBoardsUrl: `/page`,
       fileUploadUrl: `/dashboard/files/image`,
-      functionSupportUrl: `/widget/data/function/support`,
+      functionSupportUrl: `/data-set/data/function/support/:viewId`,
       editBoardPageUrl: `/page/161/viz/edit`,
     },
     applicationEnable: false
@@ -58,7 +58,7 @@ export const entryParameters = {
       detailUrl: `/workspace`,
       saveBoardsUrl: `/workspace`,
       fileUploadUrl: `/dashboard/files/image`,
-      functionSupportUrl: `/data-set/data/function/support`,
+      functionSupportUrl: `/data-set/data/function/support/:viewId`,
     },
     applicationEnable: true
   },
@@ -71,10 +71,10 @@ export const entryParameters = {
       dataUrl: `/data-set/data`,
       applicationsUrl: `/application/list`,
       applicationWidgetsUrl: `/application/widgets`,
-      detailUrl: `/pages/11`,
-      saveBoardsUrl: `/pages`,
+      detailUrl: `/page/:id`,
+      saveBoardsUrl: `/page`,
       fileUploadUrl: `/dashboard/files/image`,
-      functionSupportUrl: `/data-set/data/function/support`,
+      functionSupportUrl: `/data-set/data/function/support/:viewId`,
     },
     applicationEnable: true
   },

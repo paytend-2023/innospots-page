@@ -470,8 +470,9 @@ export const uploadBoardImage = createAsyncThunk<
 >(
   'editBoard/uploadBoardImage',
   async ({ boardId, formData, fileName, resolve }, { getState, dispatch }) => {
+    const { urls } = getGlobalConfigState();
     const { data } = await request2<string>({
-      url: `files/viz/image?ownerType=${'DASHBOARD'}&ownerId=${boardId}&fileName=${
+      url: `${urls.fileUploadUrl}?fileName=${
         uuidv4() + '@' + fileName
       }`,
       method: 'POST',

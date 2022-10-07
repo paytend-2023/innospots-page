@@ -1,7 +1,6 @@
 import {Button, Cascader, Col, Form, Input, Modal, Radio, Row, Space, Checkbox, Select, message} from 'antd';
 import useI18NPrefix from 'app/hooks/useI18NPrefix';
 import allApp from 'app/assets/images/all_apps.svg';
-import appCoreModule from 'app/assets/images/app_core_module.svg';
 import React, {
   memo,
   useCallback,
@@ -72,7 +71,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
           appKey: "innospot-libra-app-kernel",
           kernelVersion: "1.1.0",
           name: "核心模块",
-          icon: "app/assets/images/app_core_module.svg",
+          icon: "/images/app_core_module.png",
           status: 'ONLINE',
           vendor: "",
           version: "v1.1.0",
@@ -132,7 +131,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
 
   const appIcon = (appIconSrc)=>{
     if(appIconSrc){
-      return ( <img src={appCoreModule} alt="" className="icon"/>)
+      return ( <img src={appIconSrc} alt="" className="icon" />)
     }
     return (<img src={allApp} alt="" className="icon" />)
   };
@@ -153,8 +152,8 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
               })}
               onClick={() => onAppKeyClick(appKey)}
             >
-              {appIcon(`${applicationsMap[appKey].icon}`)}
-              <span className="label">{ applicationsMap[appKey].name ? applicationsMap[appKey].name : '其他应用' }</span>
+              <div className="iconInfo">{appIcon(`${applicationsMap[appKey].icon}`)}</div>
+              <div className="label">{ applicationsMap[appKey].name ? applicationsMap[appKey].name : '其他应用' }</div>
             </li>
           ))
         }
@@ -225,15 +224,6 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
     })
     return (
       <div className="appList">
-        <div className="appSearch">
-          <Input
-            prefix={<SearchOutlined />}
-            placeholder="搜索小组件"
-            className="appSearchInput"
-            onPressEnter={(event) => onSearch(event.target)}
-            onChange={(event) => onSearch(event.target.value)}
-          />
-        </div>
         <div className="appContainer" hidden={selectedAppKey == "innospot-libra-app-kernel"}>
         </div>
         <div className="appContainer" hidden={selectedAppKey != "innospot-libra-app-kernel"}>
@@ -300,7 +290,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
       <>
         <Col span={Math.max(formItem.gridSize, 2)}>
           <div className={cls('formItem', {['hasError']: !!formError[formItem.name]})}>
-            <span style={{paddingTop: 30, display: 'inline-block'}}> {formItem.label}</span>
+            <span style={{paddingTop: 24, display: 'inline-block'}}> {formItem.label}</span>
             <Form.Item
               noStyle
               name={formItem.name}
@@ -347,7 +337,8 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
       onOk={onSubmit}
       centered
       destroyOnClose
-      width={1380}
+      width={1120}
+      bodyStyle={{padding: 0}}
       afterClose={afterClose}
       onCancel={() => setWidgetApplicationVisible(false)}
     >
@@ -366,66 +357,60 @@ const Container = styled.div`
   height: 600px;
 
   .appTypeList {
-    padding:0 0 0 24px;
+    padding: 32px 24px 32px 48px;
 
     .listItem {
-      width:262px;
-      height: 65px;
-      display: flex;
-      align-items: center;
+      width: 96px;
+      height: 90px;
       border-radius: 4px;
       cursor: pointer;
       margin-bottom: 12px;
+      background: #F9FAFF;
 
       .label {
         font-size: 16px;
-        margin-left: 24px;
-        font-weight: 600;
+        color: #262626;
+        margin-top: 8px;
+        text-align: center;
       }
-
-      .icon {
-        //font-size: 26px;
-        width: 48px;
-        height: 48px;
-        margin-left: 24px;
+      .iconInfo{
+        text-align: center;
+        padding-top: 20px;
+        .icon {
+          width: 26px;
+          height: 26px;
+        }
       }
-
       &:hover:not(.active) {
         background-color: #E5ECFF;
       }
 
       &.active {
         cursor: default;
-        background-color: #E5ECFF;
+        background-color: #1245FA;
+        .label{
+          color: #fff;
+        }
+
       }
     }
   }
   .formContent{
-    width: 256px;
-    padding: 0 20px;
+    width: 224px;
+    padding: 24px 16px;
     overflow: auto;
 
     .formTitle{
-      font-size: 18px;
-      font-weight: 650;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 26px;
     }
   }
   .appList{
     flex: 1;
     overflow-y: auto;
 
-    .appSearch{
-      margin-left: 24px;
-      .polaris-input-affix-wrapper:before{content: '' ;}
-      .appSearchInput{
-        width: 320px;
-        background-color: #fff;
-        border-radius: 8px;
-      }
-    }
-
     .appContainer{
-      margin-top: 8px;
       display: flex;
       flex-wrap: wrap;
 

@@ -33,6 +33,7 @@ import 'react-resizable/css/styles.css';
 import styled from 'styled-components/macro';
 import StyledBackground from '../../../components/WidgetComponents/StyledBackground';
 import { WidgetOfAuto } from './WidgetOfAuto';
+import EmptyInformation from '../../../../../assets/images/empty_add_information.png';
 
 const ReactGridLayout = WidthProvider(RGL);
 export const AutoBoardCore: React.FC<{ boardId: string }> = memo(
@@ -97,7 +98,14 @@ export const AutoBoardCore: React.FC<{ boardId: string }> = memo(
           </div>
           {!sortedLayoutWidgets.length && (
             <div className="empty">
-              <Empty description="" />
+              <div>您还没添加任何组件，点击按钮立即创建组件</div>
+              <Empty description=""
+                     image={EmptyInformation}
+                     imageStyle={{
+                       width: 300,
+                     }}
+                     style={{marginTop: 24}}
+              />
             </div>
           )}
         </StyledContainer>
@@ -130,8 +138,12 @@ const StyledContainer = styled(StyledBackground)`
 
   .empty {
     display: flex;
-    flex: 100;
+    flex: 1;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    .ant-empty-image img{
+      height: auto;
+    }
   }
 `;

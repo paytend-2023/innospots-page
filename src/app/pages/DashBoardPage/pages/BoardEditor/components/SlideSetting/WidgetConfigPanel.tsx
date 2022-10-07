@@ -75,8 +75,16 @@ export const BoardConfigCollapse: FC<{
   ) => void;
 }> = memo(({ configs, dataConfigs, context, onChange }) => {
   const t = useI18NPrefix();
+  let activeKeys: string[] = [];
+  if(configs && configs.length>0){
+    configs.filter(c => !Boolean(c.hidden) && c.key!='drillThrough').forEach(c => {
+      if (c.comType === 'group') {
+        activeKeys.push(c.key);
+      }
+    }) ;
+  }
   return (
-    <Collapse className="datart-config-panel" ghost>
+    <Collapse className="datart-config-panel" ghost defaultActiveKey={activeKeys}>
       {configs
         ?.filter(c => !Boolean(c.hidden) && c.key!='drillThrough')
         .map((c, index) => {

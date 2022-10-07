@@ -37,8 +37,16 @@ const ChartStyleConfigPanel: FC<{
 }> = memo(
   ({ configs, dataConfigs, i18nPrefix, context, onChange }) => {
     const t = useI18NPrefix(i18nPrefix);
+    let activeKeys: string[] = [];
+    if(configs && configs.length>0){
+      configs.filter(c => !Boolean(c.hidden) && c.key!='drillThrough').forEach(c => {
+        if (c.comType === 'group') {
+          activeKeys.push(c.key);
+        }
+      }) ;
+    }
     return (
-      <Collapse className="datart-config-panel" ghost>
+      <Collapse className="datart-config-panel"  ghost activeKey={activeKeys}>
         {configs
           ?.filter(c => !Boolean(c.hidden) && c.key!='drillThrough')
           ?.map((c, index) => {

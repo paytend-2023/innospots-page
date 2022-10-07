@@ -169,21 +169,19 @@ const ChartComputedFieldSettingPanel: FC<{
     <StyledChartComputedFieldSettingPanel direction="vertical">
       <Row gutter={24}>
         <Col span={12}>
-          <Space>
             <FormItemEx
-              label={`${t('fieldName')}`}
+              label={`${t('field')}${t('fieldName')}`}
               name="fieldName"
               rules={[{ required: true }]}
               initialValue={myComputedFieldRef.current?.name}
+              style={{marginLeft: 10}}
             >
-              <Input onChange={e => handleFieldNameChange(e.target.value)} />
+              <Input onChange={e => handleFieldNameChange(e.target.value)}  style={{width: 338, height: 38, marginLeft: 10}}/>
             </FormItemEx>
-          </Space>
         </Col>
         <Col span={12}>
-          <Space>
             <FormItemEx
-              label={`${t('type')}`}
+              label={`${t('field')}${t('type')}`}
               name="type"
               rules={[{ required: true }]}
               initialValue={myComputedFieldRef.current?.type}
@@ -196,14 +194,14 @@ const ChartComputedFieldSettingPanel: FC<{
                     value: DataViewFieldType[type],
                   };
                 })}
+                style={{width: 338, marginLeft: 10}}
                 onChange={handleFieldTypeChange}
               ></Select>
             </FormItemEx>
-          </Space>
         </Col>
       </Row>
-      <Row gutter={24}>
-        <Col span={4}>
+      <Row gutter={24} style={{marginTop: 16,marginLeft: 0}}>
+        <Col span={5}  className="field-info">
           <Tabs defaultActiveKey="field" onChange={() => {}}>
             <Tabs.TabPane tab={`${t('field')}`} key="field">
               {viewType === 'STRUCT' ? (
@@ -221,6 +219,7 @@ const ChartComputedFieldSettingPanel: FC<{
                   source={(fields || []).map(f => ({
                     value: f.name,
                     label: f.name,
+                    type: f.type,
                   }))}
                   onItemSelected={handleFieldSelected}
                 />
@@ -237,7 +236,7 @@ const ChartComputedFieldSettingPanel: FC<{
             </Tabs.TabPane>
           </Tabs>
         </Col>
-        <Col span={16}>
+        <Col span={14} style={{paddingLeft: 0}}>
           <ChartComputedFieldEditor
             ref={editorRef}
             value={myComputedFieldRef.current?.expression}
@@ -245,13 +244,14 @@ const ChartComputedFieldSettingPanel: FC<{
             onChange={handleExpressionChange}
           />
         </Col>
-        <Col span={4}>
+        <Col span={5}>
           <Space direction="vertical">
-            <span>{`${t('functions')}`}</span>
+            <span className="function-title">{`${t('functions')}`}</span>
             <Select
               value={selectedFunctionCategory}
               options={getFunctionCategories()}
               onChange={handleFunctionCategoryChange}
+              className="function-category"
             />
             <ChartSearchableList
               source={getFunctionList()}
@@ -268,10 +268,23 @@ export default ChartComputedFieldSettingPanel;
 
 const StyledChartComputedFieldSettingPanel = styled(Space)`
   width: 100%;
-  margin-top: 10px;
+  margin-top: 6px;
 
   .ant-select {
     width: 100%;
+  }
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector, .ant-form-item-label>label{
+    height: 38px;
+  }
+  .ant-select-single .ant-select-selector .ant-select-selection-item, .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+    line-height: 38px;
+  }
+  .field-info{
+    paddingRight: 0;
+    border: 1px solid #F5F5F5;
+  }
+  .ant-tabs-tab{
+    padding: 8px 0;
   }
 
   .ant-space-horizontal {
@@ -287,5 +300,15 @@ const StyledChartComputedFieldSettingPanel = styled(Space)`
 
   & .searchable-list-container {
     height: 300px;
+  }
+
+  .function-title{
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: bold;
+    margin-top: 16px;
+  }
+  .function-category{
+    margin: 8px 0;
   }
 `;

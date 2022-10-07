@@ -76,7 +76,7 @@ export default ChartGraphPanel;
 const StyledChartGraphPanel = styled.div`
   display: flex;
   flex-flow: row wrap;
-  padding: ${SPACE_XS};
+  padding: 0 ${SPACE_XS};
   color: ${p => p.theme.textColorLight};
   background-color: ${p => p.theme.componentBackground};
   border-radius: ${BORDER_RADIUS};

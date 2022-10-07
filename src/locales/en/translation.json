@@ -730,6 +730,8 @@
         "size": "Size",
         "drop": "Drag some data fields here",
         "dropCount": "Drag {{count}} fields here at least",
+        "fieldDrop": "Drag some data fields here",
+        "fieldDropCount": "Drag {{count}} fields here at least",
         "AGG_DATE_YEAR": "Year",
         "AGG_DATE_QUARTER": "Quarter",
         "AGG_DATE_MONTH": "Month",

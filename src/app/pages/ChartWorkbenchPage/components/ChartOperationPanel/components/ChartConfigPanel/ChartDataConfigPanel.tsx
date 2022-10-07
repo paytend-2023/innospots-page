@@ -93,5 +93,5 @@ const StyledChartDataConfigPanel = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 `;

@@ -18,7 +18,7 @@
 
 // https://getbootstrap.com/docs/4.1/getting-started/theming/#theme-colors
 const ChartComputedFieldEditorDarkTheme = {
-  base: 'vs-dark',
+  base: 'vs',
   inherit: true,
   rules: [
     { token: 'dql-field', foreground: '007bff', fontStyle: 'bold' },
@@ -26,6 +26,7 @@ const ChartComputedFieldEditorDarkTheme = {
     { token: 'dql-function', foreground: 'fd7e14' },
     { token: 'dql-operator', foreground: '17a2b8' },
     { token: 'dql-comment', foreground: '6c757d' },
+    { background: 'ffffff'}
   ],
 };
 

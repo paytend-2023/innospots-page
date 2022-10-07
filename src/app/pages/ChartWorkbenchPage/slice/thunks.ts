@@ -262,9 +262,9 @@ export const updateChartAction = createAsyncThunk(
 export const fetchAvailableSourceFunctionsForChart = createAsyncThunk<
   string[],
   string
->('workbench/fetchAvailableSourceFunctionsForChart', async sourceId => {
+>('workbench/fetchAvailableSourceFunctionsForChart', async viewId => {
   try {
-    const data = await fetchAvailableSourceFunctionsAsync(sourceId);
+    const data = await fetchAvailableSourceFunctionsAsync(viewId);
     return data;
   } catch (err) {
     throw err;

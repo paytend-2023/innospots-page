@@ -458,8 +458,8 @@ const boardSlice = createSlice({
       (state, action) => {
         try {
           if (action.payload) {
-            const { sourceId, value } = action.payload;
-            state.availableSourceFunctionsMap[sourceId] = value;
+            const { viewId, value } = action.payload;
+            state.availableSourceFunctionsMap[viewId] = value;
           }
         } catch (error) {}
       },

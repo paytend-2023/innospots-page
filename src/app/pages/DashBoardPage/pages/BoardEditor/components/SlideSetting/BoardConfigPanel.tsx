@@ -33,9 +33,7 @@ const StyledWrapper = styled.div`
   width: 100%;
   min-height: 0;
   overflow-y: auto;
-  .ant-collapse-item .ant-collapse-content .ant-collapse-content-box{
-    padding: 0 16px;
-  }
+  padding: 0 16px;
 `;
 export const BoardConfigPanel: FC<{}> = memo(() => {
   const dispatch = useDispatch();
@@ -71,8 +69,14 @@ export const BoardConfigCollapse: FC<{
   ) => void;
 }> = memo(({ configs, onChange }) => {
   const t = useI18NPrefix();
+  let activeKeys: string[] = [];
+  if(configs && configs.length>0){
+    configs.filter(c => !Boolean(c.hidden) && c.key!='drillThrough').forEach(c => {
+      activeKeys.push(c.key);
+    }) ;
+  }
   return (
-    <Collapse className="" ghost>
+    <Collapse className="datart-config-panel" ghost  defaultActiveKey={activeKeys}>
       {configs
         ?.filter(c => !Boolean(c.hidden) && c.key!='drillThrough')
         .map((c, index) => (

@@ -70,16 +70,18 @@ export const GlobalOverlays = createGlobalStyle`
       padding: ${SPACE_XS} 0;
       color: ${p => p.theme.textColor};
       font-weight: ${FONT_WEIGHT_MEDIUM};
+      line-height: 22px;
 
       .ant-collapse-arrow {
         margin-right: ${SPACE_XS};
       }
     }
-
-    .ant-collapse-content >
+    .ant-collapse-item > .ant-collapse-content >
     .ant-collapse-content-box {
-      // padding: ${SPACE_XS} 0 ${SPACE_SM} !important;
-      padding: 0 16px;
+      padding: 8px 16px 0;
+    }
+    .chart-config-item-layout .ant-btn-block{
+      height: auto;
     }
   }
 
@@ -94,4 +96,5 @@ export const GlobalOverlays = createGlobalStyle`
       display:none;
     }
   }
+
 `;

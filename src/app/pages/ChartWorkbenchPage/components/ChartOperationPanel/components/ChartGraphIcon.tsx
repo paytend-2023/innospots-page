@@ -93,12 +93,13 @@ const ChartGraphIcon: FC<{
         },
       );
     });
-    return <ul>{lintMessages}</ul>;
+    return <ul style={{paddingInlineStart: 0}}>{lintMessages}</ul>;
   };
 
   return (
     <Tooltip
       key={chart?.meta?.id}
+      placement="leftTop"
       title={
         <>
           {t(chart?.meta?.name!, true)}
@@ -108,7 +109,7 @@ const ChartGraphIcon: FC<{
     >
       <StyledChartIconWrapper
         fontSize={FONT_SIZE_ICON_MD}
-        size={SPACE_TIMES(9)}
+        size={SPACE_TIMES(6)}
         className={classnames({
           active: isActive,
         })}
@@ -159,14 +160,15 @@ const Base64ImageRender = ({ iconStr, isMatchRequirement, isActive }) => {
 };
 
 const StyledChartIconWrapper = styled(IW)`
-  margin: ${SPACE_TIMES(1)};
+  margin-bottom: 16px;
+  margin-left: 16px;
   cursor: pointer;
   border-radius: ${BORDER_RADIUS};
 
   &:hover,
   &.active {
-    color: ${p => p.theme.componentBackground};
-    background-color: ${p => p.theme.primary};
+    color: ${p => p.theme.primary};
+    // background-color: ${p => p.theme.primary};
   }
 `;
 

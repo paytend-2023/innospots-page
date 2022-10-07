@@ -199,7 +199,7 @@ const StyledChartPresentPanel = styled.div`
   flex: 1;
   flex-direction: column;
   background-color: ${p => p.theme.bodyBackground};
-  padding: 18px;
+  padding: 24px;
 
   .chartContent{
     border-radius: ${BORDER_RADIUS_LG};
