@@ -13,12 +13,7 @@ type BoardEditorProps = {
   useBoardSlice();
 
    return (
-       <BoardEditor
-         // onCloseBoardEditor={onCloseBoardEditor}
-         // onSuccessUpdateBoard={(updateBoardId)=>{
-         //   onSuccessUpdateBoard ? onSuccessUpdateBoard(updateBoardId) : '';
-         // }}
-       />
+       <BoardEditor />
    )
 }
 export default BoardEditorMain

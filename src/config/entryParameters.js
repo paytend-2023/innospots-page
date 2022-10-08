@@ -1,6 +1,7 @@
 export const entryParameters = {
   page: {
     code:'page',
+    operateType: 'VIEW',
     titleElement: [
       {
         label: '',
@@ -48,6 +49,7 @@ export const entryParameters = {
   },
   workspace: {
     code: 'workspace',
+    operateType: 'VIEW',
     titleElement: [],
     urls: {
       viewsUrl: `/data-set/list`,
@@ -64,6 +66,7 @@ export const entryParameters = {
   },
   strategy: {
     code:'strategy',
+    operateType: 'VIEW',
     titleElement: [],
     urls:{
       viewsUrl: `/data-set/list`,

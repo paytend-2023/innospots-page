@@ -91,8 +91,9 @@ export const fetchBoardDetail = createAsyncThunk<
     filterSearchParams?: FilterSearchParams;
   }
 >('board/fetchBoardDetail', async (params, { dispatch, rejectWithValue }) => {
-  const { urls } = getGlobalConfigState();
-  const { data } = await request2<ServerDashboard>(urls.detailUrl);
+  const { urls,pageId } = getGlobalConfigState();
+  const detailUrl = urls.detailUrl.replace(":id", pageId || '');
+  const { data } = await request2<ServerDashboard>(detailUrl);
   dispatch(
     handleServerBoardAction({
       data,

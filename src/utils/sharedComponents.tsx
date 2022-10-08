@@ -6,19 +6,19 @@ let componentContent = {
 };
 
 export const importCoreWidgets = async () => {
-  return new Promise(async (resolve) => {
+  return new Promise(async (resolve, reject) => {
     if (!Object.keys(componentContent.core).length) {
       const coreWidgets = await import('coreModule/CoreWidget');
       componentContent.core = coreWidgets;
     }
 
     if (!Object.keys(componentContent.workflow).length) {
-      // @ts-ignore
-      const workflowWidgets = await import('workflowModule/Widgets');
+      const workflowWidgets = await import('workflowModule/WorkflowWidgets');
       componentContent.workflow = workflowWidgets;
     }
 
     resolve(componentContent)
+    reject(new Error('hi'));
   })
 }
 

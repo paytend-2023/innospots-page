@@ -98,16 +98,16 @@ export const fetchEditBoardDetail = createAsyncThunk<
 >(
   'editBoard/fetchEditBoardDetail',
   async ( dashboardId,{ getState, dispatch }) => {
-    const { urls } = getGlobalConfigState();
-    console.log("getGlobalConfigState()---",getGlobalConfigState())
+    const { urls, pageId } = getGlobalConfigState();
     let boardDetail = {} as ServerDashboard
     boardDetail.id= '-1'
     boardDetail.name=''
     boardDetail.widgets =[]
     boardDetail.views = []
     if( urls.detailUrl){
+      const detailUrl= urls.detailUrl.replace(":id", pageId || '');
       const { data } = await request2<ServerDashboard>(
-        urls.detailUrl,
+        detailUrl,
       );
       boardDetail = data
     }
@@ -626,7 +626,6 @@ export const getEditChartWidgetDataAsync = createAsyncThunk<
   'editBoard/getEditChartWidgetDataAsync',
   async ({ widgetId, option }, { getState, dispatch, rejectWithValue }) => {
     const rootState = getState() as RootState;
-    console.log("editBoard/getEditChartWidgetDataAsync",getGlobalConfigState())
     dispatch(editWidgetInfoActions.renderedWidgets([widgetId]));
     const stackEditBoard = rootState.editBoard as unknown as HistoryEditBoard;
     const { widgetRecord: widgetMap } = stackEditBoard.stack.present;

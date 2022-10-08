@@ -1,7 +1,9 @@
 import LS from './localStorage';
 import { entryParameters } from '../config/entryParameters';
 export type DatartComponentConfig = {
+  pageId?: string,
   code: string,
+  operateType: string,
   titleElement?: DatartConfElement[],
   urls:{
     viewsUrl: string,
@@ -75,29 +77,32 @@ export const getSessionData = (): any => {
     }
   }
 }
-let globalConfigState:DatartComponentConfig;
+let globalConfigState:DatartComponentConfig = {} as DatartComponentConfig;
 export const getGlobalConfigState = () => globalConfigState;
-export const setGlobalConfigState = (): DatartComponentConfig => {
+export const setGlobalConfigState = (props) => {
   let config = entryParameters.page;
-  if (POWERED_BY_QIANKUN && getMasterState()) {
-   if(getMasterState().pageType){
-      console.log("getMasterState().pageType-----",getMasterState().pageType)
-      config = entryParameters[getMasterState().pageType];
+  if (POWERED_BY_QIANKUN && props) {
+   if(props.pageType){
+      console.log("setGlobalConfigState().pageType-----",props.pageType)
+      config = entryParameters[props.pageType];
+
     }
-   if(getMasterState().config){
+    if(props.operateType){
+      config.operateType = props.operateType;
+      if(props.operateType=='CREATE'){
+        config.urls.detailUrl= '';
+      }
+    }
+   if(props.config){
      config = {
        ...config,
-       ...getMasterState().config
+       ...props.config
      };
    }
-    if(getMasterState().id){
-      config.urls.detailUrl= config.urls.detailUrl.replace(":id", getMasterState().id);
-    }
-    if(getMasterState().editType && getMasterState().editType=='CREATE'){
-      config.urls.detailUrl= '';
+    if(props.id){
+      config.pageId = props.id
     }
   }
   globalConfigState = config;
   console.log("config----",config,globalConfigState)
-  return config;
 }
