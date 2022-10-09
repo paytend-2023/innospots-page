@@ -217,7 +217,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
           <div key={item.code} >
             <div  className="appItem" onClick={()=>{selectAppWidget(item);}} >
               <div className="appSelected" hidden={item.code!=selectedAppWidget.code} ><CheckCircleOutlined className="appSelectedIcon"/></div>
-              <SharedComponent name={item['code']} />
+              <SharedComponent name={item['code']} module={item['module'] || 'core'} />
             </div>
           </div>
         )

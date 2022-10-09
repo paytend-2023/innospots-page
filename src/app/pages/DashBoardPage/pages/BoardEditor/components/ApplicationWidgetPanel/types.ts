@@ -28,6 +28,7 @@ export type AppWidgetConfigItem = {
 
 export interface AppWidgetConfig {
   name: string,
+  module: string,
   code: string,
   icon?: string,
   description?: string,

@@ -17,8 +17,8 @@ export const importCoreWidgets = async () => {
       componentContent.workflow = workflowWidgets;
     }
 
-    resolve(componentContent)
-    reject(new Error('hi'));
+    resolve(componentContent);
+    reject(new Error('module error'));
   })
 }
 
@@ -26,16 +26,16 @@ export const importCoreWidgets = async () => {
  * 根据组件名称获取组件
  * @param name
  */
-export const getComponentByName = (name: string) => {
-  const ns = name.split('/');
-  return componentContent[ns[0]][ns[1]]
+export const getComponentByName = (module: string,name: string) => {
+  return componentContent[module][name]
 };
 
 // @ts-ignore
 export const SharedComponent:React.FC<{
+  module: string,
   name: string
-}> = ({name, children, ...rest}) => {
-  const Component = getComponentByName(name);
+}> = ({module, name, children, ...rest}) => {
+  const Component = getComponentByName(module,name);
   return Component ? (
     <Component {...rest}>{children}</Component>
   ) : (<></>)

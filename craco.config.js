@@ -62,10 +62,7 @@ module.exports = {
         filename: 'visualization.js',
         // 应用名称，当前模块自己的名字
         name: 'visualization',
-        shared: {
-          "react": {singleton: true},
-          "react-dom": {singleton: true},
-        }
+        shared: ["react", "react-dom"]
       }),
       // new BundleAnalyzerPlugin(),
     ],
