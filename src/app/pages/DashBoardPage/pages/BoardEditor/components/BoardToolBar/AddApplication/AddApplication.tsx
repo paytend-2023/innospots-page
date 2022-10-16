@@ -10,26 +10,15 @@ import {editDashBoardInfoActions} from "app/pages/DashBoardPage/pages/BoardEdito
 export const AddApplication= () => {
   const t = useI18NPrefix(`viz.board.action`);
   const tg = useI18NPrefix('global');
-  const { boardId, boardType } = useContext(BoardToolBarContext);
   const dispatch = useDispatch();
 
   const onCreateApplication = () => {
     dispatch(
       editDashBoardInfoActions.changeApplicationPanel({
         type: 'add',
-        widgetId: ''
       })
     );
   };
-
-
-  const saveApplicationToWidget = useCallback(
-    (widgetId) => {
-
-    },
-    [boardId, boardType, dispatch],
-  );
-
   return (
     <>
       <Tooltip title={t('application')}>

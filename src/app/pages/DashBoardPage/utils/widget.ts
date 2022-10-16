@@ -544,10 +544,6 @@ export const getWidgetMap = (
     return acc;
   }, {} as Record<string, DataChart>);
   const widgetMap = widgets.reduce((acc, cur) => {
-    cur.viewIds = []
-    if(serverViews && serverViews.length>0 && serverViews[0].id){
-      cur.viewIds.push(serverViews[0].id)
-    }
     // issues #601
     const chartViewId = dataChartMap[cur.datachartId]?.viewId;
     const viewIds = chartViewId ? [chartViewId] : cur.viewIds;

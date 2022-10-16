@@ -25,13 +25,14 @@ type ApplicationWidgetProps = {
   applicationWidgetContent: ApplicationWidgetContent
 };
 export const ApplicationWidgetCore: React.FC<ApplicationWidgetProps> = ({applicationWidgetContent}) => {
-  if(POWERED_BY_QIANKUN){
-    console.log("applicationWidgetContent.appWidgetInfo.code====",applicationWidgetContent.appWidgetInfo.code)
-  }
-  const { commonParams } = getGlobalConfigState();
+  const appWidgetConfig = applicationWidgetContent.appWidgetConfig;
+  console.log("appWidgetConfig-----",appWidgetConfig)
   return <Wrapper>
           <div className="appItemContent" style={{width: '100%', height: '100%'}}>
-            <SharedComponent name={applicationWidgetContent.appWidgetInfo.code} module={applicationWidgetContent.appWidgetInfo.module || 'core'}/>
+            <SharedComponent name={applicationWidgetContent.appWidgetInfo.code}
+                             module={applicationWidgetContent.appWidgetInfo.module || 'core'}
+                             {...appWidgetConfig}
+            />
           </div>
         </Wrapper>;
 };

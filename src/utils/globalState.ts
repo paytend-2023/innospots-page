@@ -10,15 +10,16 @@ export type DatartComponentConfig = {
     viewDetailUrl: string,
     dataUrl: string,
     applicationsUrl?: string,
-    applicationWidgetsUrl?: string,
     detailUrl: string,
-    saveBoardsUrl: string,
+    saveBoardUrl: string,
+    publicBoardUrl?: string,
     fileUploadUrl: string,
     functionSupportUrl: string,
+    functionValidateUrl: string,
     editBoardPageUrl?: string,
   },
-  commonParams?: object,
   applicationEnable?: boolean | false,
+  applications?: string[],
 }
 export type DatartConfElement ={
   label?: string,
@@ -31,11 +32,17 @@ export type DatartConfElement ={
   gridSize: number,
   defaultValue?: any,
   length?: number,
-  options?: DatartConfElementOption[]
+  options?: DatartConfElementOption[],
+  requestOption?: DatartConfElementRequestOption
 }
-type DatartConfElementOption ={
+type DatartConfElementOption = {
   name: string,
   value: any
+}
+type DatartConfElementRequestOption = {
+  requestUrl: string,
+  nameField: string,
+  valueFiled: string
 }
 export type DatartComponentProps = {
   dashboardId: string;
@@ -56,6 +63,8 @@ export const setMasterState = (data: any) => {
 }
 
 export const getMasterState = (): any => curMasterState;
+
+// export const getCurrentLanguage
 
 
 export const saveSessionData = (userData: any) => {
@@ -83,7 +92,6 @@ export const setGlobalConfigState = (props) => {
   let config = entryParameters.page;
   if (POWERED_BY_QIANKUN && props) {
    if(props.pageType){
-      console.log("setGlobalConfigState().pageType-----",props.pageType)
       config = entryParameters[props.pageType];
 
     }
@@ -104,5 +112,4 @@ export const setGlobalConfigState = (props) => {
     }
   }
   globalConfigState = config;
-  console.log("config----",config,globalConfigState)
 }

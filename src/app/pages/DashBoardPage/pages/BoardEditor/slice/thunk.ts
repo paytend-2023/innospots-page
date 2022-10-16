@@ -111,7 +111,6 @@ export const fetchEditBoardDetail = createAsyncThunk<
       );
       boardDetail = data
     }
-    console.log("boardDetail--",boardDetail)
     const dashboard = getDashBoardByResBoard(boardDetail);
     const boardType = dashboard.config.type;
     const {
@@ -193,7 +192,6 @@ export const toUpdateDashboard = createAsyncThunk<
       dataChartMap,
       viewMap,
     });
-    console.log("boardExtConfig---",dashBoard,widgetRecord,viewMap)
     const group = createToSaveWidgetGroup(widgets, boardInfo.widgetIds);
     // const updateData: SaveDashboard = {
     //   ...dashBoard,
@@ -249,9 +247,9 @@ export const toUpdateDashboard = createAsyncThunk<
         method: 'post',
         data: updateData,
       });
-    console.log("updateData-----",updateData,group,dashBoard,boardInfo,updateRes)
+    // console.log("updateData-----",updateData,group,dashBoard,boardInfo,updateRes)
     callback?.(updateRes.data['id']);
-    console.log("updateRes--",updateRes,updateRes.data['id'])
+    // console.log("updateRes--",updateRes,updateRes.data['id'])
     dispatch(ActionCreators.clearHistory());
   },
 );
@@ -523,6 +521,7 @@ export const syncEditBoardWidgetChartDataAsync = createAsyncThunk<
     const stackEditBoard = rootState.editBoard as unknown as HistoryEditBoard;
     const { widgetRecord: widgetMap } = stackEditBoard.stack.present;
     const curWidget = widgetMap[widgetId];
+    const { urls } = getGlobalConfigState();
     if (!curWidget) {
       return null;
     }
@@ -555,7 +554,7 @@ export const syncEditBoardWidgetChartDataAsync = createAsyncThunk<
     const { data } = await request2<WidgetData>(
       {
         method: 'POST',
-        url: `data-set/data`,
+        url: `${urls.dataUrl}`,
         data: requestParams,
       },
       undefined,

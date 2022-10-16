@@ -20,16 +20,13 @@ import { CloseOutlined, LeftOutlined, SaveOutlined } from '@ant-design/icons';
 import {Button, Col, Form,  Input, message, Radio, Row, Select, Space} from 'antd';
 import useI18NPrefix from 'app/hooks/useI18NPrefix';
 import classnames from 'classnames';
-import {FC, memo, useCallback, useContext, useEffect, useState} from 'react';
+import { FC, memo, useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
 import {
-  FONT_SIZE_ICON_SM, FONT_WEIGHT_BOLD,
-  FONT_WEIGHT_MEDIUM,
-  LINE_HEIGHT_ICON_SM,
+  FONT_WEIGHT_BOLD,
   SPACE_LG,
-  SPACE_SM,
 } from 'styles/StyleConstants';
 import keyBy from "lodash/keyBy";
 import forEach from "lodash/forEach";
@@ -41,6 +38,7 @@ import { WidgetActionContext } from '../ActionProvider/WidgetActionProvider';
 import { BoardInfoContext } from '../BoardProvider/BoardInfoProvider';
 import { BoardContext } from '../BoardProvider/BoardProvider';
 import { getGlobalConfigState } from 'utils/globalState';
+import { request2 } from '../../../../../utils/request';
 const { Option } = Select;
 
 const EditorHeader: FC = memo(({ children }) => {
@@ -52,14 +50,40 @@ const EditorHeader: FC = memo(({ children }) => {
   const { name,boardExtConfig, status } = useContext(BoardContext);
   const { saving } = useContext(BoardInfoContext);
   const title = useStatusTitle(name, status);
-  const { urls, titleElement,code } = getGlobalConfigState();
+  const { titleElement, urls } = getGlobalConfigState();
   const [formError, setFormError] = useState({});
+  const [customTitleElement,setCustomTitleElement] = useState<any[]>([]);
   const [formIns] = Form.useForm();
+  useEffect(() => {
+    titleElement && titleElement.forEach( item => {
+      if(item.requestOption){
+        fetchTitleElementOptions(item);
+      }
+    })
+
+  }, [titleElement]);
+  const fetchTitleElementOptions = useCallback(async element => {
+    const { data } = await request2<any[]>(element.requestOption.requestUrl);
+    let elementOptions: any[] = [];
+    forEach(data, option =>{
+      elementOptions.push({
+        name: option[element.requestOption.nameField],
+        value: option[element.requestOption.valueFiled],
+      })
+    });
+   let titleElementTemp= titleElement;
+    forEach(titleElement,item => {
+      if(item.name == element.name){
+        item.options = elementOptions;
+      }
+    });
+    setCustomTitleElement(titleElementTemp || []);
+  }, []);
 
   useEffect(() => {
     let formFieldsValues: any = [];
     if( !boardExtConfig ){
-      const titleElementByName = keyBy(titleElement,'name');
+      const titleElementByName = keyBy(customTitleElement,'name');
       forEach(Object.keys(titleElementByName),function(item){
         if(titleElementByName[item].defaultValue !== undefined){
           formFieldsValues.push({
@@ -96,14 +120,14 @@ const EditorHeader: FC = memo(({ children }) => {
     dispatch(clearEditBoardState());
   };
 
-  const onUpdateBoard = () => {
+  const onUpdateBoard = (type) => {
     formIns.validateFields().then(values => {
       onEditClearActiveWidgets();
       setImmediate(() => {
-        updateBoard?.(JSON.stringify(values),onCloseBoardEditor);
+        updateBoard?.(type,JSON.stringify(values),onCloseBoardEditor);
       });
     }).catch(error => {
-      const titleElementByName = keyBy(titleElement,"name")
+      const titleElementByName = keyBy(customTitleElement,"name")
       const tipName = error.errorFields[0].name[0]
       message.info(error.errorFields[0].errors[0].replace(tipName,titleElementByName[tipName].desc));
     });
@@ -178,7 +202,7 @@ const EditorHeader: FC = memo(({ children }) => {
           <Col span={20}>
             <Row gutter={16}>
               {
-                titleElement && map(titleElement, (item) => {
+                customTitleElement && map(customTitleElement, (item) => {
                   return getFormItem(item);
                 })
               }
@@ -202,19 +226,20 @@ const EditorHeader: FC = memo(({ children }) => {
               key="update"
               className="updateBtn"
               loading={saving}
-              onClick={onUpdateBoard}
+              onClick={()=>{onUpdateBoard('save')}}
               icon={<SaveOutlined />}
             >
               {t('common.save')}
             </Button>
-            <Button
+            {urls.publicBoardUrl ? <Button
               key="publish"
               className="publishBtn"
               loading={saving}
-              onClick={onUpdateBoard}
+              onClick={()=>{onUpdateBoard('publish')}}
             >
               {t('common.publish')}
-            </Button>
+            </Button> : ''
+            }
           </>
         </Space>
       </div>

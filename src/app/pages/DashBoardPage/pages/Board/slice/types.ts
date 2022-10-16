@@ -268,13 +268,12 @@ export interface ApplicationInfo {
 export interface ApplicationWidgetContent {
   applicationInfo: ApplicationInfo;
   appWidgetInfo: AppWidgetConfig;
-  appWidgetConfig: string;
+  appWidgetConfig: Map<string,string>;
 }
 
 /*
  * 通用
  */
-
 export interface ChartWidgetContent {
   type: WidgetContentChartType;
   dataChart?: DataChart;
@@ -467,8 +466,7 @@ export interface WidgetControllerPanelParams {
 }
 export interface WidgetApplicationPanelParams {
   type: 'add' | 'edit' | 'hide';
-  widgetId: string;
-  configContent?: ApplicationWidgetContent;
+  widget?: Widget;
 }
 export interface ServerDatachart extends Omit<DataChart, 'config'> {
   config: string;

@@ -160,7 +160,7 @@ const transferDataConfigImpl = (
   while (
     Boolean(sourceSectionConfigRows?.length) &&
     Boolean(targetSectionConfigs?.length)
-  ) {
+    ) {
     const row = sourceSectionConfigRows.shift();
     const minimalRowConfig = [...targetSectionConfigs]
       .filter(section => {
@@ -366,7 +366,7 @@ export function flattenHeaderRowsWithoutGroupRow<
     isGroup?: boolean;
     children?: T[];
   },
->(groupedHeaderRow: T) {
+  >(groupedHeaderRow: T) {
   const childRows = (groupedHeaderRow.children || []).flatMap(child =>
     flattenHeaderRowsWithoutGroupRow(child),
   );
@@ -393,7 +393,7 @@ export function transformMeta(model?: string) {
     }
     return {
       ...column,
-      path: column.path || colKey,
+      path: column.path || [colKey],
       category: ChartDataViewFieldCategory.Field,
     };
   });
@@ -407,7 +407,6 @@ export function transformHierarchyMeta(model?: string): ChartDataViewMeta[] {
   const hierarchyMeta = !Object.keys(modelObj?.hierarchy || {}).length
     ? modelObj.columns
     : modelObj.hierarchy;
-
   return Object.keys(hierarchyMeta || {}).map(key => {
     return getMeta(key, hierarchyMeta?.[key]);
   });
@@ -422,6 +421,7 @@ function getMeta(key, column) {
   }
   return {
     ...column,
+    path: column.path || [key],
     subType: column?.category,
     category: isHierarchy
       ? ChartDataViewFieldCategory.Hierarchy
@@ -533,10 +533,10 @@ export function mergeChartStyleConfigs(
 
 export function mergeChartDataConfigs<
   T extends
-    | { key?: string; rows?: ChartDataSectionField[]; drillable?: boolean }
+      | { key?: string; rows?: ChartDataSectionField[]; drillable?: boolean }
     | undefined
     | null,
->(target?: T[], source?: T[]) {
+  >(target?: T[], source?: T[]) {
   if (isEmptyArray(target) || isEmptyArray(source)) {
     return target;
   }
@@ -591,8 +591,8 @@ export const filterSqlOperatorName = (requestParams, widgetData) => {
     const index = item.name.indexOf('(');
     const sqlOperatorName = item.name.slice(0, index);
     sqlOperatorNameList.includes(sqlOperatorName) &&
-      (item.name =
-        sqlOperatorName.toLocaleUpperCase() + item.name.slice(index));
+    (item.name =
+      sqlOperatorName.toLocaleUpperCase() + item.name.slice(index));
   });
   return widgetData;
 };
@@ -826,7 +826,7 @@ export const getJumpFiltersByInteractionRule = (
       } else {
         const customizeRelations: CustomizeRelation[] = jumpRule?.[
           InteractionFieldRelation.Customize
-        ]?.filter(r => r.type === InteractionRelationType.Field);
+          ]?.filter(r => r.type === InteractionRelationType.Field);
         if (isEmptyArray(customizeRelations)) {
           return null;
         }
@@ -882,7 +882,7 @@ export const filterFiltersByInteractionRule = (
       } else {
         const customizeRelations: CustomizeRelation[] = rule?.[
           InteractionFieldRelation.Customize
-        ]?.filter(r => r.type === InteractionRelationType.Field);
+          ]?.filter(r => r.type === InteractionRelationType.Field);
         if (isEmptyArray(customizeRelations)) {
           return null;
         }
@@ -953,7 +953,7 @@ export const getJumpOperationFiltersByInteractionRule = (
       } else {
         const customizeRelations: CustomizeRelation[] = jumpRule?.[
           InteractionFieldRelation.Customize
-        ]?.filter(r => r.type === InteractionRelationType.Field);
+          ]?.filter(r => r.type === InteractionRelationType.Field);
         if (isEmptyArray(customizeRelations)) {
           return acc;
         }

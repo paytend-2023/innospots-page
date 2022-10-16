@@ -132,7 +132,7 @@ const ChartComputedFieldEditor: ForwardRefRenderFunction<
           }}
         />
       </Row>
-      <Row>
+      <Row style={{padding: 16}}>
         {/*<Divider />*/}
         <p>{renderFunctionDescriptionInfo()}</p>
       </Row>

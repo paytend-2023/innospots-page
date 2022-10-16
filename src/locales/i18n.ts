@@ -25,7 +25,7 @@ export const translationsJson = {
 convertLanguageJsonToObject(en);
 
 export const changeLang = lang => {
-  localStorage.setItem(StorageKeys.Locale, lang);
+  // localStorage.setItem(StorageKeys.Locale, lang);
   window.location && window.location.reload();
 };
 

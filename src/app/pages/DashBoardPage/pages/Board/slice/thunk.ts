@@ -49,6 +49,7 @@ import {
   WidgetData,
 } from './types';
 import { getGlobalConfigState } from 'utils/globalState';
+import { Organization } from '../../../../MainPage/slice/types';
 
 /**
  * @param ''
@@ -104,9 +105,9 @@ export const fetchBoardDetail = createAsyncThunk<
       },
     }),
   );
-
   return null;
 });
+
 export const exportBoardTpl = createAsyncThunk<
   null,
   {

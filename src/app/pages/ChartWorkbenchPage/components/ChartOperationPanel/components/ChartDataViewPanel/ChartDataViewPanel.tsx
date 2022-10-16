@@ -173,7 +173,7 @@ const ChartDataViewPanel: FC<{
       }
 
       try {
-        await checkComputedFieldAsync(dataView?.sourceId, field.expression);
+        await checkComputedFieldAsync(dataView?.id, field.expression);
       } catch (error) {
         message.error(error as any);
         return;

@@ -38,7 +38,6 @@ import { useStatusTitle } from '../../hooks/useStatusTitle';
 import { BoardActionContext } from '../ActionProvider/BoardActionProvider';
 import { BoardDropdownList } from '../BoardDropdownList/BoardDropdownList';
 import { BoardContext } from '../BoardProvider/BoardProvider';
-import { MockDataPanel } from '../MockDataPanel';
 import { getGlobalConfigState } from 'utils/globalState';
 
 export const TitleHeader: FC = memo(() => {
@@ -105,17 +104,17 @@ export const TitleHeader: FC = memo(() => {
             </Button>
           </>
         )}
-        { allowShare && (
-          <ShareManageModal
-            vizId={boardId as string}
-            orgId={orgId as string}
-            vizType="DASHBOARD"
-            visibility={showShareLinkModal}
-            onOk={() => setShowShareLinkModal(false)}
-            onCancel={() => setShowShareLinkModal(false)}
-            onGenerateShareLink={onGenerateShareLink}
-          />
-        )}
+        {/*{ allowShare && (*/}
+        {/*  <ShareManageModal*/}
+        {/*    vizId={boardId as string}*/}
+        {/*    orgId={orgId as string}*/}
+        {/*    vizType="DASHBOARD"*/}
+        {/*    visibility={showShareLinkModal}*/}
+        {/*    onOk={() => setShowShareLinkModal(false)}*/}
+        {/*    onCancel={() => setShowShareLinkModal(false)}*/}
+        {/*    onGenerateShareLink={onGenerateShareLink}*/}
+        {/*  />*/}
+        {/*)}*/}
         {/*{!isArchived && mockDataModal && (*/}
         {/*  <MockDataPanel onClose={() => setMockDataModal(false)} />*/}
         {/*)}*/}

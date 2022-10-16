@@ -15,13 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import {
-  BlockOutlined,
-  DashboardOutlined,
-  DatabaseOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
 import { Tabs } from 'antd';
 import { PaneWrapper } from 'app/components';
 import useComputedState from 'app/hooks/useComputedState';
@@ -118,7 +111,6 @@ const ChartConfigPanel: FC<{
           needRefresh,
         });
       };
-
     return (
       <ChartI18NContext.Provider value={{ i18NConfigs: chartConfig?.i18ns }}>
         <ChartPaletteContext.Provider value={{ datas: chartConfig?.datas }}>

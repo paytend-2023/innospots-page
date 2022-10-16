@@ -29,23 +29,28 @@ export const entryParameters = {
         required: true,
         type: "SELECT",
         gridSize: 5,
-        defaultValue: parseInt('0'),
-        options: [{name:'未分类',value:0},{name:'测试分类222',value:13}]
+        defaultValue: parseInt("0"),
+        requestOption: {
+          requestUrl: "/page/category/page",
+          nameField: "categoryName",
+          valueFiled: "categoryId"
+        }
       }
     ],
     urls:{
       viewsUrl: `/data-set/list`,
       viewDetailUrl: `/data-set/:id`,
-      dataUrl: `/data-set/data`,
+      dataUrl: `/data-set/data/v2`,
       applicationsUrl: `/application/list`,
-      applicationWidgetsUrl: `/application/widgets`,
       detailUrl: `/page/:id`,
-      saveBoardsUrl: `/page`,
+      saveBoardUrl: `/page`,
+      publicBoardUrl: `/page/publish`,
       fileUploadUrl: `/dashboard/files/image`,
       functionSupportUrl: `/data-set/data/function/support/:viewId`,
+      functionValidateUrl: `/data-set/data/function/validate`,
       editBoardPageUrl: `/page/161/viz/edit`,
     },
-    applicationEnable: false
+    applicationEnable: false,
   },
   workspace: {
     code: 'workspace',
@@ -54,15 +59,16 @@ export const entryParameters = {
     urls: {
       viewsUrl: `/data-set/list`,
       viewDetailUrl: `/data-set/:id`,
-      dataUrl: `/data-set/data`,
+      dataUrl: `/data-set/data/v2`,
       applicationsUrl: `/application/list`,
-      applicationWidgetsUrl: `/application/widgets`,
       detailUrl: `/workspace`,
-      saveBoardsUrl: `/workspace`,
+      saveBoardUrl: `/workspace`,
       fileUploadUrl: `/dashboard/files/image`,
       functionSupportUrl: `/data-set/data/function/support/:viewId`,
+      functionValidateUrl: `/data-set/data/function/validate`,
     },
-    applicationEnable: true
+    applicationEnable: true,
+    applications: ['innospot-libra-app-kernel','app-workflow']
   },
   strategy: {
     code:'strategy',
@@ -71,14 +77,15 @@ export const entryParameters = {
     urls:{
       viewsUrl: `/data-set/list`,
       viewDetailUrl: `/data-set/:id`,
-      dataUrl: `/data-set/data`,
+      dataUrl: `/data-set/data/v2`,
       applicationsUrl: `/application/list`,
-      applicationWidgetsUrl: `/application/widgets`,
       detailUrl: `/page/:id`,
-      saveBoardsUrl: `/page`,
+      saveBoardUrl: `/page`,
       fileUploadUrl: `/dashboard/files/image`,
       functionSupportUrl: `/data-set/data/function/support/:viewId`,
+      functionValidateUrl: `/data-set/data/function/validate`,
     },
-    applicationEnable: true
+    applicationEnable: true,
+    applications: ['app-workflow']
   },
 }

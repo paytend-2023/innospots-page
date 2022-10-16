@@ -121,7 +121,6 @@ export const getInitBoardInfo = (obj: {
     },
     applicationPanel: {
       type: 'hide',
-      widgetId: '',
     },
     linkFilter: [],
 

@@ -58,7 +58,6 @@ const ChartOperationPanel: FC<{
     const [layout, setLayout] = useState<Model>(() =>
       Model.fromJson(layoutConfig),
     );
-
     const layoutFactory = node => {
       var component = node.getComponent();
 
@@ -95,7 +94,7 @@ const ChartOperationPanel: FC<{
           />
         );
       }
-      if (component === LayoutComponentType.CONFIG) {
+      if (component === LayoutComponentType.CONFIG && chart) {
         return (
           <ChartConfigPanel
             dataView={dataView}

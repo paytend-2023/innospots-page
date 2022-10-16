@@ -179,13 +179,12 @@ export class ChartDataRequestBuilder {
   }
 
   private buildColumnName(col) {
-    // const row = findPathByNameInMeta(this.dataView.meta, col.colName);
-    // if (row) {
-    //   return row?.path || [];
-    // } else {
-    //   return [col.colName];
-    // }
-    return col.colName;
+    const row = findPathByNameInMeta(this.dataView.meta, col.colName);
+    if (row) {
+      return row?.path || [];
+    } else {
+      return [col.colName];
+    }
   }
 
   private buildGroups() {
@@ -528,11 +527,10 @@ export class ChartDataRequestBuilder {
       [],
     );
     return selectColumns.map(col => {
-      return this.buildColumnName(col);
-      // return {
-      //   alias: this.buildAliasName(col),
-      //   column: this.buildColumnName(col),
-      // };
+      return {
+        alias: this.buildAliasName(col),
+        column: this.buildColumnName(col),
+      };
     });
   }
 
@@ -573,11 +571,10 @@ export class ChartDataRequestBuilder {
         return acc.concat(cur);
       }, [])
       ?.map(col => {
-        return this.buildColumnName(col);
-        // return {
-        //   alias: this.buildAliasName(col),
-        //   column: this.buildColumnName(col),
-        // };
+        return {
+          alias: this.buildAliasName(col),
+          column: this.buildColumnName(col),
+        };
       });
   }
 
@@ -601,8 +598,8 @@ export class ChartDataRequestBuilder {
       .map(c => c?.name);
 
     return (filters || []).filter(f => {
-      return dataViewFieldsNames.includes(f.column);
-      // return dataViewFieldsNames.includes(f.column.join('.'));
+      // return dataViewFieldsNames.includes(f.column);
+       return dataViewFieldsNames.includes(f.column.join('.'));
     });
   }
 

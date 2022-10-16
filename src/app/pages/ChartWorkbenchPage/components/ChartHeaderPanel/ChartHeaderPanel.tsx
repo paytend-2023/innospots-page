@@ -103,7 +103,9 @@ const ChartHeaderPanel: FC<{
             <LeftOutlined onClick={onGoBack} />
           </GoBack>
         )}
-        <h1>{chartName}</h1>
+        <h1>
+          {/*{chartName}*/}
+        </h1>
         <Space>
           {/*<DownloadListPopup*/}
           {/*  polling={downloadPolling}*/}

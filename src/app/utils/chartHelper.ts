@@ -1203,7 +1203,7 @@ export function getSeriesTooltips4Rectangular2(
     .concat(colorConfigs || [])
     .concat(
       aggConfigs.filter(agg => getColumnRenderName(agg) === aggConfigName) ||
-        [],
+      [],
     )
     .concat(sizeConfigs || [])
     .concat(infoConfigs || [])
@@ -1309,9 +1309,9 @@ export function getScatterSymbolSizeFn(
     return Math.max(
       3,
       ((val?.[valueIndex] - min) / distance) *
-        scaleRatio *
-        defaultScatterPointPixelSize *
-        2,
+      scaleRatio *
+      defaultScatterPointPixelSize *
+      2,
     );
   };
 }
@@ -1743,8 +1743,8 @@ export const compareSelectedItems = (
     return !!newSelectedItems.filter(v => {
       const item = oldSelectedItems.find(oldItem => oldItem.index === v.index);
       return !item ||
-        Object.values(item.data.rowData).length !==
-          Object.values(v.data.rowData).length
+      Object.values(item.data.rowData).length !==
+      Object.values(v.data.rowData).length
         ? true
         : false;
     }).length;

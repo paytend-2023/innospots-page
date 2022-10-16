@@ -21,8 +21,8 @@ import { ChartDatasetPageInfo } from 'app/types/ChartDataSet';
 
 export type ChartDataRequestFilter = {
   aggOperator?: AggregateFieldActionType | null;
-  // column: string[];
-  column: string;
+   column: string[];
+  // column: string;
   sqlOperator: string;
   values?: Array<{
     value: string;
@@ -56,8 +56,8 @@ export type ChartDataRequest = {
     aggOperator?: AggregateFieldActionType;
   }>;
   pageInfo?: ChartDatasetPageInfo;
-  columns?: string[];
-  // columns?: Array<{ alias: string; column: string[] }>;
+  // columns?: string[];
+  columns?: Array<{ alias: string; column: string[] }>;
   script?: boolean;
   keywords?: string[];
   cache?: boolean;

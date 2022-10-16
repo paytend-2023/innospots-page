@@ -193,11 +193,10 @@ export const getControlOptionQueryParams = (obj: {
       const row = getAllColumnInMeta(obj.view?.meta)?.find(
         v => v.name === columnName,
       );
-      return columnName;
-      // return {
-      //   alias: columnName,
-      //   column: row?.path || [],
-      // };
+      return {
+        alias: columnName,
+        column: row?.path || [],
+      };
     }),
     pageInfo: {
       pageNo: 1,

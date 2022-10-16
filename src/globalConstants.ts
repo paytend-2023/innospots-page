@@ -32,7 +32,7 @@ export enum StorageKeys {
   LoggedInUser = 'LOGGED_IN_USER',
   ShareClientId = 'SHARE_CLIENT_ID',
   AuthRedirectUrl = 'AUTH_REDIRECT_URL',
-  Locale = 'LOCALE',
+  Locale = 'i18nextLng',
   Theme = 'THEME',
 }
 

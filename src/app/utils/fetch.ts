@@ -62,11 +62,10 @@ export const getDistinctFields = async (
       const row = getAllColumnInMeta(view?.meta)?.find(
         v => v.name === columnName,
       );
-      return columnName;
-      // {
-      //   alias: columnName,
-      //   column: row?.path || [columnName],
-      // };
+      return {
+        alias: columnName,
+        column: row?.path || [columnName],
+      };
     }),
     pageInfo: {
       pageNo: 1,
@@ -165,12 +164,13 @@ export const makeShareDownloadDataTask =
     resolve();
   };
 
-export async function checkComputedFieldAsync(sourceId, expression) {
+export async function checkComputedFieldAsync(viewId, expression) {
+  const { urls } = getGlobalConfigState();
   const response = await request2<boolean>({
     method: 'POST',
-    url: `data-provider/function/validate`,
-    params: {
-      sourceId,
+    url: `${urls.functionValidateUrl}`,
+    data: {
+      viewId,
       snippet: expression,
     },
     paramsSerializer: function (params) {

@@ -251,7 +251,7 @@ export const WidgetActionProvider: FC<{
           dispatch(
             editDashBoardInfoActions.changeApplicationPanel({
               type: 'edit',
-              widgetId: ''
+              widget: widget,
             })
           );
         },

@@ -94,7 +94,7 @@ export function listToTree<
     isFolder: boolean;
     index: number | null;
   },
->(
+  >(
   list: undefined | T[],
   parentId: null | string = null,
   parentPath: string[] = [],
@@ -146,7 +146,7 @@ export function findTreeNode<
     key: string | number;
     children?: T[];
   },
->(path: string[], nodes: T[] | undefined): T | undefined {
+  >(path: string[], nodes: T[] | undefined): T | undefined {
   if (path.length > 0) {
     const currentNode = nodes?.find(({ key }) => key === path[0]);
     return path.length > 1
@@ -265,23 +265,23 @@ export function filterListOrTree<T extends { children?: T[] }>(
 ) {
   return keywords
     ? dataSource.reduce<T[]>((filtered, d) => {
-        const isMatch = filterFunc(keywords, d);
-        let isChildrenMatch: T[] | undefined;
-        if (filterLeaf && d.children?.every(c => (c as any).isLeaf)) {
-          isChildrenMatch =
-            isMatch || d.children.some(c => filterFunc(keywords, c))
-              ? d.children
-              : void 0;
-        } else {
-          isChildrenMatch =
-            d.children &&
-            filterListOrTree(d.children, keywords, filterFunc, filterLeaf);
-        }
-        if (isMatch || (isChildrenMatch && isChildrenMatch.length > 0)) {
-          filtered.push({ ...d, children: isChildrenMatch });
-        }
-        return filtered;
-      }, [])
+      const isMatch = filterFunc(keywords, d);
+      let isChildrenMatch: T[] | undefined;
+      if (filterLeaf && d.children?.every(c => (c as any).isLeaf)) {
+        isChildrenMatch =
+          isMatch || d.children.some(c => filterFunc(keywords, c))
+            ? d.children
+            : void 0;
+      } else {
+        isChildrenMatch =
+          d.children &&
+          filterListOrTree(d.children, keywords, filterFunc, filterLeaf);
+      }
+      if (isMatch || (isChildrenMatch && isChildrenMatch.length > 0)) {
+        filtered.push({ ...d, children: isChildrenMatch });
+      }
+      return filtered;
+    }, [])
     : dataSource;
 }
 
@@ -387,14 +387,14 @@ export function newIssueUrl({ type, ...options }) {
     type === 'gitee'
       ? ['description', 'title']
       : [
-          'body',
-          'title',
-          'labels',
-          'template',
-          'milestone',
-          'assignee',
-          'projects',
-        ];
+        'body',
+        'title',
+        'labels',
+        'template',
+        'milestone',
+        'assignee',
+        'projects',
+      ];
 
   for (const type of types) {
     let value = options[type];

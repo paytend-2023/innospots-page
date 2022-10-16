@@ -49,7 +49,7 @@ const ChartGraphPanel: FC<{
       setRequirementStates(dict);
     }
   }, [allCharts, chartConfig]);
-
+  console.log("c?.meta?.id === chart?.meta?.id",chart,allCharts)
   return (
     <StyledChartGraphPanel>
       {allCharts?.map(c => {

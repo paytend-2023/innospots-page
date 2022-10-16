@@ -12,10 +12,10 @@ export const importCoreWidgets = async () => {
       componentContent.core = coreWidgets;
     }
 
-    if (!Object.keys(componentContent.workflow).length) {
-      const workflowWidgets = await import('workflowModule/WorkflowWidgets');
-      componentContent.workflow = workflowWidgets;
-    }
+    // if (!Object.keys(componentContent.workflow).length) {
+    //   const workflowWidgets = await import('workflowModule/WorkflowWidgets');
+    //   componentContent.workflow = workflowWidgets;
+    // }
 
     resolve(componentContent);
     reject(new Error('module error'));
@@ -33,8 +33,8 @@ export const getComponentByName = (module: string,name: string) => {
 // @ts-ignore
 export const SharedComponent:React.FC<{
   module: string,
-  name: string
-}> = ({module, name, children, ...rest}) => {
+  name: string,
+}> = ({module, name,children, ...rest}) => {
   const Component = getComponentByName(module,name);
   return Component ? (
     <Component {...rest}>{children}</Component>

@@ -44,7 +44,7 @@ export interface BoardActionContextProps {
   }) => any;
   onBoardToDownLoad: (downloadType: DownloadFileType) => any;
   // edit
-  updateBoard?: (boardExtConfig: string, callback?: (boardId) => void) => void;
+  updateBoard?: (type:string,boardExtConfig: string, callback?: (boardId) => void) => void;
 
   onCloseBoardEditor: (boardId: string) => void;
   undo: () => void;
@@ -61,8 +61,12 @@ export const BoardActionProvider: FC<{
   const { urls } = getGlobalConfigState();
   const actions = useMemo(() => {
     const actionObj: BoardActionContextProps = {
-      updateBoard: (boardExtConfig: string, callback?: (boardId?: string) => void) => {
-        dispatch(toUpdateDashboard({ boardId, boardExtConfig, saveBoardUrl: urls.saveBoardsUrl, callback }));
+      updateBoard: (type:string, boardExtConfig: string, callback?: (boardId?: string) => void) => {
+        let saveBoardUrl = urls.saveBoardUrl;
+        if(type == 'publish'){
+          saveBoardUrl = urls.publicBoardUrl || '';
+        }
+        dispatch(toUpdateDashboard({ boardId, boardExtConfig, saveBoardUrl, callback }));
       },
 
       onGenerateShareLink: async ({

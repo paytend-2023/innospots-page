@@ -19,7 +19,6 @@ import ReactDOM from 'react-dom';
 import { AppRouter } from 'app/AppRouter';
 import { generateEntryPoint } from 'entryPointFactory';
 import './public-path';
-import {useRouteMatch} from "react-router-dom";
 import { setGlobalConfigState, setMasterState } from './utils/globalState';
 import { importCoreWidgets } from './utils/sharedComponents';
 

@@ -1,8 +1,3 @@
-export enum AppWidgetScope {
-  workspace,
-  page,
-  strategy
-}
 export enum AppWidgetConfigItemType {
   INPUT,
   SELECT,
@@ -37,7 +32,7 @@ export interface AppWidgetConfig {
   width: number,
   height: number,
   entry: string,
-  scope?: AppWidgetScope[],
+  scope?: string[],
   configItem?: AppWidgetConfigItem[]
 }
 

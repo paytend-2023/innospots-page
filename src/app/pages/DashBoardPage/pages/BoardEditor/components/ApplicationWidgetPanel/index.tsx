@@ -30,7 +30,6 @@ import GridLayout, {Layout} from 'react-grid-layout';
 import {BoardToolBarContext} from "app/pages/DashBoardPage/pages/BoardEditor/components/BoardToolBar/context/BoardToolBarContext";
 import {
    AppWidgetConfig,
-   AppWidgetScope
 } from "app/pages/DashBoardPage/pages/BoardEditor/components/ApplicationWidgetPanel/types";
 import {
   selectApplicationPanel,
@@ -38,8 +37,9 @@ import {
 } from "app/pages/DashBoardPage/pages/BoardEditor/slice/selectors";
 import widgetManagerInstance from '../../../../components/WidgetManager';
 import { ORIGINAL_TYPE_MAP } from '../../../../constants';
-import { applicationWidgetsConfig } from 'config/applicationWidgets';
+import { applications } from 'config/applicationWidgets';
 import { getGlobalConfigState } from 'utils/globalState';
+import { WidgetContext } from '../../../../components/WidgetProvider/WidgetProvider';
 
 export interface ApplicationEditorProps {
 
@@ -47,14 +47,13 @@ export interface ApplicationEditorProps {
 
 const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
   const dispatch = useDispatch();
-  const { urls,code: datartCode,commonParams } = getGlobalConfigState();
-  const { type, widgetId,configContent } = useSelector(selectApplicationPanel);
+  const { urls, code: datartCode, applications: pageApps } = getGlobalConfigState();
+  const { type, widget: applicationWidget } = useSelector(selectApplicationPanel);
   const gt = useI18NPrefix(`global.modal.title`);
   const {boardId, boardType} = useContext(BoardToolBarContext);
   const [selectedAppKey, setSelectedAppKey] = useState<string>('');
   const [selectedAppWidget,setSelectedAppWidget] = useState<AppWidgetConfig>({} as AppWidgetConfig);
   const [applicationsMap,setApplicationsMap] = useState({} as Map<string,ApplicationInfo>);
-  const [selectedWidgets,setSelectedWidgets] = useState([] as AppWidgetConfig[]);
   const [widgetApplicationVisible, setWidgetApplicationVisible] = useState(false);
   const [formIns] = Form.useForm();
   const [formError, setFormError] = useState({});
@@ -65,24 +64,18 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
       if(type=="add"){
         setSelectedAppWidget({} as AppWidgetConfig)
       }
-        let appMap = {} as Map<string,ApplicationInfo>
-        appMap["innospot-libra-app-kernel"] = {
-          applicationWigets: [],
-          appKey: "innospot-libra-app-kernel",
-          kernelVersion: "1.1.0",
-          name: "核心模块",
-          icon: "/images/app_core_module.png",
-          status: 'ONLINE',
-          vendor: "",
-          version: "v1.1.0",
-        };
+      let appMap = {} as Map<string,ApplicationInfo>
+      pageApps?.forEach(item => {
+        appMap[item] = applications[item];
+      });
       setApplicationsMap(appMap);
-      setSelectedAppKey("innospot-libra-app-kernel")
+      setSelectedAppKey(pageApps?.[0] ||'');
     }
   }, [type]);
   useEffect(()=>{
-    if(widgetId && configContent){
-      const appWidgetConfig = JSON.parse(configContent.appWidgetConfig)
+    const configContent= applicationWidget?.config.content;
+    if(applicationWidget){
+      const appWidgetConfig = configContent.appWidgetConfig
       let formFieldsValues: any = []
       forEach(Object.keys(appWidgetConfig),function (item){
         formFieldsValues.push({
@@ -93,7 +86,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
       formIns.setFields(formFieldsValues);
       setSelectedAppWidget(configContent.appWidgetInfo)
     }
-  },[widgetId, configContent])
+  },[applicationWidget])
 
   const afterClose = useCallback(() => {
     // offMicroAppGlobalStateChange()
@@ -101,7 +94,6 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
     dispatch(
       editDashBoardInfoActions.changeApplicationPanel({
         type: 'hide',
-        widgetId: ''
       })
     );
   }, [dispatch, formIns]);
@@ -109,19 +101,32 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
   const onSubmit = useCallback(() => {
     formIns.validateFields().then(values => {
       setImmediate(() => {
-        let widget = widgetManagerInstance.toolkit(ORIGINAL_TYPE_MAP.application).create({
-          boardType,
-          content: {
-              applicationInfo: {
-                ...applicationsMap[selectedAppKey],
-                applicationWigets: null
-              },
-              appWidgetInfo: selectedAppWidget,
-              appWidgetConfig: JSON.stringify(values),
+        const content =  {
+          applicationInfo: {
+            ...applicationsMap[selectedAppKey],
+            applicationWigets: null
           },
+          appWidgetInfo: selectedAppWidget,
+          appWidgetConfig: values,
+        };
+        const widget = widgetManagerInstance.toolkit(ORIGINAL_TYPE_MAP.application).create({
+          boardType,
+          content
         });
-        console.log("widget----",widget,JSON.stringify(values))
-        dispatch(addWidgetsToEditBoard([widget]));
+        if(type == 'add'){
+          dispatch(addWidgetsToEditBoard([widget]));
+        }else{
+          if(applicationWidget){
+            dispatch(editBoardStackActions.updateWidget({
+              ...applicationWidget,
+              config: {
+                ...applicationWidget.config,
+                content
+              }
+            }));
+          }
+
+        }
         setWidgetApplicationVisible(false);
       });
     }).catch(error => {
@@ -137,33 +142,30 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
   };
   const onAppKeyClick = function(appKey){
     setSelectedAppKey(appKey)
-    setSelectedWidgets(applicationsMap[appKey].applicationWigets)
   }
 
   const renderCategoryList = () => {
     return (
       <ul className="appTypeList">
         {
-          Object.keys(applicationsMap).map((appKey: any) => (
-            <li
-              key={appKey}
-              className={cls("listItem", {
-                ['active']: selectedAppKey === appKey
-              })}
-              onClick={() => onAppKeyClick(appKey)}
-            >
-              <div className="iconInfo">{appIcon(`${applicationsMap[appKey].icon}`)}</div>
-              <div className="label">{ applicationsMap[appKey].name ? applicationsMap[appKey].name : '其他应用' }</div>
-            </li>
-          ))
-        }
+          Object.keys(applicationsMap).map((appKey: any) => {
+            return (
+              <li
+                key={appKey}
+                className={cls("listItem", {
+                  ['active']: selectedAppKey === appKey
+                })}
+                onClick={() => onAppKeyClick(appKey)}
+              >
+                <div className="iconInfo">{appIcon(`${applicationsMap[appKey].icon}`)}</div>
+                <div className="label">{ applicationsMap[appKey].name ? applicationsMap[appKey].name : '其他应用' }</div>
+              </li>
+            )
+          }
+        )
+      }
       </ul>
     )
-  }
-  const onSearch = (value) =>{
-      setSelectedWidgets(filter(applicationsMap[selectedAppKey].applicationWigets,function (item){
-        return item.name.indexOf(value)!=-1
-      }))
   }
   const selectAppWidget = (appWidget) => {
     setSelectedAppWidget(appWidget);
@@ -182,16 +184,18 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
 
   const renderAppsList = () => {
     let layout = [] as Layout[];
-    const applicationWidgets = applicationWidgetsConfig;
-    //selectedWidgets
-    const applicationWidgetsSortByOrder = sortBy(applicationWidgets,function(item){
+    const selectedWidgets = applicationsMap[selectedAppKey]?.applicationWigets;
+    const applicationWidgetsSortByOrder = sortBy(selectedWidgets, function(item){
       return item['order'];
     })
     let curWidth = 0;
     let curHeight = 0;
 
     const appsComps = map(applicationWidgetsSortByOrder, function(item,index){
-      if( !item['enabled'] || indexOf(item.scope,datartCode)==-1){
+      if( !item['enabled'] || indexOf(item.scope, datartCode)==-1){
+        return '';
+      }
+      if((type=='edit' && item['code'] != selectedAppWidget.code) ){
         return '';
       }
       let width = item['width'];
@@ -216,7 +220,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
       return (
           <div key={item.code} >
             <div  className="appItem" onClick={()=>{selectAppWidget(item);}} >
-              <div className="appSelected" hidden={item.code!=selectedAppWidget.code} ><CheckCircleOutlined className="appSelectedIcon"/></div>
+              <div className="appSelected" hidden={item.code!=selectedAppWidget.code || type=='edit'} ><CheckCircleOutlined className="appSelectedIcon"/></div>
               <SharedComponent name={item['code']} module={item['module'] || 'core'} />
             </div>
           </div>
@@ -224,9 +228,7 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
     })
     return (
       <div className="appList">
-        <div className="appContainer" hidden={selectedAppKey == "innospot-libra-app-kernel"}>
-        </div>
-        <div className="appContainer" hidden={selectedAppKey != "innospot-libra-app-kernel"}>
+        <div className="appContainer" >
           <GridLayout className="layout"
                       cols={12}
                       rowHeight={32}
@@ -332,18 +334,18 @@ const ApplicationWidgetPanel: React.FC<ApplicationEditorProps> = memo(() => {
 
   return (
     <Modal
-      title={type=='add'?"新建小组件":"更新小组件"}
+      title={type=='add' ? "新建小组件" : "更新小组件"}
       visible={widgetApplicationVisible}
       onOk={onSubmit}
       centered
       destroyOnClose
-      width={1120}
+      width={type=='edit' ? 924 : 1120}
       bodyStyle={{padding: 0}}
       afterClose={afterClose}
       onCancel={() => setWidgetApplicationVisible(false)}
     >
       <Container>
-        { renderCategoryList() }
+        { type=='add' ?  renderCategoryList() : '' }
         { renderAppsList() }
         { renderConfigContent() }
       </Container>
@@ -399,6 +401,7 @@ const Container = styled.div`
     width: 224px;
     padding: 24px 16px;
     overflow: auto;
+    border-left: 1px solid ${(p) => p.theme.emphasisBackground};
 
     .formTitle{
       font-size: 16px;

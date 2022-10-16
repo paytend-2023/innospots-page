@@ -79,7 +79,6 @@ export const BoardEditor: React.FC = memo(() => {
   );
 
   const boardEditor = useMemo(() => {
-    console.log("boardEditor---",boardId,board.id,board?.id !== boardId)
     if (!board.id) return null;
     if (board?.id !== boardId) {
       return null;
