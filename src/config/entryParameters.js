@@ -68,7 +68,7 @@ export const entryParameters = {
       functionValidateUrl: `/data-set/data/function/validate`,
     },
     applicationEnable: true,
-    applications: ['innospot-libra-app-kernel','app-workflow']
+    applications: ['innospot-libra-app-kernel']
   },
   strategy: {
     code:'strategy',
