@@ -35,9 +35,11 @@ import { boardActions } from './slice';
 import {makeSelectBoardConfigById, selectCurPreviewBoardId} from './slice/selector';
 import { fetchBoardDetail } from './slice/thunk';
 import { BoardState, VizRenderMode } from './slice/types';
+import { getGlobalConfigState } from 'utils/globalState';
 
 export interface BoardProps {
   renderMode: VizRenderMode;
+  previewBoardId?:string;
   hideTitle?: boolean;
   fetchData?: boolean;
   filterSearchUrl?: string;
@@ -59,12 +61,12 @@ export const Board: FC<BoardProps> = memo(
     allowManage,
     autoFit,
     showZoomCtrl,
+    previewBoardId,
   }) => {
     const dispatch = useDispatch();
     const editingBoard = useSelector(selectEditBoard);
     const curPreviewBoardId = useSelector(selectCurPreviewBoardId);
-    const boardId = curPreviewBoardId;
-
+     const boardId = curPreviewBoardId;
     const searchParams = useMemo(() => {
       return filterSearchUrl
         ? urlSearchTransfer.toParams(filterSearchUrl)
@@ -78,14 +80,24 @@ export const Board: FC<BoardProps> = memo(
             filterSearchParams: searchParams,
           }),
         );
-      }
+      }else{
+        if(boardId != previewBoardId){
+          console.log("previewBoardId---",previewBoardId,boardId)
+          dispatch(boardActions.clearBoardStateById(boardId));
+          boardDrillManager.clearMapByBoardId(boardId); dispatch(
+            fetchBoardDetail({
+              filterSearchParams: searchParams,
+            }),
+          );
 
+        }
+      }
       // 销毁组件 清除该对象缓存
       return () => {
         dispatch(boardActions.clearBoardStateById(boardId));
         boardDrillManager.clearMapByBoardId(boardId);
       };
-    }, [boardId, dispatch, fetchData]);
+    }, [boardId, dispatch, fetchData, previewBoardId]);
 
     const readBoardHide = useMemo(
       () => editingBoard?.id === boardId,

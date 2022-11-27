@@ -36,7 +36,7 @@ export const UploadDragger: React.FC<{
   const beforeUpload = useCallback(
     async info => {
       const formData = new FormData();
-      formData.append('file', info);
+      formData.append('image', info);
       dispatch(
         uploadBoardImage({
           boardId,

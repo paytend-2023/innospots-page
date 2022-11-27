@@ -100,7 +100,7 @@ export const widgetToolkit: ImageToolkit = {
       if (ele.key === 'backgroundGroup') {
         ele.rows?.forEach(row => {
           if (row.key === 'background') {
-            row.value.image = '/images/example.png';
+            row.value.image = process.env.NODE_ENV !== 'production' ? "http://localhost:8881/images/example.png" : '/apps/visualization/images/example.png';
           }
         });
       }

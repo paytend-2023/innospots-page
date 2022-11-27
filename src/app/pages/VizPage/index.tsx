@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import {useEditBoardSlice} from "../DashBoardPage/pages/BoardEditor/slice";
 import {useBoardSlice} from "../DashBoardPage/pages/Board/slice";
 import Board from "../DashBoardPage/pages/Board";
@@ -20,6 +20,7 @@ function BoardPage() {
         showZoomCtrl={true}
         allowManage={true}
         renderMode="read"
+        previewBoardId={getGlobalConfigState().pageId}
       />
     );
   }else if(getGlobalConfigState().operateType == "EDIT" || getGlobalConfigState().operateType == "CREATE"){

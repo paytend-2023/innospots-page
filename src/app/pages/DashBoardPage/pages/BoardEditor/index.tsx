@@ -70,7 +70,6 @@ export const BoardEditor: React.FC = memo(() => {
   const onSaveToWidget = useCallback(
     (chartType: WidgetContentChartType, dataChart: DataChart, view) => {
       const widgetId = boardChartEditorProps?.widgetId!;
-      console.log("widgetId====",widgetId)
       dispatch(editHasChartWidget({ widgetId, dataChart, view }));
       onCloseChartEditor();
       dispatch(addVariablesToBoard(view.variables));
@@ -120,6 +119,7 @@ export const BoardEditor: React.FC = memo(() => {
     onSaveToWidget,
   ]);
   const initialization = useCallback(async () => {
+    console.log("boardId----initialization",boardId)
     await dispatch(fetchEditBoardDetail(boardId));
     const histState = history.location.state as any;
     try {

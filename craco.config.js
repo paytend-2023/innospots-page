@@ -4,6 +4,8 @@ const WebpackBar = require('webpackbar');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ModuleFederation = require('webpack/lib/container/ModuleFederationPlugin')
+const CracoLessPlugin = require('craco-less');
+
 const {
   when,
   whenDev,
@@ -46,6 +48,22 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    {   // 修改antd主题
+      plugin: CracoLessPlugin,
+      options: {
+        lessLoaderOptions: {
+          lessOptions: {
+            math: 'always',
+            modifyVars: {
+              '@primary-color': '#1245FA', //主题颜色
+            },
+            javascriptEnabled: true,
+          },
+        },
+      },
+    },
+  ],
   webpack: {
     alias: {},
     plugins: [
@@ -62,7 +80,15 @@ module.exports = {
         filename: 'visualization.js',
         // 应用名称，当前模块自己的名字
         name: 'visualization',
-        shared: ["react", "react-dom"]
+        // shared: ["react", "react-dom"]
+        shared: {
+          "react": {
+            eager: true
+          },
+          "react-dom": {
+            eager: true
+          }
+        }
       }),
       // new BundleAnalyzerPlugin(),
     ],

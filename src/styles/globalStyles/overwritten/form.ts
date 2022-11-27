@@ -148,9 +148,9 @@ export const Form = createGlobalStyle`
   .ant-btn{
     border-radius: 4px;
     &.ant-btn-primary{
-      background: #1245FA;
-      border: 1px solid #1245FA;
-      &:active{
+      background: #1245FA !important;
+      border: 1px solid #1245FA !important;
+      &:active,&:hover{
         background: #1245FA;
         border: 1px solid #1245FA;
       }
@@ -200,5 +200,8 @@ export const Form = createGlobalStyle`
   .ant-pagination .ant-pagination-item-active{
     color: #1245FA;
     border-color: #1245FA;
+  }
+  .ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover{
+    color: #1245FA !important;
   }
 `;

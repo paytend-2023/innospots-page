@@ -5,7 +5,7 @@ import { themes } from '../themes';
 import { isSystemDark } from '../utils';
 
 export const selectTheme = createSelector(
-  [(state: RootState) => state.theme || initialState],
+  [(state: RootState) => state && state.theme || initialState],
   theme => {
     if (theme.selected === 'system') {
       return isSystemDark ? themes.dark : themes.light;
@@ -15,6 +15,6 @@ export const selectTheme = createSelector(
 );
 
 export const selectThemeKey = createSelector(
-  [(state: RootState) => state.theme || initialState],
-  theme => theme.selected,
+  [(state: RootState) =>  state && state.theme || initialState],
+  theme => theme && theme.selected || themes.light,
 );

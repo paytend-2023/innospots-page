@@ -23,9 +23,6 @@ import { antdLocales } from 'locales/i18n';
 import { useTranslation } from 'react-i18next';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { GlobalStyles } from 'styles/globalStyles';
-import {NotFoundPage} from "./pages/NotFoundPage";
-import BoardPreview from "./pages/VizPage/BoardPreview";
-import BoardEditorMain from "./pages/VizPage/BoardEditorMain";
 import VizPage from "./pages/VizPage";
 
 registerTheme('default', echartsDefaultTheme);
@@ -36,14 +33,6 @@ export function AppRouter() {
     <ConfigProvider locale={antdLocales[i18n.language]}>
       <BrowserRouter basename="/apps/visualization">
         <Switch>
-          {/*<Route path="/workspace/edit" render={() => <BoardEditorMain  />} />*/}
-          {/*<Route path="/workspace" render={() => <BoardPreview  />} />*/}
-          {/*<Route path="/page/edit" render={() => <BoardEditorMain  />} />*/}
-          {/*<Route path="/page/create" render={() => <BoardEditorMain />} />*/}
-          {/*<Route path="/page/preview" render={() => <BoardPreview  />} />*/}
-          {/*<Route path="/apps/workflow/kanban/edit" render={() => <BoardEditorMain />} />*/}
-          {/*<Route path="/workflow/kanban" render={() => <BoardPreview />} />*/}
-          {/*<Route path="/app/*" render={() => <VizPage />} />*/}
           <Route path="*" component={VizPage} />
         </Switch>
         <GlobalStyles />

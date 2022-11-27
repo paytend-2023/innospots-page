@@ -99,17 +99,17 @@ export const fetchEditBoardDetail = createAsyncThunk<
   'editBoard/fetchEditBoardDetail',
   async ( dashboardId,{ getState, dispatch }) => {
     const { urls, pageId } = getGlobalConfigState();
-    let boardDetail = {} as ServerDashboard
-    boardDetail.id= '-1'
-    boardDetail.name=''
-    boardDetail.widgets =[]
-    boardDetail.views = []
+    let boardDetail = {} as ServerDashboard;
+    boardDetail.id= '-1';
+    boardDetail.name='';
+    boardDetail.widgets =[];
+    boardDetail.views = [];
     if( urls.detailUrl){
       const detailUrl= urls.detailUrl.replace(":id", pageId || '');
       const { data } = await request2<ServerDashboard>(
         detailUrl,
       );
-      boardDetail = data
+      boardDetail = data;
     }
     const dashboard = getDashBoardByResBoard(boardDetail);
     const boardType = dashboard.config.type;

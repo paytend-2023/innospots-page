@@ -27,15 +27,15 @@ function render(props) {
   generateEntryPoint(AppRouter, props.container);
 }
 
-function storeTest(props) {
-  props.onGlobalStateChange((value, prev) => console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev), true);
-  props.setGlobalState({
-    ignore: props.name,
-    user: {
-      name: props.name,
-    },
-  });
-}
+// function storeTest(props) {
+//   props.onGlobalStateChange((value, prev) => console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev), true);
+//   props.setGlobalState({
+//     ignore: props.name,
+//     user: {
+//       name: props.name,
+//     },
+//   });
+// }
 
 if (!(window as any).__POWERED_BY_QIANKUN__) {
   render({});
@@ -67,7 +67,6 @@ export async function mount(props) {
   setGlobalConfigState({
     ...props
   });
-  storeTest(props);
   render(props);
 }
 /**
@@ -83,4 +82,7 @@ export async function unmount(props) {
  */
 export async function update(props) {
   console.log('update props', props);
+  setGlobalConfigState({
+    ...props
+  });
 }
