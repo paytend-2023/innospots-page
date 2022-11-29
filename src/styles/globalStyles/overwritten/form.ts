@@ -144,16 +144,19 @@ export const Form = createGlobalStyle`
   }
   .ant-input{
     border-radius: 4px;
+    &:active,&:hover,&:focus{
+      border-color: #1245FA;
+    }
   }
   .ant-btn{
     border-radius: 4px;
     &.ant-btn-primary{
       background: #1245FA !important;
-      border: 1px solid #1245FA !important;
-    }
-    &:active,&:hover{
-      background: #1245FA;
-      border: 1px solid #1245FA;
+      border-color: #1245FA !important;
+      &:active,&:hover{
+        background: #1245FA;
+        border-color: #1245FA;
+      }
     }
   }
   .ant-modal-content .ant-modal-footer{
@@ -204,4 +207,13 @@ export const Form = createGlobalStyle`
   .ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover{
     color: #1245FA !important;
   }
+  .ant-menu{
+    .ant-menu-item.ant-menu-item-active{
+      color: #1245FA;
+    }
+    .ant-menu-submenu.ant-menu-submenu-active{
+      color: #1245FA;
+    }
+  }
+
 `;
