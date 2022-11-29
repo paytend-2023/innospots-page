@@ -74,6 +74,7 @@ export const AutoBoardCore: React.FC<{ boardId: string }> = memo(
         );
       });
     }, [boardId, editing, sortedLayoutWidgets]);
+
     return (
       <Wrapper>
         <StyledContainer bg={background}>
@@ -82,7 +83,7 @@ export const AutoBoardCore: React.FC<{ boardId: string }> = memo(
               <ReactGridLayout
                 layout={layoutMap[colsKey]}
                 margin={curMargin}
-                containerPadding={curPadding}
+                containerPadding={[0, 0]}
                 cols={LAYOUT_COLS_MAP[colsKey]}
                 rowHeight={widgetRowHeight}
                 onLayoutChange={onLayoutChange}

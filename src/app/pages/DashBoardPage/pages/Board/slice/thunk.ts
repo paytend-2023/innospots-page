@@ -94,6 +94,9 @@ export const fetchBoardDetail = createAsyncThunk<
 >('board/fetchBoardDetail', async (params, { dispatch, rejectWithValue }) => {
   const { urls,pageId } = getGlobalConfigState();
   const detailUrl = urls.detailUrl.replace(":id", pageId || '');
+
+  if (!detailUrl) return null;
+
   const { data } = await request2<ServerDashboard>(detailUrl);
   dispatch(
     handleServerBoardAction({
