@@ -451,18 +451,19 @@ const DropPlaceholder = styled.p`
   line-height: ${LINE_HEIGHT_HEADING};
   font-size: 12px;
   color: #86909C;
+  margin-bottom: 0;
 `;
 const StyledBaseDataConfigFieldSection = styled.div`
   padding: ${SPACE_XS} ${SPACE_LXG};
 
   .baseDataConfigFieldSection{
     padding: ${SPACE} ${SPACE_MD};
-    height: 38px;
     color: ${(p) => p.theme.textColorLight};
     width: 100%;
     border: 1px solid ${(p) => p.theme.emphasisBackground};
     border-radius: ${BORDER_RADIUS};
     display: flex;
+    align-items: center;
 
     .baseDataConfigFieldTitle{
       user-select: none;

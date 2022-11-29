@@ -150,10 +150,10 @@ export const Form = createGlobalStyle`
     &.ant-btn-primary{
       background: #1245FA !important;
       border: 1px solid #1245FA !important;
-      &:active,&:hover{
-        background: #1245FA;
-        border: 1px solid #1245FA;
-      }
+    }
+    &:active,&:hover{
+      background: #1245FA;
+      border: 1px solid #1245FA;
     }
   }
   .ant-modal-content .ant-modal-footer{
