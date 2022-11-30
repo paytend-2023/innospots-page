@@ -72,8 +72,9 @@ export const Board: FC<BoardProps> = memo(
         ? urlSearchTransfer.toParams(filterSearchUrl)
         : undefined;
     }, [filterSearchUrl]);
-    
-    debugger
+
+    console.info(boardId)
+    console.info(previewBoardId)
 
     useEffect(() => {
       if ( boardId == '-1' && fetchData) {
