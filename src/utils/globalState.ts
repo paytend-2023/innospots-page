@@ -20,6 +20,7 @@ export type DatartComponentConfig = {
   },
   applicationEnable?: boolean | false,
   applications?: string[],
+  updatePageId?: any,
 }
 export type DatartConfElement ={
   label?: string,
@@ -111,5 +112,8 @@ export const setGlobalConfigState = (props) => {
       config.pageId = props.id
     }
   }
+
+  config.updatePageId = props.updatePageId;
+
   globalConfigState = config;
 }

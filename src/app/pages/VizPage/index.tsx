@@ -5,13 +5,13 @@ import Board from "../DashBoardPage/pages/Board";
 import { getGlobalConfigState } from 'utils/globalState';
 import BoardEditor from '../DashBoardPage/pages/BoardEditor';
 
-function BoardPage(props) {
+function BoardPage({ updatePageId }) {
   useEditBoardSlice();
   useBoardSlice();
 
   const configState = getGlobalConfigState();
 
-  console.info(props)
+  console.info(configState)
 
   if(configState.operateType == "VIEW"){
     return (
@@ -25,6 +25,7 @@ function BoardPage(props) {
         allowManage={true}
         renderMode="read"
         key={configState.pageId}
+        updatePageId={configState.updatePageId}
         previewBoardId={configState.pageId}
       />
     );

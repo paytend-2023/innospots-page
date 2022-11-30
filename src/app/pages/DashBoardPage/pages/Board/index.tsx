@@ -17,7 +17,7 @@
  */
 
 import useResizeObserver from 'app/hooks/useResizeObserver';
-import {FC, useEffect, useMemo} from 'react';
+import {FC, useEffect, useMemo, useState} from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,6 +47,7 @@ export interface BoardProps {
   allowManage?: boolean;
   autoFit?: boolean;
   showZoomCtrl?: boolean;
+  updatePageId?: any;
 }
 
 export const Board: FC<BoardProps> = ({
@@ -60,8 +61,10 @@ export const Board: FC<BoardProps> = ({
   autoFit,
   showZoomCtrl,
   previewBoardId,
+  updatePageId,
 }) => {
   const dispatch = useDispatch();
+  const [newPageId, setNewPageId] = useState('');
   const editingBoard = useSelector(selectEditBoard);
   const curPreviewBoardId = useSelector(selectCurPreviewBoardId);
   const boardId = curPreviewBoardId;
@@ -73,6 +76,14 @@ export const Board: FC<BoardProps> = ({
 
   console.log("old---",curPreviewBoardId)
   console.log("new---",previewBoardId)
+
+  useEffect(() => {
+    try {
+      updatePageId(pageId => {
+        setNewPageId(pageId)
+      })
+    }catch (e) {}
+  }, [updatePageId]);
 
   useEffect(() => {
     if ( boardId == '-1' && fetchData) {
