@@ -102,7 +102,7 @@ const EditorHeader: FC = memo(({ children }) => {
       })
     }
     formIns.setFields(formFieldsValues);
-  }, [boardExtConfig]);
+  }, [boardExtConfig, customTitleElement]);
 
   const onCloseBoardEditor = (boardId) => {
     console.log("onCloseBoardEditor----",boardId);
