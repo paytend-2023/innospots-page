@@ -66,7 +66,7 @@ export const Board: FC<BoardProps> = memo(
     const dispatch = useDispatch();
     const editingBoard = useSelector(selectEditBoard);
     const curPreviewBoardId = useSelector(selectCurPreviewBoardId);
-     const boardId = curPreviewBoardId;
+     // const boardId = curPreviewBoardId;
     const searchParams = useMemo(() => {
       return filterSearchUrl
         ? urlSearchTransfer.toParams(filterSearchUrl)
@@ -77,16 +77,16 @@ export const Board: FC<BoardProps> = memo(
     console.log("new---",previewBoardId)
 
     useEffect(() => {
-      if ( boardId == '-1' && fetchData) {
+      if ( curPreviewBoardId == '-1' && fetchData) {
         dispatch(
           fetchBoardDetail({
             filterSearchParams: searchParams,
           }),
         );
       }else{
-        if(boardId != previewBoardId){
-          dispatch(boardActions.clearBoardStateById(boardId));
-          boardDrillManager.clearMapByBoardId(boardId);
+        if(curPreviewBoardId != previewBoardId){
+          dispatch(boardActions.clearBoardStateById(curPreviewBoardId));
+          boardDrillManager.clearMapByBoardId(curPreviewBoardId);
           dispatch(
             fetchBoardDetail({
               filterSearchParams: searchParams,
@@ -97,14 +97,14 @@ export const Board: FC<BoardProps> = memo(
       }
       // 销毁组件 清除该对象缓存
       return () => {
-        dispatch(boardActions.clearBoardStateById(boardId));
-        boardDrillManager.clearMapByBoardId(boardId);
+        dispatch(boardActions.clearBoardStateById(curPreviewBoardId));
+        boardDrillManager.clearMapByBoardId(curPreviewBoardId);
       };
-    }, [boardId, dispatch, fetchData, previewBoardId]);
+    }, [curPreviewBoardId, dispatch, fetchData, previewBoardId]);
 
     const readBoardHide = useMemo(
-      () => editingBoard?.id === boardId,
-      [boardId, editingBoard.id],
+      () => editingBoard?.id === curPreviewBoardId,
+      [curPreviewBoardId, editingBoard.id],
     );
     const { ref, width, height } = useResizeObserver<HTMLDivElement>({
       refreshMode: 'debounce',
@@ -112,7 +112,7 @@ export const Board: FC<BoardProps> = memo(
     });
 
     const dashboard = useSelector((state: { board: BoardState }) =>
-      makeSelectBoardConfigById()(state, boardId),
+      makeSelectBoardConfigById()(state, previewBoardId as string),
     );
 
     const viewBoard = useMemo(() => {
