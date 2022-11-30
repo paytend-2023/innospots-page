@@ -73,7 +73,6 @@ const boardSlice = createSlice({
       }>,
     ) {
       const { board, boardInfo } = action.payload;
-      console.info(board);
       state.boardRecord[board.id] = board;
       state.boardInfoRecord[board.id] = boardInfo;
       state.curPreviewBoardId = board.id;

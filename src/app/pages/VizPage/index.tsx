@@ -9,7 +9,11 @@ function BoardPage() {
   useEditBoardSlice();
   useBoardSlice();
 
-  if(getGlobalConfigState().operateType == "VIEW"){
+  const configState = getGlobalConfigState();
+
+  console.info(configState)
+
+  if(configState.operateType == "VIEW"){
     return (
       <Board
         hideTitle={true}
@@ -20,10 +24,10 @@ function BoardPage() {
         showZoomCtrl={true}
         allowManage={true}
         renderMode="read"
-        previewBoardId={getGlobalConfigState().pageId}
+        previewBoardId={configState.pageId}
       />
     );
-  }else if(getGlobalConfigState().operateType == "EDIT" || getGlobalConfigState().operateType == "CREATE"){
+  }else if(configState.operateType == "EDIT" || configState.operateType == "CREATE"){
     return (
       <BoardEditor />
     );
