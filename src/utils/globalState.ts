@@ -113,7 +113,5 @@ export const setGlobalConfigState = (props) => {
     }
   }
 
-  config.updatePageId = props.updatePageId;
-
   globalConfigState = config;
 }

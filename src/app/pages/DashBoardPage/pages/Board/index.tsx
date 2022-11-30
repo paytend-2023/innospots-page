@@ -47,7 +47,6 @@ export interface BoardProps {
   allowManage?: boolean;
   autoFit?: boolean;
   showZoomCtrl?: boolean;
-  updatePageId?: any;
 }
 
 export const Board: FC<BoardProps> = ({
