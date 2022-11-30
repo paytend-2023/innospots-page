@@ -25,7 +25,6 @@ function BoardPage({ updatePageId }) {
         allowManage={true}
         renderMode="read"
         key={configState.pageId}
-        updatePageId={configState.updatePageId}
         previewBoardId={configState.pageId}
       />
     );
