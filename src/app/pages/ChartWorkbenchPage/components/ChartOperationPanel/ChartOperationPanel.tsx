@@ -123,4 +123,6 @@ const ChartOperationPanel: FC<{
 
 export default ChartOperationPanel;
 
-const StyledChartOperationPanel = styled(DndProvider)<{ backend }>``;
+const StyledChartOperationPanel = styled(DndProvider)<{ backend }>`
+
+`;

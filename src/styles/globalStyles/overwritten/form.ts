@@ -142,36 +142,58 @@ export const Form = createGlobalStyle`
       }
     }
   }
-  .ant-input{
-    border-radius: 4px;
-    &:active,&:hover,&:focus{
-      border-color: #1245FA;
-    }
-  }
-  .ant-btn{
-    border-radius: 4px;
-    &.ant-btn-primary{
-      background: #1245FA !important;
-      border-color: #1245FA !important;
-      &:active,&:hover{
-        background: #1245FA;
+    .ant-input{
+      border-radius: 4px;
+      &:active,&:hover,&:focus{
         border-color: #1245FA;
       }
     }
-  }
-  .ant-modal-content .ant-modal-footer{
     .ant-btn{
-      height: 38px;
+      border-radius: 4px;
+      &.ant-btn-primary{
+        background: #1245FA !important;
+        border-color: #1245FA !important;
+        &:active,&:hover{
+          background: #1245FA;
+          border-color: #1245FA;
+        }
+      }
     }
-  }
-  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: #1245FA;
-    text-shadow: 0 0 .25px currentColor;
-    font-weight: bold;
-  }
-  .ant-tabs-nav-list .ant-tabs-ink-bar {
-    background: #1245FA;
-  }
+    .ant-modal-content .ant-modal-footer{
+      .ant-btn{
+        height: 38px;
+      }
+    }
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: #1245FA;
+      text-shadow: 0 0 .25px currentColor;
+      font-weight: bold;
+    }
+    .ant-tabs-nav-list .ant-tabs-ink-bar {
+      background: #1245FA;
+    }
+    .ant-pagination .ant-pagination-item-active{
+      color: #1245FA;
+      border-color: #1245FA !important;
+    }
+    .ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover{
+      color: #1245FA !important;
+    }
+    .ant-menu{
+      .ant-menu-item.ant-menu-item-active{
+        color: #1245FA!important;
+        &:active,&:hover{
+          border-color: #1245FA;
+        }
+      }
+      .ant-menu-submenu.ant-menu-submenu-active{
+        color: #1245FA!important;
+        &:active,&:hover{
+          border-color: #1245FA;
+        }
+      }
+    }
+
   .datart-confirm-modal{
     .ant-modal-content{
       .ant-modal-body{
@@ -200,20 +222,4 @@ export const Form = createGlobalStyle`
       }
     }
   }
-  .ant-pagination .ant-pagination-item-active{
-    color: #1245FA;
-    border-color: #1245FA;
-  }
-  .ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover{
-    color: #1245FA !important;
-  }
-  .ant-menu{
-    .ant-menu-item.ant-menu-item-active{
-      color: #1245FA;
-    }
-    .ant-menu-submenu.ant-menu-submenu-active{
-      color: #1245FA;
-    }
-  }
-
 `;

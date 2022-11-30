@@ -85,7 +85,6 @@ const ChartWorkbench: FC<{
   }) => {
     const language = useSelector(languageSelector);
     const dateFormat = useSelector(dateFormatSelector);
-      console.log("chart99-9=9--9",chart)
     return (
       <ChartAggregationContext.Provider
         value={{
