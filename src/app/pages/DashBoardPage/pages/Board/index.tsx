@@ -102,7 +102,7 @@ export const Board: FC<BoardProps> = ({
 
   const readBoardHide = useMemo(
     () => editingBoard?.id === boardId,
-    [boardId, editingBoard.id],
+    [boardId, editingBoard?.id],
   );
   const { ref, width, height } = useResizeObserver<HTMLDivElement>({
     refreshMode: 'debounce',

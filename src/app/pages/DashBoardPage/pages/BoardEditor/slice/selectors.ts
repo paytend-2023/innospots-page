@@ -38,10 +38,10 @@ import { EditBoardStack } from './types';
 // record
 const DefaultObject = {};
 export const editBoardStackState = (state: { editBoard: HistoryEditBoard }) =>
-  state.editBoard.stack.present;
+  state?.editBoard?.stack?.present;
 
 export const selectEditBoard = createSelector([editBoardStackState], state => {
-  return state.dashBoard;
+  return state?.dashBoard;
 });
 export const selectEditWidgetRecord = createSelector(
   [editBoardStackState],

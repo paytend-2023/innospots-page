@@ -25,7 +25,7 @@ import { WidgetInfo } from './types';
 const DefaultObject = {};
 export const selectPropsId = (_: unknown, id: string) => id;
 
-export const boardState = (state: RootState) => state.board || boardInit;
+export const boardState = (state: RootState) => state?.board || boardInit;
 export const selectCurPreviewBoardId = createSelector(
   [boardState],
   state => state.curPreviewBoardId,
