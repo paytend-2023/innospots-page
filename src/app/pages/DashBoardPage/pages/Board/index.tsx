@@ -50,141 +50,139 @@ export interface BoardProps {
   showZoomCtrl?: boolean;
 }
 
-export const Board: FC<BoardProps> = memo(
-  ({
-    hideTitle,
-    fetchData = true,
-    renderMode,
-    filterSearchUrl,
-    allowDownload,
-    allowShare,
-    allowManage,
-    autoFit,
-    showZoomCtrl,
-    previewBoardId,
-  }) => {
-    const dispatch = useDispatch();
-    const editingBoard = useSelector(selectEditBoard);
-    const curPreviewBoardId = useSelector(selectCurPreviewBoardId);
-     const boardId = curPreviewBoardId;
-    const searchParams = useMemo(() => {
-      return filterSearchUrl
-        ? urlSearchTransfer.toParams(filterSearchUrl)
-        : undefined;
-    }, [filterSearchUrl]);
+export const Board: FC<BoardProps> = ({
+  hideTitle,
+  fetchData = true,
+  renderMode,
+  filterSearchUrl,
+  allowDownload,
+  allowShare,
+  allowManage,
+  autoFit,
+  showZoomCtrl,
+  previewBoardId,
+}) => {
+  const dispatch = useDispatch();
+  const editingBoard = useSelector(selectEditBoard);
+  const curPreviewBoardId = useSelector(selectCurPreviewBoardId);
+  const boardId = curPreviewBoardId;
+  const searchParams = useMemo(() => {
+    return filterSearchUrl
+      ? urlSearchTransfer.toParams(filterSearchUrl)
+      : undefined;
+  }, [filterSearchUrl]);
 
-    console.log("old---",curPreviewBoardId)
-    console.log("new---",previewBoardId)
+  console.log("old---",curPreviewBoardId)
+  console.log("new---",previewBoardId)
 
-    useEffect(() => {
-      if ( boardId == '-1' && fetchData) {
+  useEffect(() => {
+    if ( boardId == '-1' && fetchData) {
+      dispatch(
+        fetchBoardDetail({
+          filterSearchParams: searchParams,
+        }),
+      );
+    }else{
+      if(boardId != previewBoardId){
+        dispatch(boardActions.clearBoardStateById(boardId));
+        boardDrillManager.clearMapByBoardId(boardId);
         dispatch(
           fetchBoardDetail({
             filterSearchParams: searchParams,
           }),
         );
-      }else{
-        if(boardId != previewBoardId){
-          dispatch(boardActions.clearBoardStateById(boardId));
-          boardDrillManager.clearMapByBoardId(boardId);
-          dispatch(
-            fetchBoardDetail({
-              filterSearchParams: searchParams,
-            }),
-          );
 
-        }
       }
-      // 销毁组件 清除该对象缓存
-      return () => {
-        dispatch(boardActions.clearBoardStateById(boardId));
-        boardDrillManager.clearMapByBoardId(boardId);
-      };
-    }, [boardId, dispatch, fetchData, previewBoardId]);
+    }
+    // 销毁组件 清除该对象缓存
+    return () => {
+      dispatch(boardActions.clearBoardStateById(boardId));
+      boardDrillManager.clearMapByBoardId(boardId);
+    };
+  }, [boardId, dispatch, fetchData, previewBoardId]);
 
-    const readBoardHide = useMemo(
-      () => editingBoard?.id === boardId,
-      [boardId, editingBoard.id],
-    );
-    const { ref, width, height } = useResizeObserver<HTMLDivElement>({
-      refreshMode: 'debounce',
-      refreshRate: 2000,
-    });
+  const readBoardHide = useMemo(
+    () => editingBoard?.id === boardId,
+    [boardId, editingBoard.id],
+  );
+  const { ref, width, height } = useResizeObserver<HTMLDivElement>({
+    refreshMode: 'debounce',
+    refreshRate: 2000,
+  });
 
-    const dashboard = useSelector((state: { board: BoardState }) =>
-      makeSelectBoardConfigById()(state, boardId),
-    );
+  const dashboard = useSelector((state: { board: BoardState }) =>
+    makeSelectBoardConfigById()(state, boardId),
+  );
 
-    const viewBoard = useMemo(() => {
-      let boardType = dashboard?.config?.type;
-      if (dashboard && boardType) {
-        return (
-          <div className="board-provider">
-            <BoardInitProvider
-              board={dashboard}
-              editing={false}
-              autoFit={autoFit}
-              renderMode={renderMode}
-              allowDownload={allowDownload}
-              allowShare={allowShare}
-              allowManage={allowManage}
-            >
-              {!hideTitle && <TitleHeader />}
-              {!readBoardHide && (
-                <>
-                  {boardType === 'auto' && (
-                    <AutoBoardCore boardId={dashboard.id} />
-                  )}
-                  {boardType === 'free' && (
-                    <FreeBoardCore
-                      boardId={dashboard.id}
-                      showZoomCtrl={showZoomCtrl}
-                    />
-                  )}
-                </>
-              )}
+  const viewBoard = useMemo(() => {
+    let boardType = dashboard?.config?.type;
+    if (dashboard && boardType) {
+      return (
+        <div className="board-provider">
+          <BoardInitProvider
+            board={dashboard}
+            editing={false}
+            autoFit={autoFit}
+            renderMode={renderMode}
+            allowDownload={allowDownload}
+            allowShare={allowShare}
+            allowManage={allowManage}
+          >
+            {!hideTitle && <TitleHeader />}
+            {!readBoardHide && (
+              <>
+                {boardType === 'auto' && (
+                  <AutoBoardCore boardId={dashboard.id} />
+                )}
+                {boardType === 'free' && (
+                  <FreeBoardCore
+                    boardId={dashboard.id}
+                    showZoomCtrl={showZoomCtrl}
+                  />
+                )}
+              </>
+            )}
 
-              <FullScreenPanel />
-            </BoardInitProvider>
-          </div>
-        );
-      } else {
-        return <BoardLoading />;
-      }
-    }, [
-      dashboard,
-      autoFit,
-      renderMode,
-      allowDownload,
-      allowShare,
-      allowManage,
-      hideTitle,
-      readBoardHide,
-      showZoomCtrl,
-    ]);
+            <FullScreenPanel />
+          </BoardInitProvider>
+        </div>
+      );
+    } else {
+      return <BoardLoading />;
+    }
+  }, [
+    dashboard,
+    autoFit,
+    renderMode,
+    allowDownload,
+    allowShare,
+    allowManage,
+    hideTitle,
+    readBoardHide,
+    showZoomCtrl,
+  ]);
 
-    useEffect(() => {
-      if (width! > 0 && height! > 0 && dashboard?.id && !readBoardHide) {
-        dispatch(
-          boardActions.changeBoardVisible({ id: dashboard?.id, visible: true }),
-        );
-      } else {
-        dispatch(
-          boardActions.changeBoardVisible({
-            id: dashboard?.id as string,
-            visible: false,
-          }),
-        );
-      }
-    }, [readBoardHide, dashboard?.id, dispatch, height, width]);
+  useEffect(() => {
+    if (width! > 0 && height! > 0 && dashboard?.id && !readBoardHide) {
+      dispatch(
+        boardActions.changeBoardVisible({ id: dashboard?.id, visible: true }),
+      );
+    } else {
+      dispatch(
+        boardActions.changeBoardVisible({
+          id: dashboard?.id as string,
+          visible: false,
+        }),
+      );
+    }
+  }, [readBoardHide, dashboard?.id, dispatch, height, width]);
 
-    return (
-      <Wrapper ref={ref} className="dashboard-box">
-        <DndProvider backend={HTML5Backend}>{viewBoard}</DndProvider>
-      </Wrapper>
-    );
-  },
-);
+  return (
+    <Wrapper ref={ref} className="dashboard-box">
+      <DndProvider backend={HTML5Backend}>{viewBoard}</DndProvider>
+    </Wrapper>
+  );
+}
 
 export default Board;
 
