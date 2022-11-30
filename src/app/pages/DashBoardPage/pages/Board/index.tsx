@@ -73,9 +73,6 @@ export const Board: FC<BoardProps> = memo(
         : undefined;
     }, [filterSearchUrl]);
 
-    console.info(boardId)
-    console.info(previewBoardId)
-
     useEffect(() => {
       if ( boardId == '-1' && fetchData) {
         dispatch(
@@ -87,7 +84,8 @@ export const Board: FC<BoardProps> = memo(
         if(boardId != previewBoardId){
           console.log("previewBoardId---",previewBoardId,boardId)
           dispatch(boardActions.clearBoardStateById(boardId));
-          boardDrillManager.clearMapByBoardId(boardId); dispatch(
+          boardDrillManager.clearMapByBoardId(boardId);
+          dispatch(
             fetchBoardDetail({
               filterSearchParams: searchParams,
             }),
