@@ -17,7 +17,7 @@
  */
 
 import useResizeObserver from 'app/hooks/useResizeObserver';
-import {FC, memo, useContext, useEffect, useMemo} from 'react';
+import {FC, useEffect, useMemo} from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,7 +35,6 @@ import { boardActions } from './slice';
 import {makeSelectBoardConfigById, selectCurPreviewBoardId} from './slice/selector';
 import { fetchBoardDetail } from './slice/thunk';
 import { BoardState, VizRenderMode } from './slice/types';
-import { getGlobalConfigState } from 'utils/globalState';
 
 export interface BoardProps {
   renderMode: VizRenderMode;
