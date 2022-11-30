@@ -54,6 +54,7 @@ export const handleServerBoardAction =
     executeToken?: Record<string, ExecuteToken>;
   }) =>
   async (dispatch, getState) => {
+    console.info(params);
     const { data, renderMode, filterSearchMap, executeToken } = params;
     const dashboard = getDashBoardByResBoard(data);
     const {  views: serverViews, widgets: serverWidgets } = data;

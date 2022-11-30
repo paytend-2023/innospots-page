@@ -95,6 +95,10 @@ export const fetchBoardDetail = createAsyncThunk<
   const { urls,pageId } = getGlobalConfigState();
   const detailUrl = urls.detailUrl.replace(":id", pageId || '');
 
+  console.info(pageId)
+  console.info(urls)
+  console.info(detailUrl)
+
   if (!detailUrl) return null;
 
   const { data } = await request2<ServerDashboard>(detailUrl);
