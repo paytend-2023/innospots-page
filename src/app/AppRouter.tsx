@@ -21,7 +21,6 @@ import echartsDefaultTheme from 'app/assets/theme/echarts_default_theme.json';
 import { registerTheme } from 'echarts';
 import { antdLocales } from 'locales/i18n';
 import { useTranslation } from 'react-i18next';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { GlobalStyles } from 'styles/globalStyles';
 import VizPage from "./pages/VizPage";
 
@@ -31,12 +30,8 @@ export function AppRouter() {
   const { i18n } = useTranslation();
   return (
     <ConfigProvider locale={antdLocales[i18n.language]}>
-      <BrowserRouter forceRefresh basename="/apps/visualization">
-        <Switch>
-          <Route path="*" component={VizPage} />
-        </Switch>
-        <GlobalStyles />
-      </BrowserRouter>
+      <VizPage />
+      <GlobalStyles />
     </ConfigProvider>
   );
 }
