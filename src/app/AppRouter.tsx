@@ -31,7 +31,7 @@ export function AppRouter() {
   const { i18n } = useTranslation();
   return (
     <ConfigProvider locale={antdLocales[i18n.language]}>
-      <BrowserRouter basename="/apps/visualization">
+      <BrowserRouter forceRefresh basename="/apps/visualization">
         <Switch>
           <Route path="*" component={VizPage} />
         </Switch>
