@@ -19,8 +19,7 @@ export type DatartComponentConfig = {
     editBoardPageUrl?: string,
   },
   applicationEnable?: boolean | false,
-  applications?: string[],
-  onGlobalStateChange?: any,
+  applications?: string[]
 }
 export type DatartConfElement ={
   label?: string,
@@ -112,8 +111,6 @@ export const setGlobalConfigState = (props) => {
       config.pageId = props.id
     }
   }
-
-  config.onGlobalStateChange = props.onGlobalStateChange || globalConfigState.onGlobalStateChange;
 
   globalConfigState = config;
 }

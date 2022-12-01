@@ -1,26 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useEditBoardSlice} from "../DashBoardPage/pages/BoardEditor/slice";
 import {useBoardSlice} from "../DashBoardPage/pages/Board/slice";
 import Board from "../DashBoardPage/pages/Board";
 import { getGlobalConfigState } from 'utils/globalState';
 import BoardEditor from '../DashBoardPage/pages/BoardEditor';
 
-function BoardPage() {
+function BoardPage(props) {
   useEditBoardSlice();
   useBoardSlice();
 
   const configState = getGlobalConfigState();
-  const [pageId, setPageId] = useState(configState.pageId);
 
-  useEffect(() => {
-    configState.onGlobalStateChange((state, prev) => {
-      // state: 变更后的状态; prev 变更前的状态
-      console.log(state, prev);
-      if (state.pageId && state.pageId !== prev.pageId) {
-        setPageId(state.pageId);
-      }
-    })
-  }, [configState.onGlobalStateChange]);
+  console.info(props)
 
   if(configState.operateType == "VIEW"){
     return (
@@ -33,8 +24,8 @@ function BoardPage() {
         showZoomCtrl={true}
         allowManage={true}
         renderMode="read"
-        key={pageId}
-        previewBoardId={pageId}
+        key={configState.pageId}
+        previewBoardId={configState.pageId}
       />
     );
   }else if(configState.operateType == "EDIT" || configState.operateType == "CREATE"){
