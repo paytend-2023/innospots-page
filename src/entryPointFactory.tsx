@@ -31,6 +31,8 @@ import { ThemeProvider } from 'styles/theme/ThemeProvider';
 import { Debugger } from 'utils/debugger';
 import './locales/i18n';
 
+import 'styles/antd/styles.less';
+
 export const generateEntryPoint = (EntryPointComponent, container) => {
   const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
   const store = configureAppStore();

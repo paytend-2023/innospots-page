@@ -56,7 +56,7 @@ module.exports = {
           lessOptions: {
             math: 'always',
             modifyVars: {
-              '@primary-color': '#1245FA', //主题颜色
+              'primary-color': '#1245FA', //主题颜色
             },
             javascriptEnabled: true,
           },
