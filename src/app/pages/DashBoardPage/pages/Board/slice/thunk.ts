@@ -49,7 +49,6 @@ import {
   WidgetData,
 } from './types';
 import { getGlobalConfigState } from 'utils/globalState';
-import { Organization } from '../../../../MainPage/slice/types';
 
 /**
  * @param ''

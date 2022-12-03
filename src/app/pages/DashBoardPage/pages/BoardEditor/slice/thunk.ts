@@ -59,20 +59,18 @@ import {
   selectEditBoard,
 } from './selectors';
 import { EditBoardState, HistoryEditBoard } from './types';
-import { ActionCreators } from "redux-undo";
+import { ActionCreators } from 'redux-undo';
 import { getGlobalConfigState } from 'utils/globalState';
 
 /**
  * @param ''
  * @description '先拿本地缓存，没有缓存再去服务端拉数据'
  */
-export const getEditBoardDetail = createAsyncThunk<
-  null,
-  { dashboardId: string},
-  { state: RootState }
->(
+export const getEditBoardDetail = createAsyncThunk<null,
+  { dashboardId: string },
+  { state: RootState }>(
   'editBoard/getEditBoardDetail',
-  async ({dashboardId}, { getState, dispatch }) => {
+  async ({ dashboardId }, { getState, dispatch }) => {
     if (!dashboardId) {
       return null;
     }
@@ -91,21 +89,21 @@ export const getEditBoardDetail = createAsyncThunk<
   },
 );
 
-export const fetchEditBoardDetail = createAsyncThunk<
-  null,
+export const fetchEditBoardDetail = createAsyncThunk<null,
   string,
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/fetchEditBoardDetail',
-  async ( dashboardId,{ getState, dispatch }) => {
-    const { urls, pageId } = getGlobalConfigState();
+  async (dashboardId, { getState, dispatch }) => {
+    const { board: { pageConfig } } = getState() as { board: BoardState };
+    const urls = pageConfig.urls || {};
+
     let boardDetail = {} as ServerDashboard;
-    boardDetail.id= '-1';
-    boardDetail.name='';
-    boardDetail.widgets =[];
+    boardDetail.id = '-1';
+    boardDetail.name = '';
+    boardDetail.widgets = [];
     boardDetail.views = [];
-    if( urls.detailUrl){
-      const detailUrl= urls.detailUrl.replace(":id", pageId || '');
+    if (urls.detailUrl && dashboardId) {
+      const detailUrl = urls.detailUrl.replace(':id', dashboardId || '');
       const { data } = await request2<ServerDashboard>(
         detailUrl,
       );
@@ -155,27 +153,25 @@ export const fetchEditBoardDetail = createAsyncThunk<
     return null;
   },
 );
-export const getApplications = createAsyncThunk<ApplicationInfo[],{applicationsUrl: string}>(
+export const getApplications = createAsyncThunk<ApplicationInfo[], { applicationsUrl: string }>(
   'editBoard/getApplicationWidgets',
   async ({ applicationsUrl }) => {
     const { data } = await request2<ApplicationInfo[]>(
       applicationsUrl,
     );
-    console.log("applicationsUrl--",applicationsUrl,data)
+    console.log('applicationsUrl--', applicationsUrl, data);
     return data;
-  }
+  },
 );
 /**
  * @param boardId string
  * @description '更新保存 board'
  */
-export const toUpdateDashboard = createAsyncThunk<
-  any,
+export const toUpdateDashboard = createAsyncThunk<any,
   { boardId: string; boardExtConfig: string; saveBoardUrl: string; callback?: (boardId?: string) => void },
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/toUpdateDashboard',
-  async ({ boardId,boardExtConfig, saveBoardUrl, callback }, { getState, dispatch }) => {
+  async ({ boardId, boardExtConfig, saveBoardUrl, callback }, { getState, dispatch }) => {
     const { dashBoard, widgetRecord } = editBoardStackState(
       getState() as unknown as {
         editBoard: HistoryEditBoard;
@@ -201,45 +197,45 @@ export const toUpdateDashboard = createAsyncThunk<
     //   widgetToUpdate: group.widgetToUpdate,
     //   widgetToDelete: group.widgetToDelete,
     // };
-    const updateData: SaveDashboard  = {
+    const updateData: SaveDashboard = {
       boardExtConfig,
       config: JSON.stringify(dashBoard.config),
       widgetDeleteIds: group.widgetToDelete,
-      widgets: []
+      widgets: [],
+    };
+    if (dashBoard.config) {
+      let boardExtConfigObj = JSON.parse(boardExtConfig);
+      Object.keys(boardExtConfigObj).forEach(function(key) {
+        updateData[key] = boardExtConfigObj[key];
+      });
     }
-    if(dashBoard.config){
-      let boardExtConfigObj = JSON.parse(boardExtConfig)
-      Object.keys(boardExtConfigObj).forEach(function(key){
-        updateData[key]= boardExtConfigObj[key]
-      })
-    }
-    if(dashBoard.id && dashBoard.id != '-1'){
-      updateData.id =  dashBoard.id
+    if (dashBoard.id && dashBoard.id != '-1') {
+      updateData.id = dashBoard.id;
     }
 
-    if(group.widgetToUpdate){
-      group.widgetToUpdate.map(item =>{
+    if (group.widgetToUpdate) {
+      group.widgetToUpdate.map(item => {
         updateData.widgets.push({
           config: item.config,
           dashboardId: item.dashboardId,
           id: item.id,
           parentId: item.parentId,
           viewIds: item.viewIds || [],
-          widgetType: "CHART"
-        })
-      })
+          widgetType: 'CHART',
+        });
+      });
     }
-    if(group.widgetToCreate){
-      group.widgetToCreate.map(item =>{
+    if (group.widgetToCreate) {
+      group.widgetToCreate.map(item => {
         updateData.widgets.push({
           config: item.config,
           dashboardId: item.dashboardId,
           widgetKey: item.widgetKey,
           viewIds: item.viewIds || [],
           parentId: item.parentId,
-          widgetType: "CHART"
-        })
-      })
+          widgetType: 'CHART',
+        });
+      });
     }
     let updateRes =
       await request2<any>({
@@ -257,11 +253,9 @@ export const toUpdateDashboard = createAsyncThunk<
  * @param 'Widget[]'
  * @description '添加 widget 到board'
  */
-export const addWidgetsToEditBoard = createAsyncThunk<
-  null,
+export const addWidgetsToEditBoard = createAsyncThunk<null,
   Widget[],
-  { state: RootState }
->('editBoard/addWidgetsToEditBoard', (widgets, { getState, dispatch }) => {
+  { state: RootState }>('editBoard/addWidgetsToEditBoard', (widgets, { getState, dispatch }) => {
   const { dashBoard } = editBoardStackState(
     getState() as unknown as {
       editBoard: HistoryEditBoard;
@@ -284,11 +278,9 @@ export const addWidgetsToEditBoard = createAsyncThunk<
   return null;
 });
 
-export const addGroupWidgetToEditBoard = createAsyncThunk<
-  null,
+export const addGroupWidgetToEditBoard = createAsyncThunk<null,
   Widget[],
-  { state: RootState }
->('editBoard/addGroupWidgetToEditBoard', (widgets, { getState, dispatch }) => {
+  { state: RootState }>('editBoard/addGroupWidgetToEditBoard', (widgets, { getState, dispatch }) => {
   const { dashBoard } = editBoardStackState(
     getState() as unknown as {
       editBoard: HistoryEditBoard;
@@ -311,11 +303,9 @@ export const addGroupWidgetToEditBoard = createAsyncThunk<
   return null;
 });
 // addDataChartWidgets
-export const addDataChartWidgets = createAsyncThunk<
-  null,
+export const addDataChartWidgets = createAsyncThunk<null,
   { boardId: string; chartIds: string[]; boardType: BoardType },
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/addDataChartWidgets',
   async ({ boardId, chartIds, boardType }, { getState, dispatch }) => {
     const {
@@ -357,8 +347,7 @@ export const addDataChartWidgets = createAsyncThunk<
 );
 
 // addWrapChartWidget
-export const addWrapChartWidget = createAsyncThunk<
-  null,
+export const addWrapChartWidget = createAsyncThunk<null,
   {
     boardId: string;
     chartId: string;
@@ -366,8 +355,7 @@ export const addWrapChartWidget = createAsyncThunk<
     dataChart: DataChart;
     view: ChartDataView;
   },
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/addWrapChartWidget',
   async (
     { boardId, chartId, boardType, dataChart, view },
@@ -392,8 +380,7 @@ export const addWrapChartWidget = createAsyncThunk<
   },
 );
 
-export const addChartWidget = createAsyncThunk<
-  null,
+export const addChartWidget = createAsyncThunk<null,
   {
     boardId: string;
     chartId: string;
@@ -402,8 +389,7 @@ export const addChartWidget = createAsyncThunk<
     view: ChartDataView;
     subType: 'widgetChart' | 'dataChart';
   },
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/addChartWidget',
   async (
     { boardId, chartId, boardType, dataChart, view, subType },
@@ -433,11 +419,9 @@ export const addChartWidget = createAsyncThunk<
   },
 );
 
-export const renderedEditWidgetAsync = createAsyncThunk<
-  null,
+export const renderedEditWidgetAsync = createAsyncThunk<null,
   { boardId: string; widgetId: string },
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/renderedEditWidgetAsync',
   async ({ boardId, widgetId }, { getState, dispatch, rejectWithValue }) => {
     const { widgetRecord: WidgetMap } = editBoardStackState(
@@ -457,15 +441,13 @@ export const renderedEditWidgetAsync = createAsyncThunk<
 );
 
 //
-export const uploadBoardImage = createAsyncThunk<
-  string,
+export const uploadBoardImage = createAsyncThunk<string,
   {
     boardId: string;
     fileName: string;
     formData: FormData;
     resolve: (url: string) => void;
-  }
->(
+  }>(
   'editBoard/uploadBoardImage',
   async ({ boardId, formData, fileName, resolve }, { getState, dispatch }) => {
     const { urls } = getGlobalConfigState();
@@ -481,11 +463,9 @@ export const uploadBoardImage = createAsyncThunk<
   },
 );
 
-export const getEditWidgetData = createAsyncThunk<
-  null,
+export const getEditWidgetData = createAsyncThunk<null,
   { widget: Widget; option?: getDataOption },
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/getEditWidgetData',
   ({ widget, option }, { getState, dispatch }) => {
     dispatch(editWidgetInfoActions.renderedWidgets([widget.id]));
@@ -499,8 +479,7 @@ export const getEditWidgetData = createAsyncThunk<
   },
 );
 
-export const syncEditBoardWidgetChartDataAsync = createAsyncThunk<
-  null,
+export const syncEditBoardWidgetChartDataAsync = createAsyncThunk<null,
   {
     boardId: string;
     sourceWidgetId: string;
@@ -509,8 +488,7 @@ export const syncEditBoardWidgetChartDataAsync = createAsyncThunk<
     extraFilters?: PendingChartDataRequestFilter[];
     variableParams?: Record<string, any[]>;
   },
-  { state: RootState }
->(
+  { state: RootState }>(
   'board/syncEditBoardWidgetChartDataAsync',
   async (
     { boardId, sourceWidgetId, widgetId, option, extraFilters, variableParams },
@@ -531,7 +509,7 @@ export const syncEditBoardWidgetChartDataAsync = createAsyncThunk<
       bid: curWidget.dashboardId,
       wid: widgetId,
     });
-    const dataChart = dataChartMap?.[curWidget.datachartId ||''];
+    const dataChart = dataChartMap?.[curWidget.datachartId || ''];
     const chartDataView = viewMap?.[dataChart?.viewId];
     const requestParams = new ChartDataRequestBuilder(
       {
@@ -614,14 +592,12 @@ export const syncEditBoardWidgetChartDataAsync = createAsyncThunk<
   },
 );
 
-export const getEditChartWidgetDataAsync = createAsyncThunk<
-  null,
+export const getEditChartWidgetDataAsync = createAsyncThunk<null,
   {
     widgetId: string;
     option?: getDataOption;
   },
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/getEditChartWidgetDataAsync',
   async ({ widgetId, option }, { getState, dispatch, rejectWithValue }) => {
     const rootState = getState() as RootState;
@@ -712,11 +688,9 @@ export const getEditChartWidgetDataAsync = createAsyncThunk<
   },
 );
 
-export const getEditControllerOptions = createAsyncThunk<
-  null,
+export const getEditControllerOptions = createAsyncThunk<null,
   string,
-  { state: RootState }
->(
+  { state: RootState }>(
   'editBoard/getEditControllerOptions',
   async (widgetId, { getState, dispatch }) => {
     dispatch(editWidgetInfoActions.renderedWidgets([widgetId]));

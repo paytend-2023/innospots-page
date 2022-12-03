@@ -25,6 +25,7 @@ import {HashRouter, Route, Switch} from 'react-router-dom';
 import { GlobalStyles } from 'styles/globalStyles';
 import BoardShow from "./pages/VizPage/BoardShow";
 import Workspace from "./pages/VizPage/Workspace";
+import BoardForm from "./pages/VizPage/BoardForm";
 
 registerTheme('default', echartsDefaultTheme);
 
@@ -34,9 +35,11 @@ export function AppRouter() {
     <ConfigProvider locale={antdLocales[i18n.language]}>
       <HashRouter basename="/apps/visualization">
         <Switch>
-          {/*<Route path="/" component={Workspace} />*/}
-          <Route path="/workspace" component={Workspace} />
-          <Route path="/page/:pageId" component={BoardShow} />
+          <Route path="/" exact component={Workspace} />
+          <Route path="/workspace" exact component={Workspace} />
+          <Route path="/workspace/:pageType" exact component={BoardForm} />
+          <Route path="/page/:pageId" exact component={BoardShow} />
+          <Route path="/page/form/:pageType/:pageId?" exact component={BoardForm} />
         </Switch>
         <GlobalStyles />
       </HashRouter>

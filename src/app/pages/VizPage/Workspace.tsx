@@ -25,7 +25,7 @@ function Workspace({ history }) {
       <PageTitleWrapper>
         <Row justify="space-between">
           <Col><span className="page-title">工作台</span></Col>
-          <Col><Button type="primary" icon={<EditOutlined />} onClick={() => history.goBack()}>自定义</Button></Col>
+          <Col><Button type="primary" icon={<EditOutlined />} onClick={() => history.push('/workspace/edit')}>自定义</Button></Col>
         </Row>
       </PageTitleWrapper>
     )

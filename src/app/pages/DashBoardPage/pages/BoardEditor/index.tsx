@@ -53,12 +53,14 @@ import { addChartWidget, fetchEditBoardDetail } from './slice/thunk';
 import { getGlobalConfigState } from 'utils/globalState';
 import ApplicationWidgetPanel from './components/ApplicationWidgetPanel';
 
-export const BoardEditor: React.FC = memo(() => {
+export const BoardEditor: React.FC<{
+  pageId?: string
+}> = memo(({ pageId }) => {
   useEditBoardSlice();
   const dispatch = useDispatch();
   const history = useHistory();
   const board = useSelector(selectEditBoard);
-  const boardId = board.id;
+  const boardId = (board.id || pageId) as string;
   const boardLoading = useSelector(selectEditBoardLoading);
   const boardChartEditorProps = useSelector(selectBoardChartEditorProps);
   const widgetControllerPanelParams = useSelector(selectControllerPanel);
@@ -120,7 +122,7 @@ export const BoardEditor: React.FC = memo(() => {
   ]);
   const initialization = useCallback(async () => {
     console.log("boardId----initialization",boardId)
-    await dispatch(fetchEditBoardDetail(boardId));
+    await dispatch(fetchEditBoardDetail(boardId as string));
     const histState = history.location.state as any;
     try {
       if (histState?.widgetInfo) {
@@ -159,7 +161,7 @@ export const BoardEditor: React.FC = memo(() => {
       onCloseChartEditor();
       dispatch(clearEditBoardState());
       //销毁时  更新view界面数据
-      dispatch(fetchBoardDetail({}));
+      // dispatch(fetchBoardDetail({}));
       //
       boardDrillManager.clearMapByBoardId(EDIT_PREFIX + boardId);
     };

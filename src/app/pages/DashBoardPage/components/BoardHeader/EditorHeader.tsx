@@ -17,28 +17,31 @@
  */
 
 import { CloseOutlined, LeftOutlined, SaveOutlined } from '@ant-design/icons';
-import {Button, Col, Form,  Input, message, Radio, Row, Select, Space} from 'antd';
+import { Button, Col, Form, Input, message, Radio, Row, Select, Space } from 'antd';
 import useI18NPrefix from 'app/hooks/useI18NPrefix';
 import classnames from 'classnames';
 import { FC, memo, useCallback, useContext, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
 import {
   FONT_WEIGHT_BOLD,
   SPACE_LG,
 } from 'styles/StyleConstants';
-import keyBy from "lodash/keyBy";
-import forEach from "lodash/forEach";
-import map from "lodash/map";
+import keyBy from 'lodash/keyBy';
+import forEach from 'lodash/forEach';
+import map from 'lodash/map';
+import cloneDeep from 'lodash/cloneDeep';
 import { useStatusTitle } from '../../hooks/useStatusTitle';
 import { clearEditBoardState } from '../../pages/BoardEditor/slice/actions/actions';
 import { BoardActionContext } from '../ActionProvider/BoardActionProvider';
 import { WidgetActionContext } from '../ActionProvider/WidgetActionProvider';
 import { BoardInfoContext } from '../BoardProvider/BoardInfoProvider';
 import { BoardContext } from '../BoardProvider/BoardProvider';
-import { getGlobalConfigState } from 'utils/globalState';
-import { request2 } from '../../../../../utils/request';
+import { request2 } from 'utils/request';
+import { selectPageConfig } from '../../pages/Board/slice/selector';
+import { selectEditBoard } from '../../pages/BoardEditor/slice/selectors';
+
 const { Option } = Select;
 
 const EditorHeader: FC = memo(({ children }) => {
@@ -47,33 +50,33 @@ const EditorHeader: FC = memo(({ children }) => {
   const t = useI18NPrefix(`viz.action`);
   const { updateBoard } = useContext(BoardActionContext);
   const { onEditClearActiveWidgets } = useContext(WidgetActionContext);
-  const { name,boardExtConfig, status } = useContext(BoardContext);
+  const { name, boardExtConfig, status } = useContext(BoardContext);
   const { saving } = useContext(BoardInfoContext);
   const title = useStatusTitle(name, status);
-  const { titleElement, urls } = getGlobalConfigState();
+  const { titleElement, urls } = useSelector(selectPageConfig);
   const [formError, setFormError] = useState({});
-  const [customTitleElement,setCustomTitleElement] = useState<any[]>([]);
+  const [customTitleElement, setCustomTitleElement] = useState<any[]>([]);
   const [formIns] = Form.useForm();
   useEffect(() => {
-    titleElement && titleElement.forEach( item => {
-      if(item.requestOption){
+    titleElement && titleElement.forEach(item => {
+      if (item.requestOption) {
         fetchTitleElementOptions(item);
       }
-    })
+    });
 
   }, [titleElement]);
   const fetchTitleElementOptions = useCallback(async element => {
     const { data } = await request2<any[]>(element.requestOption.requestUrl);
     let elementOptions: any[] = [];
-    forEach(data, option =>{
+    forEach(data, option => {
       elementOptions.push({
         name: option[element.requestOption.nameField],
         value: option[element.requestOption.valueFiled],
-      })
+      });
     });
-   let titleElementTemp= titleElement;
-    forEach(titleElement,item => {
-      if(item.name == element.name){
+    let titleElementTemp = cloneDeep(titleElement);
+    forEach(titleElementTemp, item => {
+      if (item.name == element.name) {
         item.options = elementOptions;
       }
     });
@@ -82,30 +85,30 @@ const EditorHeader: FC = memo(({ children }) => {
 
   useEffect(() => {
     let formFieldsValues: any = [];
-    if( !boardExtConfig ){
-      const titleElementByName = keyBy(customTitleElement,'name');
-      forEach(Object.keys(titleElementByName),function(item){
-        if(titleElementByName[item].defaultValue !== undefined){
+    if (!boardExtConfig) {
+      const titleElementByName = keyBy(customTitleElement, 'name');
+      forEach(Object.keys(titleElementByName), function(item) {
+        if (titleElementByName[item].defaultValue !== undefined) {
           formFieldsValues.push({
-            "name": item,
-            "value": titleElementByName[item].defaultValue
+            'name': item,
+            'value': titleElementByName[item].defaultValue,
           });
         }
-      })
-    }else{
-      const boardExtConfigObj = JSON.parse(boardExtConfig||'{}');
-      forEach(Object.keys(boardExtConfigObj),function (item){
+      });
+    } else {
+      const boardExtConfigObj = JSON.parse(boardExtConfig || '{}');
+      forEach(Object.keys(boardExtConfigObj), function(item) {
         formFieldsValues.push({
-          "name": item,
-          "value": boardExtConfigObj[item]
+          'name': item,
+          'value': boardExtConfigObj[item],
         });
-      })
+      });
     }
     formIns.setFields(formFieldsValues);
   }, [boardExtConfig, customTitleElement]);
 
   const onCloseBoardEditor = (boardId) => {
-    console.log("onCloseBoardEditor----",boardId);
+    console.log('onCloseBoardEditor----', boardId);
     history.goBack();
     // if(urls.detailUrl =='/workspace'){
     //     if(POWERED_BY_QIANKUN){
@@ -124,12 +127,12 @@ const EditorHeader: FC = memo(({ children }) => {
     formIns.validateFields().then(values => {
       onEditClearActiveWidgets();
       setImmediate(() => {
-        updateBoard?.(type,JSON.stringify(values),onCloseBoardEditor);
+        updateBoard?.(type, JSON.stringify(values), onCloseBoardEditor);
       });
     }).catch(error => {
-      const titleElementByName = keyBy(customTitleElement,"name")
-      const tipName = error.errorFields[0].name[0]
-      message.info(error.errorFields[0].errors[0].replace(tipName,titleElementByName[tipName].desc));
+      const titleElementByName = keyBy(customTitleElement, 'name');
+      const tipName = error.errorFields[0].name[0];
+      message.info(error.errorFields[0].errors[0].replace(tipName, titleElementByName[tipName].desc));
     });
   };
   const getFormItem = (formItem) => {
@@ -137,40 +140,40 @@ const EditorHeader: FC = memo(({ children }) => {
     switch (formItem.type) {
       case 'RADIO':
         element = (
-          <Radio.Group style={{marginTop: 8}}>
+          <Radio.Group style={{ marginTop: 8 }}>
             {
               map(formItem.options, (option) => {
-                return <Radio value={option.value}  key={option.value}>{option.name}</Radio>;
+                return <Radio value={option.value} key={option.value}>{option.name}</Radio>;
               })
             }
           </Radio.Group>
         );
         break;
       case 'SELECT':
-        element =(
-          <Select  placeholder={formItem.placeholder} style={{width: '100%'}} size="large">
+        element = (
+          <Select placeholder={formItem.placeholder} style={{ width: '100%' }} size='large'>
             {
               map(formItem.options, (option) => {
                 return <Option value={option.value} key={option.value}>{option.name}</Option>;
               })
             }
           </Select>
-        ) ;
+        );
         break;
       case 'INPUT':
-        element = <Input placeholder={formItem.placeholder} size="large" />;
+        element = <Input placeholder={formItem.placeholder} size='large' />;
         break;
       default:
-        element = "";
+        element = '';
         break;
     }
-    let formItemRules ={}
-    if(formItem.length){
-      formItemRules['max'] = formItem.length
+    let formItemRules = {};
+    if (formItem.length) {
+      formItemRules['max'] = formItem.length;
     }
     return (
-      <Col span={Math.max(formItem.gridSize, 2)} key={formItem.name} className="formWrapper">
-        <div className={classnames("formItem", {["hasError"]: !!formError[formItem.name]})}>
+      <Col span={Math.max(formItem.gridSize, 2)} key={formItem.name} className='formWrapper'>
+        <div className={classnames('formItem', { ['hasError']: !!formError[formItem.name] })}>
           <span> {formItem.label}</span>
           <Form.Item
             noStyle
@@ -180,24 +183,24 @@ const EditorHeader: FC = memo(({ children }) => {
               {
                 message: formItem.tips,
                 required: formItem.required,
-                ...formItemRules
+                ...formItemRules,
               },
             ]}
           >
             {element}
           </Form.Item>
-          <div className="error">{formError[formItem.name]}</div>
+          <div className='error'>{formError[formItem.name]}</div>
         </div>
       </Col>
     );
-  }
+  };
   return (
     <Wrapper onClick={onEditClearActiveWidgets}>
-      <div className={classnames('backBtn',{ disabled: status < 2 })}>
+      <div className={classnames('backBtn', { disabled: status < 2 })}>
         <LeftOutlined onClick={() => onCloseBoardEditor(null)} />
         {/*{title}*/}
       </div>
-      <Form form={formIns} className="formContent">
+      <Form form={formIns} className='formContent'>
         <Row>
           <Col span={20}>
             <Row gutter={16}>
@@ -210,7 +213,7 @@ const EditorHeader: FC = memo(({ children }) => {
           </Col>
         </Row>
       </Form>
-      <div className="boardBtn">
+      <div className='boardBtn'>
         <Space size={16}>
           {children}
           <>
@@ -223,19 +226,23 @@ const EditorHeader: FC = memo(({ children }) => {
             {/*</Button>*/}
 
             <Button
-              key="update"
-              className="updateBtn"
+              key='update'
+              className='updateBtn'
               loading={saving}
-              onClick={()=>{onUpdateBoard('save')}}
+              onClick={() => {
+                onUpdateBoard('save');
+              }}
               icon={<SaveOutlined />}
             >
               {t('common.save')}
             </Button>
             {urls.publicBoardUrl ? <Button
-              key="publish"
-              className="publishBtn"
+              key='publish'
+              className='publishBtn'
               loading={saving}
-              onClick={()=>{onUpdateBoard('publish')}}
+              onClick={() => {
+                onUpdateBoard('publish');
+              }}
             >
               {t('common.publish')}
             </Button> : ''
@@ -265,25 +272,31 @@ const Wrapper = styled.div`
       color: ${(p) => p.theme.textColorLight};
     }
   }
-  .formContent{
+
+  .formContent {
     flex: 1;
+
     input {
       border-radius: 4px;
     }
-    .ant-input-lg{
+
+    .ant-input-lg {
       font-size: 14px;
       padding: 7px 11px;
     }
-    .ant-select-lg .ant-select-selector{
+
+    .ant-select-lg .ant-select-selector {
       height: 38px;
       border-radius: 4px;
-      .ant-select-selection-item{
+
+      .ant-select-selection-item {
         line-height: 38px;
         font-size: 14px;
       }
     }
   }
-  .boardBtn{
+
+  .boardBtn {
     padding-right: ${SPACE_LG};
 
     button {
@@ -292,10 +305,12 @@ const Wrapper = styled.div`
       border-radius: 4px;
       border: none;
     }
-    .updateBtn{
+
+    .updateBtn {
       background: #1245FA;
     }
-    .publishBtn{
+
+    .publishBtn {
       background: #31CB8A;
     }
   }
