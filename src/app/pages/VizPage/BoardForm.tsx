@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import cloneDeep from 'lodash/cloneDeep';
 import {useEditBoardSlice} from "../DashBoardPage/pages/BoardEditor/slice";
 import { boardActions, useBoardSlice } from '../DashBoardPage/pages/Board/slice';
 import BoardEditor from '../DashBoardPage/pages/BoardEditor';
@@ -20,7 +21,7 @@ function BoardForm({ match: { params } }) {
     }
 
     // @ts-ignore
-    dispatch(boardActions.setPageConfig(pageConfig));
+    dispatch(boardActions.setPageConfig(cloneDeep(pageConfig)));
     setLoaded(true);
   }, [ pageType, pageId ]);
 

@@ -102,7 +102,7 @@ export const fetchEditBoardDetail = createAsyncThunk<null,
     boardDetail.name = '';
     boardDetail.widgets = [];
     boardDetail.views = [];
-    if (urls.detailUrl && dashboardId) {
+    if (urls.detailUrl && (dashboardId || pageConfig.code === 'workspace')) {
       const detailUrl = urls.detailUrl.replace(':id', dashboardId || '');
       const { data } = await request2<ServerDashboard>(
         detailUrl,
