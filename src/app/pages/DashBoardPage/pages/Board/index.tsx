@@ -75,7 +75,7 @@ export const Board: FC<BoardProps> = ({
   console.log("new---",previewBoardId)
 
   useEffect(() => {
-    if ( boardId == '-1' && fetchData) {
+    if (!previewBoardId && (!boardId || boardId == '-1') && fetchData) {
       dispatch(
         fetchBoardDetail({
           filterSearchParams: searchParams,
@@ -87,6 +87,7 @@ export const Board: FC<BoardProps> = ({
         boardDrillManager.clearMapByBoardId(boardId);
         dispatch(
           fetchBoardDetail({
+            pageId: previewBoardId,
             filterSearchParams: searchParams,
           }),
         );

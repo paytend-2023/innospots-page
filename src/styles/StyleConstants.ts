@@ -102,7 +102,7 @@ export const LINE_HEIGHT_ICON_XL = `${FONT_SIZE_BASE * 2.5}px`;
 export const LINE_HEIGHT_ICON_XXL = `${FONT_SIZE_BASE * 2.75}px`;
 
 export const FONT_FAMILY =
-  '-apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
+  'SF Pro SC,SF Pro Display,SF Pro Icons,AOS Icons,PingFang SC,Helvetica Neue,Helvetica,Arial,sans-serif';
 export const CODE_FAMILY =
   '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace';
 export const FONT_WEIGHT_LIGHT = 300;

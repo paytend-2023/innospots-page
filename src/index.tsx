@@ -24,7 +24,9 @@ import { importCoreWidgets } from './utils/sharedComponents';
 
 function render(props) {
   console.log("props----",props);
-  generateEntryPoint(AppRouter, props.container);
+  const { container } = props;
+  const rootNode = container ? container.querySelector('#root') : document.querySelector('#root')
+  generateEntryPoint(AppRouter, rootNode);
 }
 
 // function storeTest(props) {
@@ -67,14 +69,18 @@ export async function mount(props) {
   setGlobalConfigState({
     ...props
   });
-  render(props);
+  try {
+    props.setLoading(false)
+  } catch (e) {} finally {
+    render(props);
+  }
 }
 /**
  * 应用每次 切出/卸载 会调用的方法，通常在这里我们会卸载微应用的应用实例
  */
 export async function unmount(props) {
    const { container } = props;
-  console.log('unmount props', container);
+   console.log('unmount props', container);
    ReactDOM.unmountComponentAtNode(container ? container.querySelector('#root') : document.querySelector('#root'));
 }
 /**

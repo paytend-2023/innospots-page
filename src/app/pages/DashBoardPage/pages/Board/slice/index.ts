@@ -59,6 +59,8 @@ export const boardInit: BoardState = {
   viewMap: {} as Record<string, ChartDataView>, // View
   availableSourceFunctionsMap: {} as Record<string, string[]>,
   selectedItems: {} as Record<string, SelectedItem[]>,
+
+  pageConfig: {}
 };
 // boardActions
 const boardSlice = createSlice({
@@ -101,6 +103,12 @@ const boardSlice = createSlice({
       dataCharts.forEach(dc => {
         state.dataChartMap[dc.id] = dc;
       });
+    },
+    setPageConfig(state, action: PayloadAction<DataChart[]>) {
+      const config = action.payload;
+      state.pageConfig = {
+        ...config
+      }
     },
 
     setViewMap(state, action: PayloadAction<ChartDataView[]>) {

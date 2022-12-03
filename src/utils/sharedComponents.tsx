@@ -18,7 +18,7 @@ export const importCoreWidgets = async () => {
     // }
 
     resolve(componentContent);
-    reject(new Error('module error'));
+    // reject(new Error('module error'));
   })
 }
 

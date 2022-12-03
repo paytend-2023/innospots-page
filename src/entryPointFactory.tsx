@@ -33,7 +33,6 @@ import './locales/i18n';
 
 export const generateEntryPoint = (EntryPointComponent, container) => {
   const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
-  const MOUNT_NODE = document.getElementById('root') as HTMLElement;
   const store = configureAppStore();
   Debugger.instance.setEnable(IS_DEVELOPMENT);
 
@@ -48,7 +47,7 @@ export const generateEntryPoint = (EntryPointComponent, container) => {
         </ThemeProvider>
       </Provider>
     </InspectorWrapper>,
-    MOUNT_NODE,
+    container,
   );
 
   // Hot reLoadable translation json files

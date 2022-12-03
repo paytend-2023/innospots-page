@@ -80,6 +80,7 @@ export const getBoardDetail = createAsyncThunk<
         fetchBoardDetailInShare({ ...params, vizToken: params.vizToken }),
       );
     } else {
+      // @ts-ignore
       await dispatch(fetchBoardDetail(params));
     }
     return null;
@@ -89,11 +90,14 @@ export const getBoardDetail = createAsyncThunk<
 export const fetchBoardDetail = createAsyncThunk<
   null,
   {
-    filterSearchParams?: FilterSearchParams;
-  }
->('board/fetchBoardDetail', async (params, { dispatch, rejectWithValue }) => {
-  const { urls,pageId } = getGlobalConfigState();
-  const detailUrl = urls.detailUrl.replace(":id", pageId || '');
+    pageId?: string
+    filterSearchParams?: FilterSearchParams
+  },
+  { state: { board: BoardState } }
+>('board/fetchBoardDetail', async (params, { dispatch, getState, rejectWithValue }) => {
+  const { pageId } = params;
+  const { board: { pageConfig } } = getState() as { board: BoardState };
+  const detailUrl = pageConfig.urls?.detailUrl?.replace(":id", pageId || '');
 
   if (!detailUrl) return null;
 

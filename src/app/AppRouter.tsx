@@ -21,9 +21,10 @@ import echartsDefaultTheme from 'app/assets/theme/echarts_default_theme.json';
 import { registerTheme } from 'echarts';
 import { antdLocales } from 'locales/i18n';
 import { useTranslation } from 'react-i18next';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 import { GlobalStyles } from 'styles/globalStyles';
-import VizPage from "./pages/VizPage";
+import BoardShow from "./pages/VizPage/BoardShow";
+import Workspace from "./pages/VizPage/Workspace";
 
 registerTheme('default', echartsDefaultTheme);
 
@@ -31,12 +32,14 @@ export function AppRouter() {
   const { i18n } = useTranslation();
   return (
     <ConfigProvider locale={antdLocales[i18n.language]}>
-      <BrowserRouter basename="/apps/visualization">
+      <HashRouter basename="/apps/visualization">
         <Switch>
-          <Route path="*" component={VizPage} />
+          {/*<Route path="/" component={Workspace} />*/}
+          <Route path="/workspace" component={Workspace} />
+          <Route path="/page/:pageId" component={BoardShow} />
         </Switch>
         <GlobalStyles />
-      </BrowserRouter>
+      </HashRouter>
     </ConfigProvider>
   );
 }
