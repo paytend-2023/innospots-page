@@ -64,6 +64,7 @@ export const getAllFieldsOfEachType = (args: {
   const dateComputedFields = computedFields.filter(
     f => f.type === DataViewFieldType.DATE,
   );
+  console.log("hierarchyFields---",hierarchyFields)
   hierarchyFields = updateBy(hierarchyFields, draft => {
     draft.forEach((v, i) => {
       draft[i].children = buildDateLevelFields({
@@ -103,12 +104,12 @@ export const buildDateLevelFields = (args: {
           availableSourceFunctions.includes(item.expression)
         ) {
           return {
-            name: v.name + `（${item.name}）`,
+            name: v.name + `${item.name}`,
             field: v.name,
             type: item.type,
             category: item.category,
             expression: `${item.expression}(${FieldTemplate(v.path)})`,
-            displayName: v.path[v.path?.length - 1] + `（${item.name}）`,
+            displayName: `${item.name}`,
           };
         }
         return null;

@@ -40,7 +40,7 @@ function DateLevelFieldContainer({
     <ItemWrapper ref={drag}>
       <Row>
         <IW fontSize={FONT_SIZE_TITLE}>
-          {<CalendarOutlined style={{ color: INFO }} />}
+          {<CalendarOutlined style={{ color: INFO, fontSize: 13 }} />}
         </IW>
         <p>
           {folderRole === ColumnRole.Hierarchy ? item?.name : item?.displayName}
@@ -53,4 +53,9 @@ export default DateLevelFieldContainer;
 
 const ItemWrapper = styled.div`
   color: ${p => p.theme.textColorSnd};
+  p {
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #4E5969;
+  }
 `;

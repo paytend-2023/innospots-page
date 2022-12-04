@@ -439,6 +439,11 @@ const CollapseWrapper = styled(Collapse)`
       }
     }
   }
+  p {
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #4E5969;
+  }
 `;
 const StyledFieldContent = styled.p`
   flex: 1;

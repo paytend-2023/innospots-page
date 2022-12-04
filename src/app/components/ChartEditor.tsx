@@ -227,10 +227,10 @@ export const ChartEditor: FC<ChartEditorProps> = ({
   }, [chartConfig?.datas, drillOptionRef]);
 
   useEffect(() => {
-    if (dataview?.sourceId) {
+    if (dataview?.id) {
       dispatch(fetchAvailableSourceFunctionsForChart(dataview.id));
     }
-  }, [dataview?.sourceId, dispatch]);
+  }, [dataview?.id, dispatch]);
 
   const handleDrillOptionChange = useCallback(
     (option: IChartDrillOption) => {
