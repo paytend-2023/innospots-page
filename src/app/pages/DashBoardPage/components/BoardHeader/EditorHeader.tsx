@@ -69,10 +69,12 @@ const EditorHeader: FC = memo(({ children }) => {
     const { data } = await request2<any[]>(element.requestOption.requestUrl);
     let elementOptions: any[] = [];
     forEach(data, option => {
-      elementOptions.push({
-        name: option[element.requestOption.nameField],
-        value: option[element.requestOption.valueFiled],
-      });
+      if(option[element.requestOption.valueFiled]>=0){
+        elementOptions.push({
+          name: option[element.requestOption.nameField],
+          value: option[element.requestOption.valueFiled],
+        });
+      }
     });
     let titleElementTemp = cloneDeep(titleElement);
     forEach(titleElementTemp, item => {
@@ -108,7 +110,6 @@ const EditorHeader: FC = memo(({ children }) => {
   }, [boardExtConfig, customTitleElement]);
 
   const onCloseBoardEditor = (boardId) => {
-    console.log('onCloseBoardEditor----', boardId);
     history.goBack();
     // if(urls.detailUrl =='/workspace'){
     //     if(POWERED_BY_QIANKUN){
