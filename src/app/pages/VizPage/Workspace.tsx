@@ -25,7 +25,7 @@ function Workspace({ history }) {
       <PageTitleWrapper>
         <Row justify="space-between">
           <Col><span className="page-title">工作台</span></Col>
-          <Col><Button type="primary" icon={<EditOutlined />} onClick={() => history.push('/workspace/edit')}>自定义</Button></Col>
+          <Col><Button className="page-edit-btn" type="primary" icon={<EditOutlined />} onClick={() => history.push('/workspace/edit')}>自定义</Button></Col>
         </Row>
       </PageTitleWrapper>
     )
@@ -59,9 +59,13 @@ export default Workspace;
 
 const PageTitleWrapper = styled.div`
   padding: 16px 0;
-  
+
   .page-title {
     font-weight: bold;
     font-size: 20px;
+  }
+  .page-edit-btn{
+    width: 94px;
+    height: 38px;
   }
 `

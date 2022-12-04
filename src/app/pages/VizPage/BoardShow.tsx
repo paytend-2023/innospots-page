@@ -31,7 +31,7 @@ function BoardShow({ match: { params }, history }) {
       <PageTitleWrapper>
         <Row justify="space-between">
           <Col><span className="page-title">{ dashboard?.name || '--' }</span></Col>
-          <Col><Button icon={<LeftOutlined />} onClick={() => history.goBack()}>返回</Button></Col>
+          <Col><Button icon={<LeftOutlined />} onClick={() => history.goBack()} size={'large'}>返回</Button></Col>
         </Row>
       </PageTitleWrapper>
     )
@@ -66,7 +66,7 @@ export default BoardShow;
 
 const PageTitleWrapper = styled.div`
   padding: 16px 0;
-  
+
   .page-title {
     font-weight: bold;
     font-size: 20px;
