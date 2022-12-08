@@ -38,6 +38,7 @@ export function AppRouter() {
           <Route path="/" exact component={Workspace} />
           <Route path="/workspace" exact component={Workspace} />
           <Route path="/workspace/:pageType" exact component={BoardForm} />
+          <Route path="/page/detail/:pageId" exact component={BoardShow} />
           <Route path="/page/:pageId" exact component={BoardShow} />
           <Route path="/page/form/:pageType/:pageId?" exact component={BoardForm} />
         </Switch>
