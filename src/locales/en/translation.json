@@ -9,6 +9,8 @@
     "version": "Version",
     "button": {
       "create": "Create",
+      "customize": "Customize",
+      "back": "Back",
       "add": "Add",
       "save": "Save",
       "edit": "Edit",
@@ -139,6 +141,11 @@
     "verifyCode": "Verification code",
     "reset": "Reset password",
     "resetSuccess": "Your password has been successfully reset"
+  },
+  "workspace": {
+    "base": {
+      "title": "Workspace"
+    }
   },
   "main": {
     "nav": {
