@@ -172,18 +172,18 @@ export function getTheWidgetFiltersAndParams<
 
   let filterParams: T[] = [];
   let variableParams: Record<string, any[]> = {};
-
   controllerWidgets.forEach(filterWidget => {
     const hasRelation = filterWidget.relations.find(
-      re => re.targetId === chartWidget.id,
+      re => re.targetId === chartWidget.id+'',
     );
     if (!hasRelation) return;
+
 
     const content = filterWidget.config.content as ControllerWidgetContent;
     const { relatedViews, config: controllerConfig, type } = content;
     const relatedViewItem = relatedViews
       .filter(view => view.fieldValue)
-      .find(view => view.viewId === chartWidget?.viewIds?.[0]);
+      .find(view => view.viewId+'' === chartWidget?.viewIds?.[0]);
     if (!relatedViewItem) return;
 
     const values = getWidgetControlValues({

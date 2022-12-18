@@ -330,7 +330,7 @@ export const initPaddingTpl = () => {
       {
         label: 'padding.top',
         key: 'top',
-        value: 0,
+        value: 16,
         comType: 'inputNumber',
       },
       {

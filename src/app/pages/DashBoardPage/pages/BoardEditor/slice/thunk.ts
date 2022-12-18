@@ -222,6 +222,7 @@ export const toUpdateDashboard = createAsyncThunk<any,
           parentId: item.parentId,
           viewIds: item.viewIds || [],
           widgetType: 'CHART',
+          relations: item.relations,
         });
       });
     }
@@ -234,6 +235,7 @@ export const toUpdateDashboard = createAsyncThunk<any,
           viewIds: item.viewIds || [],
           parentId: item.parentId,
           widgetType: 'CHART',
+          relations: item.relations,
         });
       });
     }
@@ -243,7 +245,7 @@ export const toUpdateDashboard = createAsyncThunk<any,
         method: 'post',
         data: updateData,
       });
-    // console.log("updateData-----",updateData,group,dashBoard,boardInfo,updateRes)
+     console.log("updateData-----",updateData,group,dashBoard,boardInfo,updateRes)
     callback?.(updateRes.data['id']);
     // console.log("updateRes--",updateRes,updateRes.data['id'])
     dispatch(ActionCreators.clearHistory());

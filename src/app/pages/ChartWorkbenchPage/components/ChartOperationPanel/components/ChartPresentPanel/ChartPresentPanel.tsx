@@ -214,7 +214,7 @@ const StyledChartPresentPanel = styled.div`
 
 const StyledReusableChartContainer = styled.div`
   flex: 1;
-  overflow-y: auto;
+  //overflow-y: auto;
   padding: 0 22px;
 `;
 

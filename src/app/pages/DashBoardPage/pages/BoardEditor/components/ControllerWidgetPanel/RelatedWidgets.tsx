@@ -45,6 +45,7 @@ export const RelatedWidgets: React.FC<RelatedWidgetsProps> = memo(
         return;
       }
       let pickedWIds: string[] = relatedWidgets.map(t => t.widgetId);
+      console.log("relatedWidgets---",relatedWidgets,pickedWIds)
       setSelectedWidgetIds(pickedWIds);
     }, [relatedWidgets]);
 
@@ -65,7 +66,7 @@ export const RelatedWidgets: React.FC<RelatedWidgetsProps> = memo(
       <>
         <h3>{tw('associatedWidget')}</h3>
         <Table
-          rowKey={record => record.id}
+          rowKey={record => record.id+''}
           rowSelection={{
             type: 'checkbox',
             selectedRowKeys: selectedWidgetIds,
