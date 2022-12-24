@@ -75,31 +75,32 @@ export const Board: FC<BoardProps> = ({
   console.log("new---",previewBoardId)
 
   useEffect(() => {
-    if (!previewBoardId && (!boardId || boardId == '-1') && fetchData) {
+    if (!previewBoardId && fetchData) {
       dispatch(
         fetchBoardDetail({
           filterSearchParams: searchParams,
         }),
       );
-    }else{
-      if(boardId != previewBoardId){
-        dispatch(boardActions.clearBoardStateById(boardId));
-        boardDrillManager.clearMapByBoardId(boardId);
-        dispatch(
-          fetchBoardDetail({
-            pageId: previewBoardId,
-            filterSearchParams: searchParams,
-          }),
-        );
+    }
+  }, [ previewBoardId, fetchData ]);
 
-      }
+  useEffect(() => {
+    if(previewBoardId && boardId && boardId != '-1' && boardId != previewBoardId){
+      dispatch(boardActions.clearBoardStateById(boardId));
+      boardDrillManager.clearMapByBoardId(boardId);
+      dispatch(
+        fetchBoardDetail({
+          pageId: previewBoardId,
+          filterSearchParams: searchParams,
+        }),
+      );
     }
     // 销毁组件 清除该对象缓存
     return () => {
       dispatch(boardActions.clearBoardStateById(boardId));
       boardDrillManager.clearMapByBoardId(boardId);
     };
-  }, [boardId, dispatch, fetchData, previewBoardId]);
+  }, [boardId, dispatch, previewBoardId]);
 
   const readBoardHide = useMemo(
     () => editingBoard?.id === boardId,
