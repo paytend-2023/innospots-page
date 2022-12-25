@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { CloseOutlined, LeftOutlined, SaveOutlined } from '@ant-design/icons';
+import { SendOutlined, LeftOutlined, SaveOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, message, Radio, Row, Select, Space } from 'antd';
 import useI18NPrefix from 'app/hooks/useI18NPrefix';
 import classnames from 'classnames';
@@ -244,6 +244,7 @@ const EditorHeader: FC = memo(({ children }) => {
               onClick={() => {
                 onUpdateBoard('publish');
               }}
+              icon={<SendOutlined />}
             >
               {t('common.publish')}
             </Button> : ''
