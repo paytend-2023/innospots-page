@@ -101,7 +101,22 @@ export const widgetToolkit: WidgetToolkit = {
       { ...initBorderTpl() },
       { ...initBackgroundTpl(PRIMARY) },
     ];
-
+    widget.config.customConfig.props?.forEach(ele => {
+      if (ele.key === 'backgroundGroup') {
+        ele.rows?.forEach(row => {
+          if (row.key === 'background') {
+            row.value.color = '#fff';
+          }
+        });
+      }
+      if (ele.key === 'paddingGroup') {
+        ele.rows?.forEach(row => {
+          if (row.key === 'bottom') {
+            row.value = 16;
+          }
+        });
+      }
+    });
     return widget;
   },
   getName(key) {

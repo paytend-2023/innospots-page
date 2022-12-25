@@ -303,6 +303,7 @@ export class ChartDataRequestBuilder {
       if (!conditionValue) {
         return null;
       }
+      console.log("conditionValue-----",conditionValue)
       if (Array.isArray(conditionValue)) {
         return conditionValue
           .map(v => {
@@ -310,6 +311,22 @@ export class ChartDataRequestBuilder {
               const listItem = v as RelationFilterValue;
               if (!listItem.isSelected) {
                 return undefined;
+              }
+              if (
+                [
+                  FilterSqlOperator.Contain,
+                  FilterSqlOperator.NotContain,
+                  FilterSqlOperator.PrefixContain,
+                  FilterSqlOperator.NotPrefixContain,
+                  FilterSqlOperator.SuffixContain,
+                  FilterSqlOperator.NotSuffixContain,
+                ].includes(field.filter?.condition?.operator as FilterSqlOperator)
+              )
+              {
+                return {
+                  value: listItem.key,
+                  valueType: "STRING",
+                };
               }
               return {
                 value: listItem.key,

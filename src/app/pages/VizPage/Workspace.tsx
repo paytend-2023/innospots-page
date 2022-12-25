@@ -7,7 +7,7 @@ import { useBoardSlice, boardActions } from "../DashBoardPage/pages/Board/slice"
 import {useEditBoardSlice} from "../DashBoardPage/pages/BoardEditor/slice";
 import Board from "../DashBoardPage/pages/Board";
 import { entryParameters } from 'config/entryParameters';
-import useI18NPrefix from '../../hooks/useI18NPrefix';
+import { setGlobalConfigState } from '../../../utils/globalState';
 
 function Workspace({ history }) {
   useBoardSlice();
@@ -18,19 +18,19 @@ function Workspace({ history }) {
   useEffect(() => {
     // @ts-ignore
     dispatch(boardActions.setPageConfig(entryParameters.workspace));
+    //TODO 待优化，保留一种全局变量形式
+    setGlobalConfigState({
+      pageType: 'workspace'
+    });
     setLoaded(true);
   }, []);
 
-  const gt = useI18NPrefix(`global.button`);
-  const wt = useI18NPrefix(`workspace.base`);
-
   const pageTitle = useMemo(() => {
-
     return (
       <PageTitleWrapper>
         <Row justify="space-between">
-          <Col><span className="page-title">{wt('title')}</span></Col>
-          <Col><Button className="page-edit-btn" type="primary" icon={<EditOutlined />} onClick={() => history.push('/workspace/edit')}>{gt('customize')}</Button></Col>
+          <Col><span className="page-title">工作台</span></Col>
+          <Col><Button className="page-edit-btn" type="primary" icon={<EditOutlined />} onClick={() => history.push('/workspace/edit')}>自定义</Button></Col>
         </Row>
       </PageTitleWrapper>
     )
@@ -70,6 +70,7 @@ const PageTitleWrapper = styled.div`
     font-size: 20px;
   }
   .page-edit-btn{
+    width: 94px;
     height: 38px;
   }
 `

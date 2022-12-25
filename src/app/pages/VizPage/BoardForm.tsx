@@ -5,6 +5,7 @@ import { boardActions, useBoardSlice } from '../DashBoardPage/pages/Board/slice'
 import BoardEditor from '../DashBoardPage/pages/BoardEditor';
 import { useDispatch } from 'react-redux';
 import { entryParameters } from '../../../config/entryParameters';
+import { setGlobalConfigState } from '../../../utils/globalState';
 
 function BoardForm({ match: { params } }) {
   useEditBoardSlice();
@@ -22,6 +23,12 @@ function BoardForm({ match: { params } }) {
 
     // @ts-ignore
     dispatch(boardActions.setPageConfig(cloneDeep(pageConfig)));
+    //TODO 待优化，保留一种全局变量形式
+    setGlobalConfigState({
+      pageType: pageType === 'edit' && !pageId ? 'workspace' : 'page',
+      operateType: pageType.toUpper,
+      id: pageId
+    });
     setLoaded(true);
   }, [ pageType, pageId ]);
 

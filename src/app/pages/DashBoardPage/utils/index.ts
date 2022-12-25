@@ -172,18 +172,18 @@ export function getTheWidgetFiltersAndParams<
 
   let filterParams: T[] = [];
   let variableParams: Record<string, any[]> = {};
-
   controllerWidgets.forEach(filterWidget => {
     const hasRelation = filterWidget.relations.find(
-      re => re.targetId === chartWidget.id,
+      re => re.targetId === chartWidget.id+'',
     );
     if (!hasRelation) return;
+
 
     const content = filterWidget.config.content as ControllerWidgetContent;
     const { relatedViews, config: controllerConfig, type } = content;
     const relatedViewItem = relatedViews
       .filter(view => view.fieldValue)
-      .find(view => view.viewId === chartWidget?.viewIds?.[0]);
+      .find(view => view.viewId+'' === chartWidget?.viewIds?.[0]);
     if (!relatedViewItem) return;
 
     const values = getWidgetControlValues({
@@ -298,12 +298,26 @@ export const getWidgetControlValues = (opt: {
         return false;
       })
       .map(ele => {
+        var returnValueType = valueType || 'STRING';
+        if (
+          [
+            FilterSqlOperator.Contain,
+            FilterSqlOperator.NotContain,
+            FilterSqlOperator.PrefixContain,
+            FilterSqlOperator.NotPrefixContain,
+            FilterSqlOperator.SuffixContain,
+            FilterSqlOperator.NotSuffixContain,
+          ].includes( config.sqlOperator as FilterSqlOperator)
+        ){
+          returnValueType ='STRING';
+        }
         const item = {
           value: typeof ele === 'string' ? ele.trim() : ele,
-          valueType: valueType || 'STRING',
+          valueType: returnValueType,
         };
         return item;
       });
+
     return values[0] ? values : false;
   }
 };
