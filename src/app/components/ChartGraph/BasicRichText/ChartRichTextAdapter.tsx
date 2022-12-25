@@ -255,7 +255,7 @@ const ChartRichTextAdapter: FC<{
         <Menu>
           {dataList.map(fieldName => (
             <MenuItem key={fieldName.name}>
-              <a onClick={selectField(fieldName)} href="#javascript;">
+              <a onClick={selectField(fieldName)} >
                 {fieldName.name}
               </a>
             </MenuItem>
@@ -281,7 +281,6 @@ const ChartRichTextAdapter: FC<{
               >
                 <a
                   className="selectLink"
-                  href="#javascript;"
                   title={t?.('common.referenceFields')}
                 >
                   <SelectOutlined />
