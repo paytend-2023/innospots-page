@@ -68,7 +68,6 @@ export const BoardEditor: React.FC<{
   const onCloseChartEditor = useCallback(() => {
     dispatch(editDashBoardInfoActions.changeChartEditorProps(undefined));
   }, [dispatch]);
-
   const onSaveToWidget = useCallback(
     (chartType: WidgetContentChartType, dataChart: DataChart, view) => {
       const widgetId = boardChartEditorProps?.widgetId!;
@@ -121,7 +120,6 @@ export const BoardEditor: React.FC<{
     onSaveToWidget,
   ]);
   const initialization = useCallback(async () => {
-    console.log("boardId----initialization",boardId)
     await dispatch(fetchEditBoardDetail(boardId as string));
     const histState = history.location.state as any;
     try {

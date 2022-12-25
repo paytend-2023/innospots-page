@@ -89,7 +89,7 @@ export const getSessionData = (): any => {
 }
 let globalConfigState:DatartComponentConfig = {} as DatartComponentConfig;
 export const getGlobalConfigState = () => globalConfigState;
-export const setGlobalConfigState = (props) => {
+export const setGlobalConfigState = (props: any) => {
   let config = entryParameters.page;
   if (POWERED_BY_QIANKUN && props) {
    if(props.pageType){
@@ -112,8 +112,9 @@ export const setGlobalConfigState = (props) => {
       config.pageId = props.id
     }
   }
+  console.log("config--",config,props)
 
-  config.onGlobalStateChange = props.onGlobalStateChange || globalConfigState.onGlobalStateChange;
+  // config.onGlobalStateChange = props.onGlobalStateChange || globalConfigState.onGlobalStateChange;
 
   globalConfigState = config;
 }

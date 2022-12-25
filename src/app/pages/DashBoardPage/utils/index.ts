@@ -298,12 +298,26 @@ export const getWidgetControlValues = (opt: {
         return false;
       })
       .map(ele => {
+        var returnValueType = valueType || 'STRING';
+        if (
+          [
+            FilterSqlOperator.Contain,
+            FilterSqlOperator.NotContain,
+            FilterSqlOperator.PrefixContain,
+            FilterSqlOperator.NotPrefixContain,
+            FilterSqlOperator.SuffixContain,
+            FilterSqlOperator.NotSuffixContain,
+          ].includes( config.sqlOperator as FilterSqlOperator)
+        ){
+          returnValueType ='STRING';
+        }
         const item = {
           value: typeof ele === 'string' ? ele.trim() : ele,
-          valueType: valueType || 'STRING',
+          valueType: returnValueType,
         };
         return item;
       });
+
     return values[0] ? values : false;
   }
 };

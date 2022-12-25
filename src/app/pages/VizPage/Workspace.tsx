@@ -7,6 +7,7 @@ import { useBoardSlice, boardActions } from "../DashBoardPage/pages/Board/slice"
 import {useEditBoardSlice} from "../DashBoardPage/pages/BoardEditor/slice";
 import Board from "../DashBoardPage/pages/Board";
 import { entryParameters } from 'config/entryParameters';
+import { setGlobalConfigState } from '../../../utils/globalState';
 
 function Workspace({ history }) {
   useBoardSlice();
@@ -17,6 +18,10 @@ function Workspace({ history }) {
   useEffect(() => {
     // @ts-ignore
     dispatch(boardActions.setPageConfig(entryParameters.workspace));
+    //TODO 待优化，保留一种全局变量形式
+    setGlobalConfigState({
+      pageType: 'workspace'
+    });
     setLoaded(true);
   }, []);
 

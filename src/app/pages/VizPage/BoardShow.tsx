@@ -9,6 +9,7 @@ import Board from "../DashBoardPage/pages/Board";
 import { entryParameters } from 'config/entryParameters';
 import { BoardState } from '../DashBoardPage/pages/Board/slice/types';
 import { makeSelectBoardConfigById } from '../DashBoardPage/pages/Board/slice/selector';
+import { setGlobalConfigState } from '../../../utils/globalState';
 
 function BoardShow({ match: { params }, history }) {
   useBoardSlice();
@@ -19,6 +20,10 @@ function BoardShow({ match: { params }, history }) {
   useEffect(() => {
     // @ts-ignore
     dispatch(boardActions.setPageConfig(entryParameters.page));
+    //TODO 待优化，保留一种全局变量形式
+    setGlobalConfigState({
+      pageType: "page"
+    });
     setLoaded(true);
   }, []);
 
