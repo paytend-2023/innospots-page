@@ -114,5 +114,4 @@ export const setGlobalConfigState = (props: any) => {
 
   config.onGlobalStateChange = props.onGlobalStateChange || globalConfigState.onGlobalStateChange;
   globalConfigState = config;
-  console.log("props.id---globalConfigState---",globalConfigState,config)
 }
