@@ -69,23 +69,5 @@ export const entryParameters = {
     },
     applicationEnable: true,
     applications: ['innospot-libra-app-kernel']
-  },
-  strategy: {
-    code:'strategy',
-    operateType: 'VIEW',
-    titleElement: [],
-    urls:{
-      viewsUrl: `/data-set/list`,
-      viewDetailUrl: `/data-set/:id`,
-      dataUrl: `/data-set/data/v2`,
-      applicationsUrl: `/application/list`,
-      detailUrl: `/page/:id`,
-      saveBoardUrl: `/page`,
-      fileUploadUrl: `/page/files/image`,
-      functionSupportUrl: `/data-set/data/function/support/:viewId`,
-      functionValidateUrl: `/data-set/data/function/validate`,
-    },
-    applicationEnable: true,
-    applications: ['app-workflow']
-  },
+  }
 }

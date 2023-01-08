@@ -23,7 +23,6 @@ import { setGlobalConfigState, setMasterState } from './utils/globalState';
 import { importCoreWidgets } from './utils/sharedComponents';
 
 function render(props) {
-  console.log("props----",props);
   const { container } = props;
   const rootNode = container ? container.querySelector('#root') : document.querySelector('#root')
   generateEntryPoint(AppRouter, rootNode);

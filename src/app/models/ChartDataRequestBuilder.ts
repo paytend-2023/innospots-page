@@ -303,7 +303,6 @@ export class ChartDataRequestBuilder {
       if (!conditionValue) {
         return null;
       }
-      console.log("conditionValue-----",conditionValue)
       if (Array.isArray(conditionValue)) {
         return conditionValue
           .map(v => {

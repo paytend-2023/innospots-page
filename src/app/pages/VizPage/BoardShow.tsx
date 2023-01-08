@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import {Row, Col, Button} from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
-import { useBoardSlice, boardActions } from "../DashBoardPage/pages/Board/slice";
+import { useBoardSlice } from "../DashBoardPage/pages/Board/slice";
 import {useEditBoardSlice} from "../DashBoardPage/pages/BoardEditor/slice";
 import Board from "../DashBoardPage/pages/Board";
-import { entryParameters } from 'config/entryParameters';
 import { BoardState } from '../DashBoardPage/pages/Board/slice/types';
 import { makeSelectBoardConfigById } from '../DashBoardPage/pages/Board/slice/selector';
 import { setGlobalConfigState } from '../../../utils/globalState';
@@ -16,23 +15,19 @@ import useI18NPrefix from '../../hooks/useI18NPrefix';
 function BoardShow({ match: { params }, history }) {
   useBoardSlice();
   useEditBoardSlice();
-  const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-
   const gt = useI18NPrefix(`global.button`);
-
+  const { pageId } = params;
   useEffect(() => {
-    // @ts-ignore
-    dispatch(boardActions.setPageConfig(entryParameters.page));
-    //TODO 待优化，保留一种全局变量形式
     setGlobalConfigState({
-      pageType: "page"
+      pageType: "page",
+      id: pageId
     });
     setLoaded(true);
-  }, []);
+  }, [pageId]);
 
   const dashboard = useSelector((state: { board: BoardState }) =>
-    makeSelectBoardConfigById()(state, params.pageId),
+    makeSelectBoardConfigById()(state, pageId),
   );
 
   const pageTitle = useMemo(() => {
@@ -61,7 +56,7 @@ function BoardShow({ match: { params }, history }) {
           showZoomCtrl={true}
           allowManage={true}
           renderMode="read"
-          previewBoardId={params.pageId}
+          previewBoardId={pageId}
         />
       ) : null
     )

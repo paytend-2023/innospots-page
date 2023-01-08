@@ -38,10 +38,8 @@ import { BoardActionContext } from '../ActionProvider/BoardActionProvider';
 import { WidgetActionContext } from '../ActionProvider/WidgetActionProvider';
 import { BoardInfoContext } from '../BoardProvider/BoardInfoProvider';
 import { BoardContext } from '../BoardProvider/BoardProvider';
+import { getGlobalConfigState } from 'utils/globalState';
 import { request2 } from 'utils/request';
-import { selectPageConfig } from '../../pages/Board/slice/selector';
-import { selectEditBoard } from '../../pages/BoardEditor/slice/selectors';
-
 const { Option } = Select;
 
 const EditorHeader: FC = memo(({ children }) => {
@@ -53,7 +51,7 @@ const EditorHeader: FC = memo(({ children }) => {
   const { name, boardExtConfig, status } = useContext(BoardContext);
   const { saving } = useContext(BoardInfoContext);
   const title = useStatusTitle(name, status);
-  const { titleElement, urls } = useSelector(selectPageConfig);
+  const { titleElement, urls } = getGlobalConfigState();
   const [formError, setFormError] = useState({});
   const [customTitleElement, setCustomTitleElement] = useState<any[]>([]);
   const [formIns] = Form.useForm();

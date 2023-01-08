@@ -173,11 +173,6 @@ export const selectViewMap = createSelector(
   state => state.viewMap,
 );
 
-export const selectPageConfig = createSelector(
-  [boardState],
-  state => state.pageConfig,
-);
-
 export const selectAvailableSourceFunctionsMap = createSelector(
   [boardState],
   state => state.availableSourceFunctionsMap,

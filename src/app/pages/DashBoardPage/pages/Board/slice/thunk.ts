@@ -89,17 +89,14 @@ export const getBoardDetail = createAsyncThunk<
 export const fetchBoardDetail = createAsyncThunk<
   null,
   {
-    pageId?: string
+    boardPageId?: string,
     filterSearchParams?: FilterSearchParams
   },
   { state: { board: BoardState } }
 >('board/fetchBoardDetail', async (params, { dispatch, getState, rejectWithValue }) => {
-  const { pageId } = params;
-  const { board: { pageConfig } } = getState() as { board: BoardState };
-  const detailUrl = pageConfig.urls?.detailUrl?.replace(":id", pageId || '');
-
-  if (!detailUrl) return null;
-
+  const { urls,pageId } = getGlobalConfigState();
+  let boardPageId = params.boardPageId;
+  const detailUrl = urls.detailUrl.replace(":id", boardPageId || pageId || '');
   const { data } = await request2<ServerDashboard>(detailUrl);
   dispatch(
     handleServerBoardAction({

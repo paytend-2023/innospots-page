@@ -94,15 +94,13 @@ export const fetchEditBoardDetail = createAsyncThunk<null,
   { state: RootState }>(
   'editBoard/fetchEditBoardDetail',
   async (dashboardId, { getState, dispatch }) => {
-    const { board: { pageConfig } } = getState() as { board: BoardState };
-    const urls = pageConfig.urls || {};
-
+    const { urls, pageId } = getGlobalConfigState();
     let boardDetail = {} as ServerDashboard;
     boardDetail.id = '-1';
     boardDetail.name = '';
     boardDetail.widgets = [];
     boardDetail.views = [];
-    if (urls.detailUrl && (dashboardId || pageConfig.code === 'workspace')) {
+    if (urls.detailUrl) {
       const detailUrl = urls.detailUrl.replace(':id', dashboardId || '');
       const { data } = await request2<ServerDashboard>(
         detailUrl,

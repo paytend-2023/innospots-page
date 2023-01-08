@@ -55,7 +55,6 @@ export interface BoardState {
   widgetDataMap: Record<string, WidgetData | undefined>;
   availableSourceFunctionsMap: Record<string, string[]>;
   selectedItems: Record<string, SelectedItem[]>;
-  pageConfig: any
 }
 // 应用内浏览，分享页模式，定时任务模式，编辑模式
 export type VizRenderMode = 'read' | 'share' | 'schedule' | 'edit';

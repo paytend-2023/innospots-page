@@ -94,7 +94,6 @@ export const setGlobalConfigState = (props: any) => {
   if (POWERED_BY_QIANKUN && props) {
    if(props.pageType){
       config = entryParameters[props.pageType];
-
     }
     if(props.operateType){
       config.operateType = props.operateType;
@@ -112,9 +111,8 @@ export const setGlobalConfigState = (props: any) => {
       config.pageId = props.id
     }
   }
-  console.log("config--",config,props)
 
-  // config.onGlobalStateChange = props.onGlobalStateChange || globalConfigState.onGlobalStateChange;
-
+  config.onGlobalStateChange = props.onGlobalStateChange || globalConfigState.onGlobalStateChange;
   globalConfigState = config;
+  console.log("props.id---globalConfigState---",globalConfigState,config)
 }
