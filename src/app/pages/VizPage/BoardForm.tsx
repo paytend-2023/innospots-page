@@ -12,11 +12,15 @@ function BoardForm({ match: { params } }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    setGlobalConfigState({
+    let config = {
       pageType: pageType === 'edit' && !pageId ? 'workspace' : 'page',
-      operateType: pageType.toUpper,
+      operateType: pageType.toUpperCase(),
       id: pageId
-    });
+    };
+    if(pageId){
+      config.id = pageId;
+    }
+    setGlobalConfigState(config);
     setLoaded(true);
   }, [ pageType, pageId ]);
 
