@@ -10,7 +10,6 @@ export const applications = {
       {"name":"工作台详情","module":"core","code":"WorkspaceInfo","icon":"","description":"工作台的基本信息卡片","order":6,"enabled":true,"width":12,"height":4,"entry":"WorkspaceInfo","scope":["workspace"],"configItem":[]},
       {"name":"最新活动","module":"core","code":"NewActivity","icon":"","description":"工作台的最新活动卡片","order":7,"enabled":true,"width":6,"height":4,"entry":"NewActivity","scope":["workspace"],"configItem":[]},
       {"name":"系统更新","module":"core","code":"SystemInfo","icon":"","description":"工作台的系统更新卡片","order":8,"enabled":true,"width":6,"height":7,"entry":"SystemInfo","scope":["workspace"],"configItem":[]},
-      // {"name":"应用更新","module":"core","code":"applicationInfo","icon":"","description":"工作台的应用更新卡片","order":9,"enabled":true,"width":6,"height":7,"entry":"applicationInfo","scope":["workspace"],"configItem":[]},
       {"name":"最新信息","module":"core","code":"NewMessage","icon":"","description":"工作台的最新信息卡片","order":10,"enabled":true,"width":6,"height":12,"entry":"NewMessage","scope":["workspace"],
         "configItem":[{"label":"展示消息数:","name":"itemsNum","placeholder":"请输入展示消息数","required":true,"type":"INPUT","gridSize":22,"defaultValue":4 }]
       },

@@ -45,8 +45,11 @@ import {
 import { IChart } from 'app/types/Chart';
 import { getChartPluginPaths } from 'app/utils/fetch';
 import { Debugger } from 'utils/debugger';
-import { CloneValueDeep } from 'utils/object';
+import { CloneValueDeep, Omit } from 'utils/object';
 import PluginChartLoader from './PluginChartLoader';
+import { RadarChart } from '../custom-chart-plugins/radar-chart';
+import * as datartChartHelper from 'app/utils/chartHelper';
+import Chart from './Chart';
 
 class ChartManager {
   private _loader = new PluginChartLoader();
@@ -62,10 +65,11 @@ class ChartManager {
   }
 
   public async load() {
+    console.log("instance------load",this._isLoaded);
     if (this._isLoaded) {
       return;
     }
-    const pluginsPaths = await getChartPluginPaths();
+    const pluginsPaths = ['custom-chart-plugins/radar-chart.js'];  //await getChartPluginPaths();
     return Debugger.instance.measure('Plugin Charts | ', async () => {
       await this._loadCustomizeCharts(pluginsPaths);
     });
@@ -94,16 +98,32 @@ class ChartManager {
   }
 
   private async _loadCustomizeCharts(paths: string[]) {
+    console.log("_loadCustomizeCharts---",this._isLoaded)
     if (this._isLoaded) {
       return this._charts;
     }
 
-    const customCharts = await this._loader.loadPlugins(paths);
+    // const customCharts = await this._loader.loadPlugins(paths);
+    const customCharts = this.convertToDatartChartModel({...RadarChart(
+        {
+          dHelper: { ...datartChartHelper },
+        }
+      )});
+    console.log("customCharts0------",customCharts)
     this._charts = this._charts.concat(
-      customCharts?.filter(Boolean) as IChart[],
+      customCharts,
     );
     this._isLoaded = true;
     return this._charts;
+  }
+  private convertToDatartChartModel(customPlugin) {
+    const chart = new Chart(
+      customPlugin.meta.id,
+      customPlugin.meta.name,
+      customPlugin.meta.icon,
+      customPlugin.meta.requirements,
+    );
+    return Object.assign(chart, Omit(customPlugin, ['meta']));
   }
 
   private _basicCharts(): IChart[] {

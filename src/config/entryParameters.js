@@ -40,7 +40,7 @@ export const entryParameters = {
     urls:{
       viewsUrl: `/data-set/list`,
       viewDetailUrl: `/data-set/:id`,
-      dataUrl: `/data-set/data/v2`,
+      dataUrl: `/data-set/data`,
       applicationsUrl: `/application/list`,
       detailUrl: `/page/:id`,
       saveBoardUrl: `/page`,
@@ -59,7 +59,7 @@ export const entryParameters = {
     urls: {
       viewsUrl: `/data-set/list`,
       viewDetailUrl: `/data-set/:id`,
-      dataUrl: `/data-set/data/v2`,
+      dataUrl: `/data-set/data`,
       applicationsUrl: `/application/list`,
       detailUrl: `/workspace`,
       saveBoardUrl: `/workspace`,

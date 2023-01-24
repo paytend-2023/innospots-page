@@ -88,9 +88,10 @@ export const getDistinctFields = async (
     });
     return filterSqlOperatorName(requestParams, data);
   } else {
+    const { urls } = getGlobalConfigState();
     const response = await request2<ChartDataSetDTO>({
       method: 'POST',
-      url: `/data-set/data`,
+      url: `${urls.dataUrl}`,
       data: requestParams,
     });
     return filterSqlOperatorName(requestParams, response?.data);
@@ -254,6 +255,7 @@ export async function downloadFile(id) {
 }
 
 export async function fetchPluginChart(path) {
+  console.log("Jpath--",path)
   const result = await request2(path, {
     baseURL: '/',
     headers: { Accept: 'application/javascript' },

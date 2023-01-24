@@ -11,6 +11,8 @@ import { makeSelectBoardConfigById } from '../DashBoardPage/pages/Board/slice/se
 import { setGlobalConfigState } from '../../../utils/globalState';
 
 import useI18NPrefix from '../../hooks/useI18NPrefix';
+import useMount from '../../hooks/useMount';
+import ChartManager from '../../models/ChartManager';
 
 function BoardShow({ match: { params }, history }) {
   useBoardSlice();
@@ -18,6 +20,17 @@ function BoardShow({ match: { params }, history }) {
   const [loaded, setLoaded] = useState(false);
   const gt = useI18NPrefix(`global.button`);
   const { pageId } = params;
+  useMount(
+    () => {
+      ChartManager.instance()
+        .load()
+        .catch(err =>
+          console.error('Fail to load customize charts with ', err),
+        );
+    },
+    () => {
+    },
+  );
   useEffect(() => {
     setGlobalConfigState({
       pageType: "page",
