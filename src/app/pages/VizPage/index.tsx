@@ -4,11 +4,23 @@ import {useBoardSlice} from "../DashBoardPage/pages/Board/slice";
 import Board from "../DashBoardPage/pages/Board";
 import { getGlobalConfigState, setGlobalConfigState } from 'utils/globalState';
 import BoardEditor from '../DashBoardPage/pages/BoardEditor';
+import useMount from '../../hooks/useMount';
+import ChartManager from '../../models/ChartManager';
 
 function BoardPage() {
   useEditBoardSlice();
   useBoardSlice();
-
+  useMount(
+    () => {
+      ChartManager.instance()
+        .load()
+        .catch(err =>
+          console.error('Fail to load customize charts with ', err),
+        );
+    },
+    () => {
+    },
+  );
   const configState = getGlobalConfigState();
   const [pageId, setPageId] = useState(configState.pageId);
 

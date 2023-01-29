@@ -255,9 +255,8 @@ export async function downloadFile(id) {
 }
 
 export async function fetchPluginChart(path) {
-  console.log("Jpath--",path)
   const result = await request2(path, {
-    baseURL: '/',
+    baseURL: 'http://1.15.20.45:9800/',
     headers: { Accept: 'application/javascript' },
   }).catch(error => {
     console.error(error);

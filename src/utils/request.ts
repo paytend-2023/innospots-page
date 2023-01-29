@@ -73,8 +73,10 @@ export function request2<T>(
   },
 ): Promise<APIResponse<T>> {
   const defaultFulfilled = response => {
-    response.data['data'] = response.data['body'];
-    delete response.data['body'];
+    if(response.data['body']){
+      response.data['data'] = response.data['body'];
+      delete response.data['body'];
+    }
     return response.data as APIResponse<T>;
   };
   const defaultRejected = error => {

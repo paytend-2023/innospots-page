@@ -131,6 +131,7 @@ export const ChartEditor: FC<ChartEditorProps> = ({
   const dataset = useSelector(datasetsSelector);
   const dataview = useSelector(currentDataViewSelector);
   const chartConfig = useSelector(chartConfigSelector);
+  console.log("chartConfigSelector-----",chartConfig)
   const shadowChartConfig = useSelector(shadowChartConfigSelector);
   const backendChart = useSelector(backendChartSelector);
   const aggregation = useSelector(aggregationSelector);

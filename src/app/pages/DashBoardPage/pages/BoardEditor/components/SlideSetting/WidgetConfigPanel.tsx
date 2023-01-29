@@ -88,6 +88,7 @@ export const BoardConfigCollapse: FC<{
       {configs
         ?.filter(c => !Boolean(c.hidden) && c.key!='drillThrough')
         .map((c, index) => {
+          console.log("datart-config-panel----",c)
           if (c.comType === 'group') {
             return (
               <Collapse.Panel

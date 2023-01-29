@@ -7,12 +7,24 @@ import { useBoardSlice } from "../DashBoardPage/pages/Board/slice";
 import {useEditBoardSlice} from "../DashBoardPage/pages/BoardEditor/slice";
 import Board from "../DashBoardPage/pages/Board";
 import { setGlobalConfigState } from '../../../utils/globalState';
+import useMount from '../../hooks/useMount';
+import ChartManager from '../../models/ChartManager';
 
 function Workspace({ history }) {
   useBoardSlice();
   useEditBoardSlice();
   const [loaded, setLoaded] = useState(false);
-
+  useMount(
+    () => {
+      ChartManager.instance()
+        .load()
+        .catch(err =>
+          console.error('Fail to load customize charts with ', err),
+        );
+    },
+    () => {
+    },
+  );
   useEffect(() => {
     setGlobalConfigState({
       pageType: 'workspace'

@@ -254,8 +254,9 @@ module.exports = {
     modulePaths: ['../'],
   },
   devServer: {
+
     onBeforeSetupMiddleware: function ({ app }) {
-      app.get('/api/v1/plugins/custom/charts', function (req, res) {
+      app.get('/innospots/api/plugins/custom/charts', function (req, res) {
         const pluginPath = 'custom-chart-plugins';
         const dir = fs.readdirSync(`./public/${pluginPath}`);
         res.json({
@@ -272,7 +273,7 @@ module.exports = {
       '/innospots/api/': {
         target: 'http://1.15.20.45:9800/',
         changeOrigin: true,
-      },
+      }
     },
     headers: {
       'Access-Control-Allow-Origin': '*'

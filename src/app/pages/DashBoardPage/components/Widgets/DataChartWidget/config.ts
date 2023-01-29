@@ -121,7 +121,6 @@ export const dataChartCreator = (opt: WidgetCreateProps) => {
     }
   });
   widget.config.customConfig.interactions = [...initInteractionTpl()];
-
   return widget;
 };
 export const getCanLinkageWidgets = (widgets: Widget[]) => {

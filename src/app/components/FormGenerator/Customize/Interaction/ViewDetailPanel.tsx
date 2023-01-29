@@ -31,6 +31,7 @@ const ViewDetailPanel: FC<ItemLayoutProps<ChartStyleConfig>> = memo(
     const [event, setEvent] = useState<ViewDetailSetting['event']>(
       data.value?.event || InteractionMouseEvent.Left,
     );
+    console.log("data?.value?.mapper--",data?.value?.mapper)
     const [mapper, setMapper] = useState<ViewDetailSetting['mapper']>(
       data?.value?.mapper,
     );
@@ -77,7 +78,7 @@ const ViewDetailPanel: FC<ItemLayoutProps<ChartStyleConfig>> = memo(
     return (
       <StyledDrillThroughPanel direction="vertical">
         <Form
-          labelCol={{ offset: 2, span: 2 }}
+          labelCol={{ offset: 2, span: 3 }}
           wrapperCol={{ span: 18 }}
           layout="horizontal"
           size="middle"

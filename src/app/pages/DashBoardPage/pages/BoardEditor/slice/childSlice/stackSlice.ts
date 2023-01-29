@@ -240,6 +240,7 @@ export const editBoardStackSlice = createSlice({
           value: configItem,
         },
       );
+      console.log("newProps-----",newProps)
       state.widgetRecord[wid].config.customConfig.interactions = newProps;
     },
     updateWidgetConfig(
