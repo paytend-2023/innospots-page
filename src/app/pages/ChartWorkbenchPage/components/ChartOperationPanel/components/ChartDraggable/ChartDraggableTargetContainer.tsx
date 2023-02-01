@@ -310,6 +310,7 @@ export const ChartDraggableTargetContainer: FC<ChartDataConfigSectionProps> =
                 availableSourceFunctions,
                 onConfigChanged: onConfigChanged,
                 handleOpenActionModal: handleOpenActionModal,
+                type,
               };
               return columnConfig.category ===
                 ChartDataViewFieldCategory.Hierarchy ? (
@@ -320,6 +321,7 @@ export const ChartDraggableTargetContainer: FC<ChartDataConfigSectionProps> =
             }}
             moveCard={onDraggableItemMove}
             onDelete={handleOnDeleteItem(columnConfig)}
+            type={type}
           ></ChartDraggableElement>
         );
       });

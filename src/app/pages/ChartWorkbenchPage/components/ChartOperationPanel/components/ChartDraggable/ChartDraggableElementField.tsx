@@ -52,6 +52,7 @@ const ChartDraggableElementField: FC<{
   availableSourceFunctions;
   onConfigChanged;
   handleOpenActionModal;
+  type?;
 }> = memo(
   ({
     modalSize,
@@ -62,6 +63,7 @@ const ChartDraggableElementField: FC<{
     availableSourceFunctions,
     onConfigChanged,
     handleOpenActionModal,
+    type,
   }) => {
     const { dataView } = useContext(ChartDataViewContext);
 
@@ -155,7 +157,8 @@ const ChartDraggableElementField: FC<{
       }
       return icons;
     };
-
+    const actionsIcons = enableActionsIcons(columnConfig);
+    const colName = aggregation === false ? columnConfig.colName : getColumnRenderName(columnConfig)
     return (
       <Dropdown
         key={columnConfig.uid}
@@ -167,14 +170,21 @@ const ChartDraggableElementField: FC<{
       >
         <StyledWrapper className={classnames({ replace: showReplaceMenu })}>
           {config?.actions && <DownOutlined style={{ marginRight: '10px' }} />}
-          <span>
-            {aggregation === false
-              ? columnConfig.colName
-              : getColumnRenderName(columnConfig)}
-          </span>
-          <div style={{ display: 'inline-block', marginLeft: '5px' }}>
-            {enableActionsIcons(columnConfig)}
-          </div>
+          {
+            type=='setting' ?
+            <span className="colName" title={colName}>
+              {colName}
+            </span> :
+            <span>
+            {colName}
+            </span>
+          }
+          {
+            actionsIcons ?
+              <div style={{ display: 'inline-block', marginLeft: '5px' }}>
+                {actionsIcons}
+              </div> : ''
+          }
         </StyledWrapper>
       </Dropdown>
     );
@@ -192,5 +202,12 @@ const warningColor = keyframes`
 const StyledWrapper = styled.div`
   &.replace {
     animation: ${warningColor} 2s linear infinite;
+  }
+  .colName{
+    display: inline-block;
+    width: 76px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 14px;
   }
 `;

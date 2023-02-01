@@ -59,6 +59,7 @@ interface ChartDraggableElementProps {
     config?: ChartDataSectionField,
   ) => void;
   onDelete: () => void;
+  type?: string;
 }
 
 interface ChartDraggableElementInstance {
@@ -76,6 +77,7 @@ const ChartDraggableElement = forwardRef<
     connectDragSource,
     connectDropTarget,
     onDelete,
+    type
   },
   ref,
 ) {
@@ -86,13 +88,13 @@ const ChartDraggableElement = forwardRef<
   useImperativeHandle<any, ChartDraggableElementInstance>(ref, () => ({
     getNode: () => elementRef.current,
   }));
-
   return (
     <StyledChartDraggableElement
       className="draggable-element"
       ref={elementRef}
       isDragging={isDragging}
       type={config.type}
+      settingType={type}
     >
       {typeof content === 'string' ? (
         content
@@ -200,6 +202,7 @@ export default DropTarget(
 const StyledChartDraggableElement = styled.div<{
   isDragging;
   type: DataViewFieldType;
+  settingType;
 }>`
   height: 28px;
   text-align: center;
@@ -212,7 +215,7 @@ const StyledChartDraggableElement = styled.div<{
   border-radius: ${BORDER_RADIUS};
   opacity: ${p => (p.isDragging ? 0.2 : 1)};
   display: inline-block;
-  margin-left: 10px;
+  margin-left: ${p => (p.settingType=='setting' ? 0 : '10px')};
 `;
 
 const Content = styled.div`

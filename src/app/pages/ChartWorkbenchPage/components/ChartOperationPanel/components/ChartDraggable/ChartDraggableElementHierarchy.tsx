@@ -30,6 +30,7 @@ const ChartDraggableElementHierarchy: FC<{
   availableSourceFunctions;
   onConfigChanged;
   handleOpenActionModal;
+  type?;
 }> = memo(
   ({
     modalSize,
@@ -40,6 +41,7 @@ const ChartDraggableElementHierarchy: FC<{
     availableSourceFunctions,
     onConfigChanged,
     handleOpenActionModal,
+    type
   }) => {
     const renderChildren = () => {
       return columnConfig?.children?.map(child => {
@@ -52,6 +54,7 @@ const ChartDraggableElementHierarchy: FC<{
           availableSourceFunctions,
           onConfigChanged: onConfigChanged,
           handleOpenActionModal: handleOpenActionModal,
+          type
         };
         return <ChartDraggableElementField {...contentProps} />;
       });
