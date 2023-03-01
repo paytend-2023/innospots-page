@@ -548,7 +548,7 @@ export const getWidgetMap = (
     const chartViewId = dataChartMap[cur.datachartId]?.viewId;
     const viewIds = chartViewId ? [chartViewId] : cur.viewIds;
     const viewComputerFields =
-      JSON.parse(serverViews.find(v => v.id === viewIds[0])?.model || '{}')
+      JSON.parse((serverViews||[]).find(v => v.id === viewIds[0])?.model || '{}')
         ?.computedFields || [];
     if (cur.config.type === 'chart' && cur.config?.content?.dataChart?.config) {
       cur.config.content.dataChart.config.computedFields =

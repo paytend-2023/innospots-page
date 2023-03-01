@@ -204,7 +204,7 @@ export const getDataChartMap = (dataCharts: DataChart[]) => {
 
 export const getChartDataView = (views: View[], dataCharts: DataChart[]) => {
   const viewViews: ChartDataView[] = [];
-  views.forEach(view => {
+  (views||[]).forEach(view => {
     const dataChart = dataCharts.find(dc => dc.viewId === view.id);
 
     if (view) {
