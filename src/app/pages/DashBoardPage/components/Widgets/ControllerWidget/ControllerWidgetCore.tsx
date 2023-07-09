@@ -138,7 +138,6 @@ export const ControllerWidgetCore: React.FC<{}> = memo(() => {
       key: 'content',
       val: nextContent,
     });
-    console.log("widget----",value,widget)
     refreshLinkedWidgets(widget);
   };
   // const onSqlOperatorAndValues = useCallback(

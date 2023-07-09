@@ -215,10 +215,6 @@ const workbenchSlice = createSlice({
           const currentChart = ChartManager.instance().getById(
             chartConfigDTO?.chartGraphId,
           );
-          console.log("currentChart?.config--",currentChart?.config,chartConfigDTO, mergeToChartConfig(
-            currentChart?.config,
-            migrateChartConfig(chartConfigDTO),
-          ))
           state.chartConfig = mergeToChartConfig(
             currentChart?.config,
             migrateChartConfig(chartConfigDTO),

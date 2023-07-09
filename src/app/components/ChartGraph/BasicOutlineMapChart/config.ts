@@ -34,7 +34,7 @@ const config: ChartConfig = {
       type: 'aggregate',
       actions: {
         NUMERIC: ['aggregate', 'alias', 'format', 'colorRange'],
-        STRING: ['aggregate', 'alias', 'format', 'colorRange'],
+        STRING: ['aggregateLimit', 'alias', 'format', 'colorRange'],
       },
       limit: 1,
     },

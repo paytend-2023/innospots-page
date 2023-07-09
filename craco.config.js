@@ -271,7 +271,7 @@ module.exports = {
     hot: true,
     proxy: {
       '/innospots/api/': {
-        target: 'http://1.15.20.45:9800/',
+        target: 'http://1.15.20.45:8686/',
         changeOrigin: true,
       }
     },

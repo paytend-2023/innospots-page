@@ -44,7 +44,7 @@ const config: ChartConfig = {
       type: 'aggregate',
       actions: {
         NUMERIC: ['aggregate', 'alias', 'format', 'sortable'],
-        STRING: ['aggregate', 'alias', 'format', 'sortable'],
+        STRING: ['aggregateLimit', 'alias', 'format', 'sortable'],
       },
       options: {
         sortable: { backendSort: false },

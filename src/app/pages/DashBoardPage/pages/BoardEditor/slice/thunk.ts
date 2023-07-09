@@ -157,7 +157,6 @@ export const getApplications = createAsyncThunk<ApplicationInfo[], { application
     const { data } = await request2<ApplicationInfo[]>(
       applicationsUrl,
     );
-    console.log('applicationsUrl--', applicationsUrl, data);
     return data;
   },
 );
@@ -243,7 +242,6 @@ export const toUpdateDashboard = createAsyncThunk<any,
         method: 'post',
         data: updateData,
       });
-     console.log("updateData-----",updateData,group,dashBoard,boardInfo,updateRes)
     callback?.(updateRes.data['id']);
     // console.log("updateRes--",updateRes,updateRes.data['id'])
     dispatch(ActionCreators.clearHistory());

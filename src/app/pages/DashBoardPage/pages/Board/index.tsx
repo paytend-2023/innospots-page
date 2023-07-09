@@ -70,10 +70,7 @@ export const Board: FC<BoardProps> = ({
       ? urlSearchTransfer.toParams(filterSearchUrl)
       : undefined;
   }, [filterSearchUrl]);
-
-  console.log("old---",curPreviewBoardId)
-  console.log("new---",previewBoardId)
-
+  
   useEffect(() => {
     if (boardId=='-1' && fetchData) {
       dispatch(

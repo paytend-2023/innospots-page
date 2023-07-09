@@ -31,7 +31,6 @@ const ViewDetailPanel: FC<ItemLayoutProps<ChartStyleConfig>> = memo(
     const [event, setEvent] = useState<ViewDetailSetting['event']>(
       data.value?.event || InteractionMouseEvent.Left,
     );
-    console.log("data?.value?.mapper--",data?.value?.mapper)
     const [mapper, setMapper] = useState<ViewDetailSetting['mapper']>(
       data?.value?.mapper,
     );

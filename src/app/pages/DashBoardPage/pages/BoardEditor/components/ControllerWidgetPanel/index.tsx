@@ -186,7 +186,7 @@ const ControllerWidgetPanel: React.FC<WidgetControllerPanelParams> = memo(
       setFormRelatedViews(setViewsRelatedView(oldRelatedWidgetIds));
       const preRelatedViews = confContent.relatedViews?.filter(t => t.viewId);
       form?.setFieldsValue({ relatedViews: preRelatedViews });
-      console.log("oldRelatedWidgetIds---",oldRelatedWidgetIds,confContent,preRelatedViews)
+     
       const { config } = confContent;
       form.setFieldsValue({
         ...confContent,
@@ -254,7 +254,6 @@ const ControllerWidgetPanel: React.FC<WidgetControllerPanelParams> = memo(
             draft.config.content = nextContent;
             draft.viewIds = getViewIdsInControlConfig(config);
           });
-          console.log("newWidget----",newWidget)
 
           dispatch(editBoardStackActions.updateWidget(newWidget));
           dispatch(getEditControllerOptions(newWidget.id));
@@ -300,7 +299,7 @@ const ControllerWidgetPanel: React.FC<WidgetControllerPanelParams> = memo(
         };
         return item;
       });
-      console.log("widgetMap----",relatedWidgets,values,widgetMap)
+
       setRelatedWidgets(relatedWidgets);
       setFormRelatedViews(setViewsRelatedView(relatedWidgets));
     };

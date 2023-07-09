@@ -303,8 +303,6 @@ export const DataChartWidgetCore: React.FC<{}> = memo(() => {
         dataChart?.config?.chartConfig?.interactions,
         widgetRef?.current?.config?.customConfig?.interactions,
       );
-      console.log("viewDetailSetting---",viewDetailSetting, dataChart?.config?.chartConfig?.interactions,
-        widgetRef?.current?.config?.customConfig?.interactions)
       let authToken;
       if (renderMode === 'share') {
         authToken = executeTokenMap?.[chartDataView?.id!]?.authorizedToken;

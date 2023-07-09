@@ -26,7 +26,6 @@ type ApplicationWidgetProps = {
 };
 export const ApplicationWidgetCore: React.FC<ApplicationWidgetProps> = ({applicationWidgetContent}) => {
   const appWidgetConfig = applicationWidgetContent.appWidgetConfig;
-  console.log("appWidgetConfig-----",appWidgetConfig)
   return <Wrapper>
           <div className="appItemContent" style={{width: '100%', height: '100%'}}>
             <SharedComponent name={applicationWidgetContent.appWidgetInfo.code}

@@ -40,13 +40,13 @@ const ChartStyleConfigPanel: FC<{
     let activeKeys: string[] = [];
     if(configs && configs.length>0){
       configs.filter(c => !Boolean(c.hidden) && c.key!='drillThrough').forEach(c => {
-        if (c.comType === 'group') {
-          activeKeys.push(c.key);
-        }
+         if (c.comType === 'group') {
+           activeKeys.push(c.key);
+         }
       }) ;
     }
     return (
-      <Collapse className="datart-config-panel"  ghost activeKey={activeKeys}>
+      <Collapse className="datart-config-panel"  ghost defaultActiveKey={activeKeys}>
         {configs
           ?.filter(c => !Boolean(c.hidden) && c.key!='drillThrough')
           ?.map((c, index) => {

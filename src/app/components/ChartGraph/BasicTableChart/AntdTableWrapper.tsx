@@ -51,7 +51,6 @@ const AntdTableWrapper: FC<{
       if (!summaryFn) {
         return undefined;
       }
-      console.log("pageData-------",pageData,dataSource, columns)
       const summaryData = summaryFn?.(pageData);
       return (
         <Table.Summary fixed>

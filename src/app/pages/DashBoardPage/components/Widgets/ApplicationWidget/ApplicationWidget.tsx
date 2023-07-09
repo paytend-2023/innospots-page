@@ -37,7 +37,6 @@ export const ApplicationWidget: React.FC<{ hideTitle: boolean }> = memo(
   ({ hideTitle }) => {
     const widget = useContext(WidgetContext);
     const content = widget.config.content as ApplicationWidgetContent
-    console.log("content---",content)
     const { editing } = useContext(BoardContext);
     const title = getWidgetTitle(widget.config.customConfig.props);
     title.title = widget.config.name;
