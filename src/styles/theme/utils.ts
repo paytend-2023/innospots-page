@@ -58,8 +58,8 @@ export async function changeAntdTheme(themeKey: string) {
     const vars = getVarsToBeModified(themeKey);
     // console.info(vars)
 
-    await (window as any)?.less?.modifyVars(vars);
+    await (window as any).less.modifyVars(vars);
   } catch (error) {
-    console.log(error, 'changeAntdTheme');
+    console.log(error);
   }
 }
