@@ -60,6 +60,6 @@ export async function changeAntdTheme(themeKey: string) {
 
     await (window as any)?.less?.modifyVars(vars);
   } catch (error) {
-    console.log(error);
+    console.log(error, 'changeAntdTheme');
   }
 }
