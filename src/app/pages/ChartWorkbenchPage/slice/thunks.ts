@@ -109,7 +109,7 @@ export const fetchDataViewsAction = createAsyncThunk(
 
     const response = await request2<any[]>({
       method: 'GET',
-      url: reqInfo.viewsUrl || '/apps/schema/data-set/list',
+      url: reqInfo.viewsUrl || '/schema/data-set/list',
       // params: arg,
     });
     return response.data;

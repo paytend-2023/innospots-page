@@ -528,7 +528,7 @@ export const getControllerOptions = createAsyncThunk<
       } else {
         const { data } = await request2<WidgetData>({
           method: 'POST',
-          url: `apps/schema/data`,
+          url: `schema/data`,
           data: requestParams,
         });
         widgetData = data;

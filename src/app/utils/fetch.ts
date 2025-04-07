@@ -256,7 +256,8 @@ export async function downloadFile(id) {
 
 export async function fetchPluginChart(path) {
   const result = await request2(path, {
-    baseURL: 'http://1.15.20.45:9800/',
+    baseURL: '/',
+    // baseURL: 'http://1.15.20.45:9800/',
     headers: { Accept: 'application/javascript' },
   }).catch(error => {
     console.error(error);
