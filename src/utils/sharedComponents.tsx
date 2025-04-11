@@ -13,7 +13,7 @@ export const setComponents = (module: string, components: any) => {
  * @param name
  */
 export const getComponentByName = (module: string, name: string) => {
-  return componentContent[module][name]
+  return componentContent?.[module]?.[name]
 };
 
 // @ts-ignore
