@@ -1,0 +1,118 @@
+version: 0.2
+
+cache:
+  paths:
+    - '/root/.m2/**/*'
+    - '/root/.npm/**/*'
+    - 'node_modules/**/*'  # 缓存项目中的 node_modules 目录
+    - '/root/build/last_commit_id.txt' # 用于存储上次构建的 Commit ID
+env:
+  variables:
+    # 默认值，如果未设置 COMMIT_ID 变量，则使用此默认值 ,这个默认值需要在 codebuild 阶段 pipeline 中设置
+    # [{"name":"COMMIT_ID","value":"#{SourceVariables.CommitId}","type":"PLAINTEXT"}]
+    # see: https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-variables.html
+    COMMIT_ID: "undefined"
+    SKIP_BUILD: "false"
+
+phases:
+  pre_build:
+    commands:
+      - echo "Pre-build phase"
+      - #  获取 Git Commit ID（前 9 位）
+      - SHORT_COMMIT_ID=$(echo $COMMIT_ID | cut -c 1-9)
+      - echo "Using commit ID $SHORT_COMMIT_ID for $COMMIT_ID"
+      - PREV_COMMIT_ID=$(cat /root/build/last_commit_id.txt 2>/dev/null || echo "none")
+      # 确保 /root/build 目录存在
+      - mkdir -p /root/build
+      # 如果 Commit ID 没变化，则跳过构建
+      - if [ "$SHORT_COMMIT_ID" = "$PREV_COMMIT_ID" ]; then
+          echo "No changes detected. Skipping build. $PREV_COMMIT_ID";
+          export SKIP_BUILD=true;
+        else
+          echo "Changes detected. Proceeding with build. $PREV_COMMIT_ID";
+          echo $SHORT_COMMIT_ID > /root/build/last_commit_id.txt;
+        fi
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain paytend-domain --domain-owner 144523794490 --region eu-west-1 --query authorizationToken --output text`
+      - |
+        cat <<EOL > /root/.m2/settings.xml
+        <?xml version="1.0" encoding="UTF-8"?>
+        <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+          <localRepository>/root/.m2/repository</localRepository>
+
+          <servers>
+            <server>
+              <id>paytend-domain-paytend-repo</id>
+              <username>aws</username>
+              <password>${CODEARTIFACT_AUTH_TOKEN}</password>
+            </server>
+          </servers>
+
+          <mirrors>
+            <mirror>
+              <id>paytend-domain-paytend-repo</id>
+              <mirrorOf>paytend-domain-paytend-repo</mirrorOf>
+              <url>https://paytend-domain-144523794490.d.codeartifact.eu-west-1.amazonaws.com/maven/paytend-repo/</url>
+            </mirror>
+          </mirrors>
+
+          <profiles>
+            <profile>
+              <id>paytend-domain-paytend-repo</id>
+              <activation>
+                <activeByDefault>true</activeByDefault>
+              </activation>
+              <repositories>
+                <repository>
+                  <id>spring-snapshots</id>
+                  <name>Spring Snapshots</name>
+                  <url>https://repo.spring.io/snapshot</url>
+                  <releases>
+                    <enabled>false</enabled>
+                  </releases>
+                </repository>
+                <repository>
+                  <id>spring-milestones</id>
+                  <name>Spring Milestones</name>
+                  <url>https://repo.spring.io/milestone</url>
+                  <snapshots>
+                    <enabled>false</enabled>
+                  </snapshots>
+                </repository>
+                <repository>
+                  <id>paytend-domain-paytend-repo</id>
+                  <url>https://paytend-domain-144523794490.d.codeartifact.eu-west-1.amazonaws.com/maven/paytend-repo/</url>
+                </repository>
+              </repositories>
+            </profile>
+          </profiles>
+
+          <activeProfiles>
+            <activeProfile>paytend-domain-paytend-repo</activeProfile>
+          </activeProfiles>
+        </settings>
+        EOL
+
+  install:
+    runtime-versions:
+      nodejs: 18
+
+  build:
+    commands:
+      - if [ "$SKIP_BUILD" = "true" ]; then echo "Skipping install phase"; else echo "Installing dependencies..."; npm run bootstrap; fi
+      - if [ "$SKIP_BUILD" = "true" ]; then echo "Skipping build phase"; else
+          echo "Building React App...";
+          npm run build;
+          echo "Installing Maven dependencies...";
+          mvn clean install;
+          echo "Building Maven project...";
+          mvn package -DskipTests;
+        fi
+
+  post_build:
+    commands:
+      - if [ "$SKIP_BUILD" = "true" ]; then echo "Skipping post-build phase"; else
+          echo "Syncing files to repositories...";
+          mvn deploy -Ptest;
+        fi
